@@ -644,64 +644,94 @@ function Manifesto() {
   const ref = useRef(null);
   const inView = useInView(ref, { once: true, margin: '-80px' });
 
+  const blocks = [
+    {
+      label: 'THE ORIGIN',
+      heading: 'THE GEO METRO DECISION.',
+      body: 'In 1998, Rhett Elliot Johnson faced a choice: repair a battered Geo Metro or buy an EMU ESI-32 Sampler. He chose the sampler. This radical decision — prioritizing the tools of agency over practical convenience — became the foundational DNA of Manteis Systems.',
+    },
+    {
+      label: 'THE HYPNOSIS OF CONTROL',
+      heading: 'DESIGNED FOR EXTRACTION.',
+      body: 'Modern existence is being flattened by Big Tech, Big Corporate, and Big Pharma. We are being hypnotized by algorithmic dopamine loops designed not for our flourishing, but for our extraction. We have exchanged our agency for quarterly metrics. Convenience is the delivery mechanism. Dependency is the product.',
+    },
+    {
+      label: 'THE SUBVERSION',
+      heading: 'BREAK THE MACHINE.',
+      body: 'Technology — when held by the individual — is the ultimate tool of subversion. Just as the printing press broke the monopoly of the scribe, and the early internet broke the monopoly of the broadcast, Autonomous AI is here to break the monopoly of the Corporate Machine. Every client we serve gets the same choice Rhett made in 1998. We make sure they choose right.',
+    },
+    {
+      label: 'THE ENTER(PRISE)-PRENEUR',
+      heading: 'A MULTIGENERATIONAL BUILD.',
+      body: 'Manteis Systems is not just a consultancy — it is a legacy. We are building a business that can be handed to our sons and brothers. Whether automating communications for a PNW contractor or defending a family through AI-assisted legal strategy, our mission is singular: use technology to pull people up.',
+    },
+    {
+      label: 'THE MOBILE ELITE RESPONSE',
+      heading: 'THE MANTEIS RV UNIT.',
+      body: 'Remote-first but present on the ground. Our vision is a mobile, 24/7 elite response laboratory driving across the Pacific Northwest — deploying on-site sovereignty for the most innovative teams and families. The Sovereign Node goes where you go.',
+    },
+  ];
+
   return (
-    <section ref={ref} className="px-8 py-40 border-t border-white/[0.06] flex flex-col items-center text-center">
-      <div className="relative flex items-center justify-center mb-16">
-        <div className="w-24 h-24 border-2 border-signal-blue flex items-center justify-center pulse-breath signal-glow">
-          <Terminal size={32} className="text-signal-blue" />
+    <section ref={ref} className="px-8 py-32 border-t border-white/[0.06]">
+      <div className="max-w-6xl mx-auto">
+        {/* Section header */}
+        <motion.div
+          initial={{ opacity: 0, y: 10 }}
+          animate={inView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.6 }}
+          className="flex items-center gap-6 mb-20"
+        >
+          <div className="w-16 h-16 border-2 border-signal-blue flex items-center justify-center pulse-breath signal-glow shrink-0">
+            <Terminal size={24} className="text-signal-blue" />
+          </div>
+          <div>
+            <div className="font-mono text-[9px] tracking-[0.35em] uppercase text-signal-blue mb-1">
+              // THE SOVEREIGNTY MANIFESTO
+            </div>
+            <div className="font-mono text-[9px] tracking-[0.2em] uppercase text-white/20">
+              1998 — ESI-32 SAMPLER OVER TRANSPORT
+            </div>
+          </div>
+        </motion.div>
+
+        {/* Manifesto blocks */}
+        <div className="flex flex-col divide-y divide-white/[0.06]">
+          {blocks.map((b, i) => (
+            <motion.div
+              key={b.label}
+              initial={{ opacity: 0, y: 16 }}
+              animate={inView ? { opacity: 1, y: 0 } : {}}
+              transition={{ duration: 0.7, delay: 0.08 + i * 0.1, ease: [0.16, 1, 0.3, 1] }}
+              className="py-10 flex flex-col lg:flex-row lg:items-start gap-6 lg:gap-16"
+            >
+              <div className="lg:w-52 shrink-0">
+                <span className="font-mono text-[9px] tracking-[0.25em] uppercase text-white/25">
+                  {b.label}
+                </span>
+              </div>
+              <div className="flex-1">
+                <h3 className="font-display font-bold text-[clamp(22px,3vw,36px)] tracking-tight leading-tight mb-4 text-white">
+                  {b.heading}
+                </h3>
+                <p className="text-white/55 text-base leading-relaxed max-w-2xl">
+                  {b.body}
+                </p>
+              </div>
+            </motion.div>
+          ))}
         </div>
+
+        {/* Closing line */}
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={inView ? { opacity: 1 } : {}}
+          transition={{ duration: 1, delay: 0.7 }}
+          className="mt-16 pt-10 border-t border-white/[0.06] text-center font-mono text-[11px] tracking-[0.45em] uppercase text-white/20"
+        >
+          SUBVERT. CREATE. SOVEREIGNTY.
+        </motion.div>
       </div>
-
-      <motion.div
-        initial={{ opacity: 0, y: 10 }}
-        animate={inView ? { opacity: 1, y: 0 } : {}}
-        transition={{ duration: 0.6 }}
-        className="font-mono text-[10px] tracking-[0.35em] uppercase text-signal-blue mb-6"
-      >
-        // 1998 — ESI-32 SAMPLER OVER TRANSPORT //
-      </motion.div>
-
-      <motion.h2
-        initial={{ opacity: 0, y: 20 }}
-        animate={inView ? { opacity: 1, y: 0 } : {}}
-        transition={{ duration: 0.8, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
-        className="font-display font-bold text-[clamp(40px,7vw,88px)] leading-[0.9] tracking-tight mb-12"
-      >
-        THE GEO METRO<br />
-        <span className="text-white/25">DECISION.</span>
-      </motion.h2>
-
-      <motion.p
-        initial={{ opacity: 0, y: 10 }}
-        animate={inView ? { opacity: 1, y: 0 } : {}}
-        transition={{ duration: 0.7, delay: 0.2 }}
-        className="text-white/50 text-lg leading-relaxed max-w-2xl mb-6"
-      >
-        Big Tech wants your data on their servers, your models behind their paywalls,
-        your intelligence rented by the month. They designed convenience as a delivery
-        mechanism for dependency. We chose the sampler. We chose local. We chose sovereignty.
-      </motion.p>
-
-      <motion.p
-        initial={{ opacity: 0, y: 10 }}
-        animate={inView ? { opacity: 1, y: 0 } : {}}
-        transition={{ duration: 0.7, delay: 0.28 }}
-        className="text-white/50 text-lg leading-relaxed max-w-2xl mb-16"
-      >
-        Just as the printing press broke the scribe monopoly and the early internet
-        broke the broadcast monopoly — autonomous local AI is here to break the
-        monopoly of the Corporate Machine. Every client we serve gets the same choice
-        Rhett made in 1998. We make sure they choose right.
-      </motion.p>
-
-      <motion.div
-        initial={{ opacity: 0, y: 10 }}
-        animate={inView ? { opacity: 1, y: 0 } : {}}
-        transition={{ duration: 0.7, delay: 0.36 }}
-        className="font-mono text-[11px] tracking-[0.45em] uppercase text-white/20"
-      >
-        SUBVERT. CREATE. SOVEREIGNTY.
-      </motion.div>
     </section>
   );
 }
