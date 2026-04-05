@@ -3,43 +3,37 @@ import { Space_Grotesk, Inter, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
 
 const spaceGrotesk = Space_Grotesk({
+  variable: "--font-display",
   subsets: ["latin"],
-  variable: "--font-space-grotesk",
-  display: "swap",
 });
 
 const inter = Inter({
+  variable: "--font-body",
   subsets: ["latin"],
-  variable: "--font-inter",
-  display: "swap",
 });
 
 const jetbrainsMono = JetBrains_Mono({
+  variable: "--font-mono",
   subsets: ["latin"],
-  variable: "--font-jetbrains-mono",
-  display: "swap",
 });
 
 export const metadata: Metadata = {
-  title: "Manteis.Systems — Sovereign Intelligence. Security-First Architecture.",
-  description: "We build local AI systems, Zero Trust security, and autonomous infrastructure. Your data stays yours. Your systems run themselves.",
-  keywords: ["AI Consultancy", "Cybersecurity", "Zero Trust", "Local LLM", "Systems Engineering", "Automation", "Ollama", "n8n"],
+  title: "Manteis.Systems — The Architecture of Foresight",
+  description: "Predictive modeling at the edge of the void. Clinical precision for omniscient enterprise architecture.",
   authors: [{ name: "Rhett Elliot" }],
+  keywords: ["AI Consultancy", "Cybersecurity", "Zero Trust", "Local LLM", "Systems Engineering", "Automation", "Predictive Analytics"],
+  robots: "index, follow",
   openGraph: {
-    title: "Manteis.Systems — Sovereign Intelligence",
-    description: "We build local AI systems, Zero Trust security, and autonomous infrastructure.",
-    type: "website",
-    locale: "en_US",
+    title: "Manteis.Systems — The Architecture of Foresight",
+    description: "Predictive modeling at the edge of the void. Clinical precision for omniscient enterprise architecture.",
     siteName: "Manteis.Systems",
+    locale: "en_US",
+    type: "website",
   },
   twitter: {
     card: "summary_large_image",
-    title: "Manteis.Systems — Sovereign Intelligence",
-    description: "We build local AI systems, Zero Trust security, and autonomous infrastructure.",
-  },
-  robots: {
-    index: true,
-    follow: true,
+    title: "Manteis.Systems — The Architecture of Foresight",
+    description: "Predictive modeling at the edge of the void. Clinical precision for omniscient enterprise architecture.",
   },
 };
 
@@ -50,7 +44,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className={`${spaceGrotesk.variable} ${inter.variable} ${jetbrainsMono.variable}`}>
-      <body className="bg-void text-text-primary antialiased">
+      <body className="bg-void-base text-white antialiased">
         {children}
       </body>
     </html>
