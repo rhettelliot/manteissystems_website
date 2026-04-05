@@ -667,7 +667,7 @@ function Manifesto() {
     },
     {
       label: 'THE MOBILE ELITE RESPONSE',
-      heading: 'THE MANTEIS RV UNIT.',
+      heading: 'THE MANTEIS MOBILE UNIT.',
       body: 'Remote-first but present on the ground. Our vision is a mobile, 24/7 elite response laboratory driving across the Pacific Northwest — deploying on-site sovereignty for the most innovative teams and families. The Sovereign Node goes where you go.',
     },
   ];
