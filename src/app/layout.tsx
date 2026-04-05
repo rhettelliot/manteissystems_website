@@ -18,22 +18,28 @@ const jetbrainsMono = JetBrains_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Manteis.Systems — The Architecture of Foresight",
-  description: "Predictive modeling at the edge of the void. Clinical precision for omniscient enterprise architecture.",
-  authors: [{ name: "Rhett Elliot" }],
-  keywords: ["AI Consultancy", "Cybersecurity", "Zero Trust", "Local LLM", "Systems Engineering", "Automation", "Predictive Analytics"],
+  title: "Manteis Systems — Sovereign Intelligence Infrastructure",
+  description: "Private local AI infrastructure, Dolby Atmos music production, and breathwork sovereignty. Dephasing the corporate machine since 1998. Pacific Northwest.",
+  authors: [{ name: "Rhett Elliot Johnson" }],
+  keywords: [
+    "local AI infrastructure", "Ollama", "sovereign AI", "private LLM",
+    "AI agent automation", "Sovereign Node", "Mac Mini AI server",
+    "data sovereignty", "zero trust", "cybersecurity", "Manteis Systems",
+    "Rhett Johnson", "Dolby Atmos", "synthwave label", "breathwork",
+    "Pacific Northwest tech", "fractional CTO", "AI consultancy",
+  ],
   robots: "index, follow",
   openGraph: {
-    title: "Manteis.Systems — The Architecture of Foresight",
-    description: "Predictive modeling at the edge of the void. Clinical precision for omniscient enterprise architecture.",
+    title: "Manteis Systems — Sovereign Intelligence Infrastructure",
+    description: "Private local AI. Sovereign audio. Embodied intelligence. Subvert. Create. Sovereignty.",
     siteName: "Manteis.Systems",
     locale: "en_US",
     type: "website",
   },
   twitter: {
     card: "summary_large_image",
-    title: "Manteis.Systems — The Architecture of Foresight",
-    description: "Predictive modeling at the edge of the void. Clinical precision for omniscient enterprise architecture.",
+    title: "Manteis Systems — Sovereign Intelligence Infrastructure",
+    description: "Private local AI. Sovereign audio. Embodied intelligence. Subvert. Create. Sovereignty.",
   },
 };
 

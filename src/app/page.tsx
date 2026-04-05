@@ -1,20 +1,27 @@
 'use client';
 
-import { useState, useEffect } from 'react';
-import { motion, useScroll, useTransform } from 'motion/react';
-import { Eye, Globe, Activity, Shield } from 'lucide-react';
+import { useState, useEffect, useRef } from 'react';
+import { motion, useScroll, useTransform, useInView } from 'motion/react';
+import { Cpu, Music, Heart, Terminal, Shield, Zap, ArrowRight } from 'lucide-react';
+import Button from '../components/ui/Button';
 
 const LOG_MESSAGES = [
-  "INITIALIZING PROGNOSTICATION ENGINE...",
-  "LOADING HISTORICAL DATASETS [LAYER 0]",
-  "NEURAL INFERENCE ACTIVE [LAYER 1]",
-  "PATTERN RECOGNITION SYNCED [LAYER 2]",
-  "ACTIONABLE FORESIGHT GENERATED [LAYER 3]",
-  "SYSTEM STATUS: OPTIMAL",
-  "LATENCY: 12ms",
-  "CONFIDENCE: 74%",
-  "VOID CONNECTED.",
+  "INITIALIZING SOVEREIGN NODE...",
+  "LOADING OLLAMA INFERENCE ENGINE [OK]",
+  "CHROMADB VECTOR STORE MOUNTED [OK]",
+  "XEN AGENT FRAMEWORK ACTIVE [OK]",
+  "LOCAL AI: RUNNING — NO CLOUD DEPENDENCY",
+  "DATA SOVEREIGNTY: ENFORCED",
+  "LATENCY: 8ms LOCAL",
+  "CORPORATE MACHINE: DEPHASED.",
+  "MANTEIS.SYSTEMS ONLINE.",
 ];
+
+const HIGHLIGHT_WORDS = ["ONLINE", "ENFORCED", "DEPHASED", "[OK]"];
+
+function isHighlighted(line: string) {
+  return HIGHLIGHT_WORDS.some((w) => line.includes(w));
+}
 
 function GrainOverlay() {
   return <div className="grain-overlay" aria-hidden="true" />;
@@ -22,231 +29,348 @@ function GrainOverlay() {
 
 function Nav() {
   return (
-    <nav className="fixed top-0 left-0 right-0 z-50 flex items-center justify-between px-8 h-16 bg-black/80 backdrop-blur-xl border-b border-white/10">
-      <div className="flex items-center gap-2">
-        <div className="w-2 h-2 bg-prophetic-gold rounded-full pulse-breath" />
-        <span className="font-mono text-xs font-bold tracking-[0.2em] uppercase text-white/60">Manteis.Systems</span>
+    <nav className="fixed top-0 left-0 right-0 z-50 flex items-center justify-between px-8 h-16 bg-black/85 backdrop-blur-xl border-b border-white/[0.06]">
+      <div className="flex items-center gap-3">
+        <div className="w-1.5 h-5 bg-signal-blue" />
+        <span className="font-mono text-xs font-bold tracking-[0.22em] uppercase text-white/80">
+          Manteis.Systems
+        </span>
       </div>
-      <div className="hidden md:flex gap-8">
-        {['Methodology', 'HUD', 'Sectors'].map((item) => (
-          <a key={item} href={`#${item.toLowerCase()}`} className="font-mono text-[10px] font-bold tracking-widest uppercase text-white/40 hover:text-white transition-colors">
+      <div className="hidden md:flex gap-10">
+        {['Systems', 'Sounds', 'Self', 'Contact'].map((item) => (
+          <a
+            key={item}
+            href={`#${item.toLowerCase()}`}
+            className="font-mono text-[10px] font-bold tracking-[0.2em] uppercase text-white/35 hover:text-white transition-colors duration-200"
+          >
             {item}
           </a>
         ))}
       </div>
-      <div className="font-mono text-[10px] text-white/20 uppercase tracking-widest">
-        {"// SYSTEM: ONLINE"}
+      <div className="font-mono text-[10px] text-white/20 uppercase tracking-widest hidden sm:block">
+        // SUBVERT. CREATE. SOVEREIGNTY.
       </div>
     </nav>
   );
 }
 
-function Hero() {
-  const { scrollY } = useScroll();
-  const y1 = useTransform(scrollY, [0, 500], [0, 200]);
-  const opacity = useTransform(scrollY, [0, 300], [1, 0]);
-
-  return (
-    <section className="relative h-screen flex flex-col items-center justify-center overflow-hidden px-8">
-      <motion.div style={{ y: y1, opacity }} className="absolute inset-0 z-0 flex items-center justify-center pointer-events-none">
-        <div className="w-[800px] h-[800px] border border-white/5 rounded-full" />
-        <div className="absolute w-[600px] h-[600px] border border-white/5 rounded-full" />
-        <div className="absolute w-[400px] h-[400px] border border-white/5 rounded-full" />
-      </motion.div>
-
-      <div className="relative z-10 text-center max-w-5xl">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-        >
-          <div className="font-mono text-[10px] tracking-[0.3em] text-prophetic-gold mb-8 uppercase">
-            {"// VERSION 2026 //"}
-          </div>
-          <h1 className="text-6xl md:text-8xl font-bold tracking-tighter leading-[0.9] mb-8">
-            THE ARCHITECTURE <br />
-            <span className="text-white/40">OF FORESIGHT.</span>
-          </h1>
-          <p className="font-mono text-xs md:text-sm text-white/40 max-w-xl mx-auto mb-12 leading-relaxed tracking-wide">
-            Manteis Systems. Predictive modeling at the edge of the void. 
-            Clinical precision for omniscient enterprise architecture.
-          </p>
-          <motion.div>
-            <button className="group relative px-8 py-4 bg-transparent border border-white/10 hover:border-prophetic-gold transition-colors duration-500">
-              <div className="absolute inset-0 bg-prophetic-gold/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-              <span className="relative font-mono text-[10px] font-bold tracking-[0.2em] uppercase">Initialize HUD</span>
-            </button>
-          </motion.div>
-        </motion.div>
-      </div>
-
-      <div className="absolute bottom-12 left-12 font-mono text-[10px] text-white/20 uppercase tracking-widest leading-loose">
-        [44.3148° N, 85.6024° W] <br />
-        VOID_NODE_01
-      </div>
-    </section>
-  );
-}
-
-function DepthStack() {
-  const layers = [
-    { id: 0, title: "Historical Data Ingestion", desc: "Layer 0 (Base)" },
-    { id: 1, title: "The Prognostication Engine", desc: "Layer 1 (Raised)" },
-    { id: 2, title: "Ocular Synthesis", desc: "Layer 2 (Elevated)" },
-    { id: 3, title: "Actionable Foresight", desc: "Layer 3 (Surface)" },
-  ];
-
-  return (
-    <section id="methodology" className="py-32 px-8 border-t border-white/5">
-      <div className="max-w-7xl mx-auto">
-        <div className="flex items-center gap-4 mb-24">
-          <div className="w-8 h-[1px] bg-prophetic-gold" />
-          <h2 className="font-mono text-[10px] font-bold tracking-[0.3em] uppercase text-white/40">01 — Methodology</h2>
-        </div>
-
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-24 items-center">
-          <div className="relative h-[400px] flex items-center justify-center">
-            {layers.map((layer, i) => (
-              <motion.div
-                key={layer.id}
-                initial={{ opacity: 0, x: -20 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                transition={{ delay: i * 0.2 }}
-                className="absolute border border-white/10 bg-void-raised backdrop-blur-xl p-6 flex flex-col justify-between"
-                style={{
-                  width: `${400 - i * 40}px`,
-                  height: `${240 - i * 20}px`,
-                  zIndex: i,
-                  transform: `translate(${i * 20}px, ${i * -20}px)`,
-                  borderColor: layer.id === 3 ? 'rgba(253, 224, 71, 0.3)' : 'rgba(255, 255, 255, 0.1)',
-                }}
-              >
-                <div className="font-mono text-[9px] text-white/20 uppercase tracking-widest">
-                  {layer.desc}
-                </div>
-                <div className={`font-bold text-sm tracking-tight ${layer.id === 3 ? 'text-prophetic-gold' : 'text-white/60'}`}>
-                  {layer.title}
-                </div>
-              </motion.div>
-            ))}
-          </div>
-
-          <div className="space-y-12">
-            <h3 className="text-4xl font-bold tracking-tighter leading-tight">
-              A multi-layered approach to <br />
-              <span className="text-white/40">absolute certainty.</span>
-            </h3>
-            <p className="text-white/60 leading-relaxed max-w-md">
-              Our stack operates in parallel, synthesizing raw historical streams into high-confidence predictive vectors. 
-              No rounded edges. No cloud dependency. Just the void.
-            </p>
-          </div>
-        </div>
-      </div>
-    </section>
-  );
-}
-
-function HUDShowcase() {
-  const [logs, setLogs] = useState<string[]>([]);
+function TerminalLog() {
+  const [logs, setLogs] = useState<string[]>([LOG_MESSAGES[0]]);
+  const [idx, setIdx] = useState(0);
 
   useEffect(() => {
     const interval = setInterval(() => {
-      setLogs(prev => {
-        const next = [...prev, LOG_MESSAGES[Math.floor(Math.random() * LOG_MESSAGES.length)]];
-        return next.slice(-8);
+      setIdx((prev) => {
+        const next = (prev + 1) % LOG_MESSAGES.length;
+        setLogs((cur) => [...cur, LOG_MESSAGES[next]].slice(-6));
+        return next;
       });
-    }, 2000);
+    }, 1400);
     return () => clearInterval(interval);
   }, []);
 
   return (
-    <section id="hud" className="py-32 px-8 border-t border-white/5 bg-void-raised/50">
-      <div className="max-w-7xl mx-auto">
-        <div className="flex items-center gap-4 mb-24">
-          <div className="w-8 h-[1px] bg-prophetic-gold" />
-          <h2 className="font-mono text-[10px] font-bold tracking-[0.3em] uppercase text-white/40">02 — HUD Showcase</h2>
-        </div>
+    <div className="border border-white/[0.08] bg-void-raised p-4 font-mono text-[11px] leading-6 w-full max-w-md">
+      <div className="text-white/25 mb-2 tracking-widest text-[9px] uppercase border-b border-white/[0.06] pb-2">
+        // SOVEREIGN_NODE_01 · BOOT_LOG
+      </div>
+      {logs.map((line, i) => (
+        <motion.div
+          key={`${i}-${line}`}
+          initial={{ opacity: 0, x: -6 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ duration: 0.3 }}
+          className={isHighlighted(line) ? 'text-signal-blue' : 'text-white/50'}
+        >
+          <span className="text-white/20 mr-2">&gt;</span>
+          {line}
+        </motion.div>
+      ))}
+      <span className="terminal-cursor text-signal-blue">█</span>
+    </div>
+  );
+}
 
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-1">
-          {/* Radial Metrics */}
-          <div className="bg-black border border-white/10 p-8 flex flex-col items-center justify-center gap-8">
-            <div className="relative w-48 h-48 flex items-center justify-center">
-              <svg className="absolute inset-0 w-full h-full -rotate-90">
-                <circle cx="96" cy="96" r="80" fill="none" stroke="rgba(255,255,255,0.05)" strokeWidth="1" />
-                <motion.circle
-                  cx="96" cy="96" r="80" fill="none"
-                  stroke="#FDE047" strokeWidth="2"
-                  strokeDasharray="502.6"
-                  initial={{ strokeDashoffset: 502.6 }}
-                  whileInView={{ strokeDashoffset: 502.6 * (1 - 0.74) }}
-                  transition={{ duration: 2, ease: "easeOut" }}
-                />
-              </svg>
-              <div className="text-center">
-                <div className="text-5xl font-bold tracking-tighter">74</div>
-                <div className="font-mono text-[9px] text-white/40 uppercase tracking-widest">% CONFIDENCE</div>
-              </div>
-            </div>
-            <div className="w-full h-[1px] bg-white/5" />
-            <div className="flex justify-between w-full font-mono text-[10px] text-white/40">
-              <span>LATENCY</span>
-              <span className="text-prophetic-gold">12ms</span>
+function Hero() {
+  const { scrollY } = useScroll();
+  const y1 = useTransform(scrollY, [0, 600], [0, 220]);
+  const opacity = useTransform(scrollY, [0, 350], [1, 0]);
+
+  return (
+    <section className="relative min-h-screen flex flex-col items-center justify-center overflow-hidden px-8 pt-16">
+      {/* Parallax background rings */}
+      <motion.div
+        style={{ y: y1, opacity }}
+        className="absolute inset-0 z-0 flex items-center justify-center pointer-events-none"
+      >
+        <div className="w-[700px] h-[700px] border border-[rgba(0,87,255,0.06)]" />
+        <div className="absolute w-[500px] h-[500px] border border-[rgba(0,87,255,0.05)]" />
+        <div className="absolute w-[300px] h-[300px] border border-[rgba(0,87,255,0.04)]" />
+      </motion.div>
+
+      <div className="relative z-10 max-w-5xl w-full flex flex-col items-start gap-8">
+        {/* Label */}
+        <motion.div
+          initial={{ opacity: 0, y: 10 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+          className="font-mono text-[10px] tracking-[0.35em] uppercase text-signal-blue"
+        >
+          // SOVEREIGN INTELLIGENCE INFRASTRUCTURE //
+        </motion.div>
+
+        {/* H1 */}
+        <motion.h1
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
+          className="font-display font-bold text-[clamp(48px,9vw,110px)] leading-[0.88] tracking-tight"
+        >
+          DEPHASING THE<br />
+          <span className="text-white/30">CORPORATE</span><br />
+          <span className="text-white/30">MACHINE.</span>
+        </motion.h1>
+
+        {/* Subhead */}
+        <motion.div
+          initial={{ opacity: 0, y: 15 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.7, delay: 0.25, ease: [0.16, 1, 0.3, 1] }}
+          className="font-mono text-[11px] tracking-[0.25em] uppercase text-white/35"
+        >
+          UNIFIED INTELLIGENCE INFRASTRUCTURE
+        </motion.div>
+
+        {/* Body + Terminal side by side */}
+        <motion.div
+          initial={{ opacity: 0, y: 15 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.7, delay: 0.35, ease: [0.16, 1, 0.3, 1] }}
+          className="flex flex-col lg:flex-row gap-10 w-full"
+        >
+          <div className="flex flex-col gap-6 max-w-lg">
+            <p className="text-white/55 text-base leading-relaxed">
+              Big Tech wants your intelligence on their servers, rented by the month,
+              extracted by the quarter. Manteis Systems builds private local AI
+              infrastructure that belongs to you — your data, your hardware, your future.
+            </p>
+            <p className="font-mono text-[11px] text-white/30 tracking-wide">
+              Pacific Northwest · Est. 1998 · No cloud. No compromise.
+            </p>
+            <div className="flex gap-4 flex-wrap">
+              <a href="mailto:rhett@manteissystems.com">
+                <Button variant="primary" size="lg">
+                  INITIATE SOVEREIGNTY AUDIT
+                </Button>
+              </a>
+              <a
+                href="#systems"
+                className="flex items-center gap-2 font-mono text-[11px] tracking-widest uppercase text-white/40 hover:text-white transition-colors self-center"
+              >
+                VIEW SERVICES <ArrowRight size={12} />
+              </a>
             </div>
           </div>
+          <TerminalLog />
+        </motion.div>
 
-          {/* Live Log */}
-          <div className="lg:col-span-2 bg-black border border-white/10 p-8">
-            <div className="flex items-center justify-between mb-8">
-              <div className="font-mono text-[10px] text-white/40 uppercase tracking-widest">{"// MONO_STREAM_LIVE"}</div>
-              <div className="w-2 h-2 bg-prophetic-gold rounded-full pulse-breath" />
-            </div>
-            <div className="font-mono text-[11px] space-y-2 h-48 overflow-hidden">
-              {logs.map((log, i) => (
-                <motion.div
-                  key={i}
-                  initial={{ opacity: 0, x: -10 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  className="flex gap-4"
-                >
-                  <span className="text-white/20">[{new Date().toLocaleTimeString()}]</span>
-                  <span className={log.includes('OPTIMAL') || log.includes('CONNECTED') ? 'text-prophetic-gold' : 'text-white/60'}>
-                    {log}
-                  </span>
-                </motion.div>
-              ))}
-            </div>
-          </div>
-        </div>
+        {/* Coordinate badge */}
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 1, delay: 0.8 }}
+          className="font-mono text-[9px] tracking-[0.25em] uppercase text-white/15"
+        >
+          [47.6062° N, 122.3321° W] · PACIFIC_NODE_01
+        </motion.div>
       </div>
     </section>
   );
 }
 
-function Sectors() {
-  const sectors = [
-    { title: "Global Finance", icon: Globe, desc: "Predictive arbitrage in high-frequency environments." },
-    { title: "Preventive Medicine", icon: Activity, desc: "Early-onset anomaly detection in biometric streams." },
-    { title: "Crisis Management", icon: Shield, desc: "Real-time mitigation of systemic infrastructure failure." },
+function ThreePillars() {
+  const pillars = [
+    {
+      id: 'systems-pillar',
+      label: '01 — SYSTEMS',
+      title: 'THE SOVEREIGN NODE',
+      tagline: 'Your data. Your machine. Your intelligence.',
+      desc: 'A dedicated local AI server — Mac Mini, Mac Studio, or custom build — running Ollama inference, ChromaDB vector store, and the Xen Agent Framework. Private by design. Zero cloud dependency.',
+      accent: '#0057FF',
+      accentClass: 'text-signal-blue',
+      icon: Cpu,
+      detail: '$2,500–$7,500 setup · $2,000/mo managed',
+    },
+    {
+      id: 'sounds',
+      label: '02 — SOUNDS',
+      title: 'MANTEIS RECORDINGS',
+      tagline: 'Intelligence is vibration.',
+      desc: 'A Dolby Atmos-capable independent label and radio station rooted in the 1998 ESI-32 sampler decision. Synthwave, avant-garde, and electronic — released on every DSP with no algorithmic playlist dependency.',
+      accent: '#FF6EC7',
+      accentClass: 'text-signal-pink',
+      icon: Music,
+      detail: 'Betta Beats Radio · manteisrecordings.com',
+    },
+    {
+      id: 'self',
+      label: '03 — SELF',
+      title: 'SOVEREIGNTY WITHIN',
+      tagline: 'Sovereignty begins in the body.',
+      desc: 'Breathwork protocols and relationship sovereignty manuals that de-colonize attention before the infrastructure work begins. Technology should support biology — not replace it.',
+      accent: '#00D4A8',
+      accentClass: 'text-signal-teal',
+      icon: Heart,
+      detail: 'Breathwork Sessions · Sewa Singh Manuals',
+    },
+  ];
+
+  const ref = useRef(null);
+  const inView = useInView(ref, { once: true, margin: '-100px' });
+
+  return (
+    <section ref={ref} className="px-8 py-32 max-w-6xl mx-auto w-full">
+      <motion.div
+        initial={{ opacity: 0, y: 10 }}
+        animate={inView ? { opacity: 1, y: 0 } : {}}
+        transition={{ duration: 0.6 }}
+        className="font-mono text-[9px] tracking-[0.35em] uppercase text-white/25 mb-16"
+      >
+        // THE ECOSYSTEM
+      </motion.div>
+      <div className="grid lg:grid-cols-3 gap-px border border-white/[0.06]">
+        {pillars.map((p, i) => {
+          const Icon = p.icon;
+          return (
+            <motion.div
+              key={p.id}
+              id={p.id}
+              initial={{ opacity: 0, y: 20 }}
+              animate={inView ? { opacity: 1, y: 0 } : {}}
+              transition={{ duration: 0.7, delay: i * 0.12, ease: [0.16, 1, 0.3, 1] }}
+              className="bg-void-raised p-8 flex flex-col gap-5"
+              style={{ borderTop: `1px solid ${p.accent}` }}
+            >
+              <div className="flex items-center justify-between">
+                <span className={`font-mono text-[9px] tracking-[0.3em] uppercase ${p.accentClass}`}>
+                  {p.label}
+                </span>
+                <Icon size={18} style={{ color: p.accent }} />
+              </div>
+              <div>
+                <h3 className="font-display font-bold text-xl tracking-tight text-white mb-1">
+                  {p.title}
+                </h3>
+                <p className={`font-mono text-[10px] tracking-widest uppercase ${p.accentClass} opacity-70`}>
+                  {p.tagline}
+                </p>
+              </div>
+              <p className="text-sm text-white/55 leading-relaxed flex-1">
+                {p.desc}
+              </p>
+              <div className={`font-mono text-[10px] tracking-widest uppercase ${p.accentClass} pt-4 border-t border-white/[0.06]`}>
+                {p.detail}
+              </div>
+            </motion.div>
+          );
+        })}
+      </div>
+    </section>
+  );
+}
+
+function Founder() {
+  const ref = useRef(null);
+  const inView = useInView(ref, { once: true, margin: '-80px' });
+
+  const credentials = ['Mozilla', 'Apple', 'F5 Networks', 'REI', '98point6', 'UW', 'Aon'];
+  const stats = [
+    { value: '25+', label: 'Years Enterprise Experience' },
+    { value: '7', label: 'Major Organizations' },
+    { value: '1998', label: 'The Origin Year' },
   ];
 
   return (
-    <section id="sectors" className="py-32 px-8 border-t border-white/5">
-      <div className="max-w-7xl mx-auto">
-        <div className="flex items-center gap-4 mb-24">
-          <div className="w-8 h-[1px] bg-prophetic-gold" />
-          <h2 className="font-mono text-[10px] font-bold tracking-[0.3em] uppercase text-white/40">03 — Sectors of Sight</h2>
+    <section ref={ref} className="px-8 py-32 border-t border-white/[0.06]">
+      <div className="max-w-6xl mx-auto flex flex-col lg:flex-row gap-20">
+        {/* Left: copy */}
+        <div className="flex-1 flex flex-col gap-8">
+          <motion.div
+            initial={{ opacity: 0, y: 10 }}
+            animate={inView ? { opacity: 1, y: 0 } : {}}
+            transition={{ duration: 0.6 }}
+            className="font-mono text-[9px] tracking-[0.35em] uppercase text-white/25"
+          >
+            // THE ARCHITECT
+          </motion.div>
+          <motion.h2
+            initial={{ opacity: 0, y: 15 }}
+            animate={inView ? { opacity: 1, y: 0 } : {}}
+            transition={{ duration: 0.7, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
+            className="font-display font-bold text-[clamp(28px,4vw,52px)] leading-tight tracking-tight"
+          >
+            FROM MIDI STUDIO<br />
+            <span className="text-white/35">TO GLOBAL SYSTEMS.</span>
+          </motion.h2>
+          <motion.p
+            initial={{ opacity: 0, y: 10 }}
+            animate={inView ? { opacity: 1, y: 0 } : {}}
+            transition={{ duration: 0.7, delay: 0.2 }}
+            className="text-white/55 text-base leading-relaxed max-w-xl"
+          >
+            In 1998, Rhett Elliot Johnson faced a choice: repair a broken Geo Metro,
+            or buy an EMU ESI-32 sampler. He chose the sampler. That decision —
+            tools of creation over traps of convenience — became the foundational
+            DNA of Manteis Systems. 25+ years later, the same philosophy runs
+            enterprise AI infrastructure for businesses across the Pacific Northwest.
+          </motion.p>
+          <motion.p
+            initial={{ opacity: 0, y: 10 }}
+            animate={inView ? { opacity: 1, y: 0 } : {}}
+            transition={{ duration: 0.7, delay: 0.28 }}
+            className="text-white/55 text-base leading-relaxed max-w-xl"
+          >
+            As Principal Systems Architect and fractional CTO, Rhett has designed
+            infrastructure for some of the most demanding technical environments
+            in the world — from Mozilla&apos;s open-web mission to F5 Networks&apos; global
+            edge security fabric to 98point6&apos;s HIPAA-compliant digital health platform.
+          </motion.p>
+
+          {/* Credential strip */}
+          <motion.div
+            initial={{ opacity: 0, y: 10 }}
+            animate={inView ? { opacity: 1, y: 0 } : {}}
+            transition={{ duration: 0.7, delay: 0.36 }}
+            className="flex flex-wrap gap-x-5 gap-y-3 pt-4 border-t border-white/[0.08]"
+          >
+            {credentials.map((c, i) => (
+              <span
+                key={c}
+                className="font-mono text-[10px] tracking-[0.2em] uppercase text-white/25 hover:text-white/60 transition-colors cursor-default"
+              >
+                {c}{i < credentials.length - 1 && <span className="ml-5 text-white/10">·</span>}
+              </span>
+            ))}
+          </motion.div>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-1 bg-white/5 border border-white/5">
-          {sectors.map((sector) => (
-            <div key={sector.title} className="bg-black p-12 group hover:bg-void-raised transition-colors duration-500">
-              <sector.icon className="w-8 h-8 text-white/20 mb-8 group-hover:text-prophetic-gold transition-colors duration-500" />
-              <h4 className="text-xl font-bold mb-4 tracking-tight">{sector.title}</h4>
-              <p className="text-white/40 text-sm leading-relaxed font-mono">
-                {sector.desc}
-              </p>
-            </div>
+        {/* Right: stats */}
+        <div className="flex flex-col gap-0 lg:min-w-[220px] border border-white/[0.08] h-fit">
+          {stats.map((s, i) => (
+            <motion.div
+              key={s.label}
+              initial={{ opacity: 0, x: 20 }}
+              animate={inView ? { opacity: 1, x: 0 } : {}}
+              transition={{ duration: 0.6, delay: 0.15 + i * 0.1, ease: [0.16, 1, 0.3, 1] }}
+              className="p-8 border-b border-white/[0.08] last:border-b-0"
+            >
+              <div className="font-display font-bold text-4xl text-signal-blue tracking-tight">
+                {s.value}
+              </div>
+              <div className="font-mono text-[10px] tracking-[0.2em] uppercase text-white/30 mt-1">
+                {s.label}
+              </div>
+            </motion.div>
           ))}
         </div>
       </div>
@@ -254,45 +378,421 @@ function Sectors() {
   );
 }
 
-function ThePulse() {
+function SystemsDeepDive() {
+  const ref = useRef(null);
+  const inView = useInView(ref, { once: true, margin: '-80px' });
+
+  const specs = [
+    { key: 'HARDWARE', val: 'Mac Mini M4 Pro · Mac Studio M4 Max · Custom PC' },
+    { key: 'INFERENCE', val: 'Ollama (Llama 3.3, Mistral, Phi-4, Command R)' },
+    { key: 'VECTOR DB', val: 'ChromaDB — local, persistent, zero egress' },
+    { key: 'AGENTS', val: 'Xen Framework — custom workflow automation' },
+    { key: 'SECURITY', val: 'Sophos ZTNA · Microsoft Defender · FileVault' },
+    { key: 'NETWORK', val: 'LAN-only by default — no cloud egress required' },
+  ];
+
+  const tiers = [
+    { name: 'STARTER NODE', price: '$2,500', hardware: 'Mac Mini M4 · 4 agents · 1 model', monthly: '$2,000/mo managed', accent: '#0057FF' },
+    { name: 'PROFESSIONAL NODE', price: '$5,000', hardware: 'Mac Studio M4 Max · 10 agents · 3 models', monthly: '$2,000/mo managed', accent: '#0057FF' },
+    { name: 'ENTERPRISE NODE', price: '$7,500', hardware: 'Mac Studio Ultra · Unlimited agents', monthly: '$2,000/mo managed', accent: '#0057FF' },
+    { name: 'NON-PROFIT SUBSIDY', price: '$1,500–$3,000', hardware: 'Qualifying mission-driven organizations', monthly: 'Reduced managed rate', accent: '#00D4A8' },
+  ];
+
   return (
-    <section className="py-60 flex flex-col items-center justify-center text-center px-8 border-t border-white/5">
-      <div className="relative mb-24">
-        <div className="absolute inset-0 bg-prophetic-gold/20 blur-3xl pulse-breath rounded-full" />
-        <div className="relative w-32 h-32 bg-prophetic-gold flex items-center justify-center pulse-breath">
-          <Eye className="w-12 h-12 text-black" />
+    <section id="systems" ref={ref} className="px-8 py-32 border-t border-white/[0.06]">
+      <div className="max-w-6xl mx-auto">
+        <motion.div
+          initial={{ opacity: 0, y: 10 }}
+          animate={inView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.6 }}
+          className="font-mono text-[9px] tracking-[0.35em] uppercase text-signal-blue mb-4"
+        >
+          01 — SYSTEMS
+        </motion.div>
+        <motion.h2
+          initial={{ opacity: 0, y: 15 }}
+          animate={inView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.7, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
+          className="font-display font-bold text-[clamp(32px,5vw,64px)] tracking-tight leading-tight mb-16"
+        >
+          THE SOVEREIGN NODE
+        </motion.h2>
+
+        <div className="flex flex-col lg:flex-row gap-16">
+          {/* Left: spec table */}
+          <div className="flex-1 flex flex-col gap-8">
+            <motion.p
+              initial={{ opacity: 0, y: 10 }}
+              animate={inView ? { opacity: 1, y: 0 } : {}}
+              transition={{ duration: 0.7, delay: 0.18 }}
+              className="text-white/55 text-base leading-relaxed max-w-lg border-l-2 border-signal-blue pl-5"
+            >
+              &ldquo;George at Mt. Baker Remodeling doesn&apos;t need another subscription.
+              He needs intelligence that runs on his hardware, understands his business,
+              and costs less than one enterprise cloud API bill.&rdquo;
+            </motion.p>
+
+            <motion.div
+              initial={{ opacity: 0, y: 10 }}
+              animate={inView ? { opacity: 1, y: 0 } : {}}
+              transition={{ duration: 0.7, delay: 0.25 }}
+              className="border border-white/[0.08]"
+            >
+              {specs.map((s, i) => (
+                <div
+                  key={s.key}
+                  className={`flex gap-6 p-4 font-mono text-[11px] ${i < specs.length - 1 ? 'border-b border-white/[0.06]' : ''}`}
+                >
+                  <span className="text-white/25 tracking-widest uppercase w-28 shrink-0">{s.key}</span>
+                  <span className="text-white/65">{s.val}</span>
+                </div>
+              ))}
+            </motion.div>
+          </div>
+
+          {/* Right: pricing tiers */}
+          <div className="flex flex-col gap-3 lg:min-w-[320px]">
+            {tiers.map((t, i) => (
+              <motion.div
+                key={t.name}
+                initial={{ opacity: 0, x: 20 }}
+                animate={inView ? { opacity: 1, x: 0 } : {}}
+                transition={{ duration: 0.6, delay: 0.2 + i * 0.08, ease: [0.16, 1, 0.3, 1] }}
+                className="border border-white/[0.08] p-6 bg-void-raised"
+                style={{ borderTopColor: t.accent, borderTopWidth: '1px' }}
+              >
+                <div className="flex items-start justify-between mb-3">
+                  <span className="font-mono text-[9px] tracking-[0.25em] uppercase text-white/30">
+                    {t.name}
+                  </span>
+                  <span className="font-display font-bold text-xl" style={{ color: t.accent }}>
+                    {t.price}
+                  </span>
+                </div>
+                <p className="font-mono text-[10px] text-white/45 mb-1">{t.hardware}</p>
+                <p className="font-mono text-[10px]" style={{ color: t.accent, opacity: 0.7 }}>{t.monthly}</p>
+              </motion.div>
+            ))}
+          </div>
         </div>
       </div>
-      <h2 className="text-5xl md:text-7xl font-bold tracking-tighter mb-8 leading-tight">
-        THE VISION <br />
-        <span className="text-white/40">OF THE MANTEIS.</span>
-      </h2>
-      <p className="font-mono text-xs text-white/20 uppercase tracking-[0.4em]">
-        Omniscience is not a gift. It is an architecture.
-      </p>
+    </section>
+  );
+}
+
+function CaseStudy() {
+  const ref = useRef(null);
+  const inView = useInView(ref, { once: true, margin: '-80px' });
+
+  const metrics = [
+    { value: '3 hrs', label: 'Per week recovered from Digital Drag' },
+    { value: '0', label: 'Cloud subscriptions added' },
+    { value: '1', label: 'Sovereign Node provisioned' },
+    { value: 'ACTIVE', label: 'Since Q1 2026' },
+  ];
+
+  return (
+    <section ref={ref} className="px-8 py-32 border-t border-white/[0.06] bg-void-raised">
+      <div className="max-w-6xl mx-auto">
+        <motion.div
+          initial={{ opacity: 0, y: 10 }}
+          animate={inView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.6 }}
+          className="font-mono text-[9px] tracking-[0.35em] uppercase text-signal-blue mb-4"
+        >
+          // ACTIVE DEPLOYMENT
+        </motion.div>
+        <motion.div
+          initial={{ opacity: 0, y: 10 }}
+          animate={inView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.6, delay: 0.06 }}
+          className="font-mono text-[10px] tracking-[0.2em] uppercase text-white/25 mb-12"
+        >
+          MT. BAKER REMODELING — PACIFIC NORTHWEST
+        </motion.div>
+
+        <motion.blockquote
+          initial={{ opacity: 0, y: 20 }}
+          animate={inView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.8, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
+          className="font-display font-bold text-[clamp(26px,4vw,48px)] leading-tight tracking-tight mb-12 max-w-3xl"
+        >
+          &ldquo;George doesn&apos;t need a website.<br />
+          <span className="text-white/30">George needs an Agent.&rdquo;</span>
+        </motion.blockquote>
+
+        <div className="flex flex-col lg:flex-row gap-16">
+          <motion.div
+            initial={{ opacity: 0, y: 10 }}
+            animate={inView ? { opacity: 1, y: 0 } : {}}
+            transition={{ duration: 0.7, delay: 0.2 }}
+            className="flex-1 flex flex-col gap-5"
+          >
+            <p className="text-white/55 text-base leading-relaxed">
+              Digital Drag: the invisible overhead bleeding time from every job.
+              George was spending 3+ hours a week copy-pasting estimates, chasing
+              email threads, and manually updating job status across disconnected tools.
+            </p>
+            <p className="text-white/55 text-base leading-relaxed">
+              The Manteis Sovereign Node now handles client intake, quote follow-ups,
+              project status updates, and communication coordination — locally, privately,
+              without a single new cloud subscription. George&apos;s data stays on George&apos;s hardware.
+            </p>
+            <div className="flex items-center gap-3 pt-2">
+              <div className="w-2 h-2 bg-signal-teal" />
+              <span className="font-mono text-[10px] tracking-widest uppercase text-signal-teal">
+                DEPLOYMENT: PHASE 1/2 COMPLETE
+              </span>
+            </div>
+          </motion.div>
+
+          <div className="grid grid-cols-2 gap-px border border-white/[0.08] lg:min-w-[320px] h-fit">
+            {metrics.map((m, i) => (
+              <motion.div
+                key={m.label}
+                initial={{ opacity: 0 }}
+                animate={inView ? { opacity: 1 } : {}}
+                transition={{ duration: 0.6, delay: 0.3 + i * 0.08 }}
+                className="p-6 bg-void-elevated"
+              >
+                <div className="font-display font-bold text-2xl text-signal-blue tracking-tight mb-1">
+                  {m.value}
+                </div>
+                <div className="font-mono text-[9px] tracking-[0.15em] uppercase text-white/30 leading-relaxed">
+                  {m.label}
+                </div>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function WhatWeOffer() {
+  const ref = useRef(null);
+  const inView = useInView(ref, { once: true, margin: '-80px' });
+
+  const services = [
+    {
+      icon: Cpu,
+      label: 'AI INFRASTRUCTURE',
+      title: 'Managed Sovereign Node',
+      desc: 'Full provisioning, hardening, and ongoing management of your private local AI stack. Ollama + Xen agents + ChromaDB, delivered and maintained.',
+      price: '$350/hr consultation · $2k/mo managed',
+    },
+    {
+      icon: Shield,
+      label: 'CYBERSECURITY',
+      title: 'Zero Trust Rollout',
+      desc: '20+ years of enterprise security. Sophos ZTNA, Microsoft Defender for Endpoint, MDM governance (Kandji/Jamf). SANS-standard audits for every environment.',
+      price: '$350/hr · Fixed-project from $10k',
+    },
+    {
+      icon: Zap,
+      label: 'AGENT AUTOMATION',
+      title: 'Custom MCP Development',
+      desc: 'Bespoke autonomous agents built on the Model Context Protocol. Helpdesk triage, sales automation, communication orchestration — your workflow, automated.',
+      price: '$350/hr · Fixed-project from $10k',
+    },
+  ];
+
+  return (
+    <section ref={ref} className="px-8 py-32 border-t border-white/[0.06]">
+      <div className="max-w-6xl mx-auto">
+        <motion.div
+          initial={{ opacity: 0, y: 10 }}
+          animate={inView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.6 }}
+          className="font-mono text-[9px] tracking-[0.35em] uppercase text-white/25 mb-16"
+        >
+          // CONSULTANCY SERVICES
+        </motion.div>
+        <div className="grid lg:grid-cols-3 gap-px border border-white/[0.06]">
+          {services.map((s, i) => {
+            const Icon = s.icon;
+            return (
+              <motion.div
+                key={s.title}
+                initial={{ opacity: 0, y: 20 }}
+                animate={inView ? { opacity: 1, y: 0 } : {}}
+                transition={{ duration: 0.7, delay: i * 0.1, ease: [0.16, 1, 0.3, 1] }}
+                className="bg-void-raised p-8 flex flex-col gap-5"
+              >
+                <div className="flex items-center gap-3">
+                  <Icon size={16} className="text-signal-blue" />
+                  <span className="font-mono text-[9px] tracking-[0.3em] uppercase text-signal-blue">
+                    {s.label}
+                  </span>
+                </div>
+                <h3 className="font-display font-bold text-lg tracking-tight">{s.title}</h3>
+                <p className="text-sm text-white/50 leading-relaxed flex-1">{s.desc}</p>
+                <div className="font-mono text-[10px] text-white/25 tracking-wide pt-4 border-t border-white/[0.06]">
+                  {s.price}
+                </div>
+              </motion.div>
+            );
+          })}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function Manifesto() {
+  const ref = useRef(null);
+  const inView = useInView(ref, { once: true, margin: '-80px' });
+
+  return (
+    <section ref={ref} className="px-8 py-40 border-t border-white/[0.06] flex flex-col items-center text-center">
+      <div className="relative flex items-center justify-center mb-16">
+        <div className="w-24 h-24 border-2 border-signal-blue flex items-center justify-center pulse-breath signal-glow">
+          <Terminal size={32} className="text-signal-blue" />
+        </div>
+      </div>
+
+      <motion.div
+        initial={{ opacity: 0, y: 10 }}
+        animate={inView ? { opacity: 1, y: 0 } : {}}
+        transition={{ duration: 0.6 }}
+        className="font-mono text-[10px] tracking-[0.35em] uppercase text-signal-blue mb-6"
+      >
+        // 1998 — ESI-32 SAMPLER OVER TRANSPORT //
+      </motion.div>
+
+      <motion.h2
+        initial={{ opacity: 0, y: 20 }}
+        animate={inView ? { opacity: 1, y: 0 } : {}}
+        transition={{ duration: 0.8, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
+        className="font-display font-bold text-[clamp(40px,7vw,88px)] leading-[0.9] tracking-tight mb-12"
+      >
+        THE GEO METRO<br />
+        <span className="text-white/25">DECISION.</span>
+      </motion.h2>
+
+      <motion.p
+        initial={{ opacity: 0, y: 10 }}
+        animate={inView ? { opacity: 1, y: 0 } : {}}
+        transition={{ duration: 0.7, delay: 0.2 }}
+        className="text-white/50 text-lg leading-relaxed max-w-2xl mb-6"
+      >
+        Big Tech wants your data on their servers, your models behind their paywalls,
+        your intelligence rented by the month. They designed convenience as a delivery
+        mechanism for dependency. We chose the sampler. We chose local. We chose sovereignty.
+      </motion.p>
+
+      <motion.p
+        initial={{ opacity: 0, y: 10 }}
+        animate={inView ? { opacity: 1, y: 0 } : {}}
+        transition={{ duration: 0.7, delay: 0.28 }}
+        className="text-white/50 text-lg leading-relaxed max-w-2xl mb-16"
+      >
+        Just as the printing press broke the scribe monopoly and the early internet
+        broke the broadcast monopoly — autonomous local AI is here to break the
+        monopoly of the Corporate Machine. Every client we serve gets the same choice
+        Rhett made in 1998. We make sure they choose right.
+      </motion.p>
+
+      <motion.div
+        initial={{ opacity: 0, y: 10 }}
+        animate={inView ? { opacity: 1, y: 0 } : {}}
+        transition={{ duration: 0.7, delay: 0.36 }}
+        className="font-mono text-[11px] tracking-[0.45em] uppercase text-white/20"
+      >
+        SUBVERT. CREATE. SOVEREIGNTY.
+      </motion.div>
+    </section>
+  );
+}
+
+function FinalCTA() {
+  const ref = useRef(null);
+  const inView = useInView(ref, { once: true, margin: '-80px' });
+
+  return (
+    <section ref={ref} id="contact" className="px-8 py-40 border-t border-white/[0.06] flex flex-col items-center text-center">
+      <motion.div
+        initial={{ opacity: 0, y: 10 }}
+        animate={inView ? { opacity: 1, y: 0 } : {}}
+        transition={{ duration: 0.6 }}
+        className="font-mono text-[9px] tracking-[0.35em] uppercase text-signal-blue mb-6"
+      >
+        // FREE DISCOVERY CALL
+      </motion.div>
+
+      <motion.h2
+        initial={{ opacity: 0, y: 20 }}
+        animate={inView ? { opacity: 1, y: 0 } : {}}
+        transition={{ duration: 0.8, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
+        className="font-display font-bold text-[clamp(36px,6vw,72px)] tracking-tight leading-tight mb-8"
+      >
+        INITIATE<br />
+        <span className="text-white/30">SOVEREIGNTY AUDIT.</span>
+      </motion.h2>
+
+      <motion.p
+        initial={{ opacity: 0, y: 10 }}
+        animate={inView ? { opacity: 1, y: 0 } : {}}
+        transition={{ duration: 0.7, delay: 0.2 }}
+        className="text-white/50 text-base leading-relaxed max-w-xl mb-4"
+      >
+        60 minutes. No pitch deck. We audit your current infrastructure, identify
+        where Digital Drag is bleeding your time, and propose the right Sovereign
+        Node configuration for your operation.
+      </motion.p>
+
+      <motion.div
+        initial={{ opacity: 0, y: 10 }}
+        animate={inView ? { opacity: 1, y: 0 } : {}}
+        transition={{ duration: 0.6, delay: 0.28 }}
+        className="font-mono text-[10px] tracking-widest uppercase text-white/25 mb-12 flex flex-wrap gap-6 justify-center"
+      >
+        <span>STANDARD: $2,500–$7,500 SETUP</span>
+        <span className="text-white/10">·</span>
+        <span className="text-signal-teal">NON-PROFIT: $1,500–$3,000</span>
+      </motion.div>
+
+      <motion.div
+        initial={{ opacity: 0, y: 10 }}
+        animate={inView ? { opacity: 1, y: 0 } : {}}
+        transition={{ duration: 0.6, delay: 0.34 }}
+        className="flex flex-col items-center gap-5"
+      >
+        <a href="mailto:rhett@manteissystems.com">
+          <Button variant="primary" size="lg">
+            INITIATE SOVEREIGNTY AUDIT
+          </Button>
+        </a>
+        <span className="font-mono text-[9px] tracking-[0.25em] uppercase text-white/15">
+          NO COMMITMENT · RESPONSE WITHIN 24 HOURS · PACIFIC TIME
+        </span>
+      </motion.div>
     </section>
   );
 }
 
 export default function Home() {
   return (
-    <main className="relative min-h-screen bg-black text-white font-sans selection:bg-prophetic-gold/30 selection:text-prophetic-gold">
+    <main className="relative min-h-screen bg-black text-white font-body selection:bg-signal-blue/20 selection:text-signal-blue">
       <GrainOverlay />
       <Nav />
       <Hero />
-      <DepthStack />
-      <HUDShowcase />
-      <Sectors />
-      <ThePulse />
-      
-      <footer className="py-12 px-8 border-t border-white/5 flex flex-col md:flex-row items-center justify-between gap-8">
-        <div className="flex items-center gap-4">
-          <span className="font-mono text-[10px] font-bold tracking-widest uppercase text-white/20">Manteis Systems</span>
-          <div className="w-1 h-1 bg-white/10 rounded-full" />
-          <span className="font-mono text-[10px] text-white/20 uppercase tracking-widest">Oracle of Data</span>
-        </div>
-        <div className="font-mono text-[10px] text-white/20 uppercase tracking-widest">
-          © 2026 // ALL_RIGHTS_RESERVED
+      <ThreePillars />
+      <Founder />
+      <SystemsDeepDive />
+      <CaseStudy />
+      <WhatWeOffer />
+      <Manifesto />
+      <FinalCTA />
+      <footer className="border-t border-white/[0.06] px-8 py-8">
+        <div className="max-w-6xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4">
+          <span className="font-mono text-[9px] tracking-[0.25em] uppercase text-white/20">
+            MANTEIS.SYSTEMS · SOVEREIGN INTELLIGENCE INFRASTRUCTURE
+          </span>
+          <span className="font-mono text-[9px] tracking-[0.2em] uppercase text-white/15">
+            © 2026 // ALL_RIGHTS_RESERVED
+          </span>
         </div>
       </footer>
     </main>
