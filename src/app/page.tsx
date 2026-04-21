@@ -1,10 +1,12 @@
 'use client';
 
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef, useMemo } from 'react';
 import { motion, useScroll, useTransform, useInView } from 'motion/react';
 import { Cpu, Music, Heart, Terminal, Shield, Zap, ArrowRight } from 'lucide-react';
 import Button from '../components/ui/Button';
+import { ScrollProgress, CursorGlow, Counter } from '../components/ui/animations';
 
+// ─── Boot log ──────────────────────────────────────────────────────────────────
 const LOG_MESSAGES = [
   "INITIALIZING SOVEREIGN NODE...",
   "LOADING OLLAMA INFERENCE ENGINE [OK]",
@@ -16,17 +18,17 @@ const LOG_MESSAGES = [
   "CORPORATE MACHINE: DEPHASED.",
   "MANTEIS.SYSTEMS ONLINE.",
 ];
-
 const HIGHLIGHT_WORDS = ["ONLINE", "ENFORCED", "DEPHASED", "[OK]"];
-
 function isHighlighted(line: string) {
   return HIGHLIGHT_WORDS.some((w) => line.includes(w));
 }
 
+// ─── Grain ────────────────────────────────────────────────────────────────────
 function GrainOverlay() {
   return <div className="grain-overlay" aria-hidden="true" />;
 }
 
+// ─── Nav ──────────────────────────────────────────────────────────────────────
 function Nav() {
   return (
     <nav className="fixed top-0 left-0 right-0 z-50 flex items-center justify-between px-8 h-16 bg-black/85 backdrop-blur-xl border-b border-white/[0.06]">
@@ -54,9 +56,308 @@ function Nav() {
   );
 }
 
+// ─── Hero: animated orbs ──────────────────────────────────────────────────────
+function AnimatedOrbs() {
+  return (
+    <div className="absolute inset-0 z-0 overflow-hidden pointer-events-none">
+      {/* Blue orb — top left */}
+      <motion.div
+        className="absolute rounded-full"
+        style={{
+          width: 700, height: 700,
+          top: '-200px', left: '-150px',
+          background: 'radial-gradient(circle, rgba(0,87,255,0.18) 0%, transparent 70%)',
+          filter: 'blur(40px)',
+        }}
+        animate={{ x: [0, 60, -30, 0], y: [0, -40, 60, 0], scale: [1, 1.1, 0.95, 1] }}
+        transition={{ duration: 22, repeat: Infinity, ease: 'linear' }}
+      />
+      {/* Pink orb — right */}
+      <motion.div
+        className="absolute rounded-full"
+        style={{
+          width: 500, height: 500,
+          top: '10%', right: '-100px',
+          background: 'radial-gradient(circle, rgba(255,110,199,0.12) 0%, transparent 70%)',
+          filter: 'blur(60px)',
+        }}
+        animate={{ x: [0, -50, 30, 0], y: [0, 70, -40, 0], scale: [1, 0.9, 1.1, 1] }}
+        transition={{ duration: 18, repeat: Infinity, ease: 'linear', delay: 4 }}
+      />
+      {/* Teal orb — bottom center */}
+      <motion.div
+        className="absolute rounded-full"
+        style={{
+          width: 600, height: 600,
+          bottom: '-100px', left: '30%',
+          background: 'radial-gradient(circle, rgba(0,212,168,0.10) 0%, transparent 70%)',
+          filter: 'blur(50px)',
+        }}
+        animate={{ x: [0, -80, 40, 0], y: [0, -50, 30, 0], scale: [1, 1.15, 0.9, 1] }}
+        transition={{ duration: 26, repeat: Infinity, ease: 'linear', delay: 8 }}
+      />
+    </div>
+  );
+}
+
+// ─── Hero: dot grid ───────────────────────────────────────────────────────────
+function DotGrid() {
+  return (
+    <>
+      <div
+        className="absolute inset-0 z-0 opacity-25 pointer-events-none"
+        style={{
+          backgroundImage: 'radial-gradient(circle, rgba(0,87,255,0.4) 1px, transparent 1px)',
+          backgroundSize: '28px 28px',
+        }}
+      />
+      <div
+        className="absolute inset-0 z-0 pointer-events-none"
+        style={{
+          background: 'radial-gradient(ellipse 75% 75% at 50% 40%, transparent 35%, #000 100%)',
+        }}
+      />
+    </>
+  );
+}
+
+// ─── Hero: SVG flow lines ─────────────────────────────────────────────────────
+const FLOW_LINES = [
+  { d: 'M -100 550 C 200 350, 520 620, 820 280 S 1160 60, 1440 380', dash: 320, dur: 10, del: 0 },
+  { d: 'M -100 650 C 180 480, 480 700, 760 420 S 1080 200, 1440 500', dash: 260, dur: 13, del: 2 },
+  { d: 'M 0 400 C 240 220, 560 500, 880 200 S 1200 -20, 1440 300', dash: 290, dur: 9, del: 4 },
+  { d: 'M -80 720 C 220 560, 540 780, 860 500 S 1200 300, 1440 600', dash: 240, dur: 15, del: 1 },
+  { d: 'M 100 480 C 300 300, 620 560, 940 320 S 1240 120, 1440 440', dash: 200, dur: 11, del: 6 },
+  { d: 'M -50 620 C 250 440, 550 680, 840 400 S 1120 180, 1440 520', dash: 180, dur: 14, del: 3 },
+];
+
+function FlowLines() {
+  return (
+    <svg
+      className="absolute inset-0 z-0 w-full h-full pointer-events-none opacity-30"
+      viewBox="0 0 1440 800"
+      preserveAspectRatio="xMidYMid slice"
+    >
+      {FLOW_LINES.map((l, i) => (
+        <motion.path
+          key={i}
+          d={l.d}
+          fill="none"
+          stroke={i % 3 === 0 ? '#0057FF' : i % 3 === 1 ? '#FF6EC7' : '#00D4A8'}
+          strokeWidth={i % 2 === 0 ? 1 : 0.6}
+          strokeDasharray={`${l.dash} ${l.dash * 7}`}
+          strokeLinecap="round"
+          animate={{ strokeDashoffset: [l.dash * 8, -(l.dash * 8)] }}
+          transition={{ duration: l.dur, delay: l.del, repeat: Infinity, ease: 'linear' }}
+        />
+      ))}
+    </svg>
+  );
+}
+
+// ─── Hero: floating particles ─────────────────────────────────────────────────
+function FloatingParticles({ count = 24 }: { count?: number }) {
+  const particles = useMemo(() =>
+    Array.from({ length: count }, (_, i) => ({
+      left: Math.random() * 100,
+      size: Math.random() * 2.5 + 0.8,
+      duration: Math.random() * 14 + 10,
+      delay: Math.random() * 16,
+      drift: (Math.random() - 0.5) * 120,
+      color: i % 3 === 0 ? 'rgba(0,87,255,0.6)' : i % 3 === 1 ? 'rgba(255,110,199,0.5)' : 'rgba(0,212,168,0.5)',
+    })), [count]
+  );
+  return (
+    <div className="absolute inset-0 z-0 overflow-hidden pointer-events-none">
+      {particles.map((p, i) => (
+        <motion.div
+          key={i}
+          className="absolute rounded-full"
+          style={{
+            left: `${p.left}%`,
+            bottom: 0,
+            width: p.size,
+            height: p.size,
+            background: p.color,
+          }}
+          animate={{
+            y: [0, -900],
+            x: [0, p.drift],
+            opacity: [0, 0.8, 0.8, 0],
+          }}
+          transition={{
+            duration: p.duration,
+            delay: p.delay,
+            repeat: Infinity,
+            ease: 'linear',
+            times: [0, 0.08, 0.85, 1],
+          }}
+        />
+      ))}
+    </div>
+  );
+}
+
+// ─── Ikeda: global scanline ───────────────────────────────────────────────────
+function IkedaScanline() {
+  return (
+    <motion.div
+      className="fixed left-0 right-0 z-[150] pointer-events-none"
+      style={{ height: 1, background: 'rgba(255,255,255,0.12)', mixBlendMode: 'screen' }}
+      animate={{ top: ['0vh', '100vh'] }}
+      transition={{ duration: 9, repeat: Infinity, ease: 'linear', repeatDelay: 4 }}
+    />
+  );
+}
+
+// ─── Ikeda: data canvas (scrolling binary/hex columns) ────────────────────────
+function IkedaDataCanvas({ height = 220 }: { height?: number }) {
+  const ref = useRef<HTMLCanvasElement>(null);
+
+  useEffect(() => {
+    const canvas = ref.current;
+    if (!canvas) return;
+    const dpr = window.devicePixelRatio || 1;
+    const W = canvas.clientWidth;
+    const H = height;
+    canvas.width = W * dpr;
+    canvas.height = H * dpr;
+    const ctx = canvas.getContext('2d')!;
+    ctx.scale(dpr, dpr);
+
+    const FS = 8;
+    const charW = FS * 0.62;
+    const cols = Math.floor(W / charW) + 1;
+    const rows = Math.floor(H / FS) + 2;
+
+    // 5 column types: binary, hex, float coords, decimal, pi/e constants
+    const CHAR_SETS = [
+      ['0','1','0','1','0','0','1',' ',' '],
+      '0123456789abcdef'.split(''),
+      '0123456789.-+e'.split(''),
+      '0123456789'.split(''),
+      ['3','.','1','4','1','5','9','2','6','5','3','5','8','9','7','9'],
+    ];
+
+    const drops = Array.from({ length: cols }, (_, i) => ({
+      y: Math.random() * rows * 1.5 - rows * 0.5,
+      speed: 0.25 + Math.random() * 0.55,
+      type: i % CHAR_SETS.length,
+      colorIdx: i % 17, // spread accent colors sparsely
+    }));
+
+    ctx.font = `${FS}px 'JetBrains Mono', monospace`;
+
+    let raf: number;
+    const tick = () => {
+      ctx.fillStyle = 'rgba(0,0,0,0.055)';
+      ctx.fillRect(0, 0, W, H);
+
+      drops.forEach((d, i) => {
+        const chars = CHAR_SETS[d.type];
+        const char = chars[Math.floor(Math.random() * chars.length)];
+        const x = i * charW;
+        const y = d.y * FS;
+        const pos = (d.y / rows);
+        const baseAlpha = pos < 0.05 ? 0.9 : Math.max(0.03, 0.7 - pos * 0.65);
+
+        // Occasional signal-blue/teal columns, rest pure white
+        if (d.colorIdx === 0) {
+          ctx.fillStyle = `rgba(0,87,255,${baseAlpha * 0.85})`;
+        } else if (d.colorIdx === 7) {
+          ctx.fillStyle = `rgba(0,212,168,${baseAlpha * 0.7})`;
+        } else {
+          ctx.fillStyle = `rgba(255,255,255,${baseAlpha})`;
+        }
+
+        if (d.y >= 0 && d.y <= rows) ctx.fillText(char, x, y);
+
+        d.y += d.speed * 0.28;
+        if (d.y > rows + 2) d.y = -Math.random() * rows * 0.5;
+      });
+
+      raf = requestAnimationFrame(tick);
+    };
+    tick();
+    return () => cancelAnimationFrame(raf);
+  }, [height]);
+
+  return <canvas ref={ref} style={{ width: '100%', height, display: 'block' }} />;
+}
+
+// ─── Ikeda: barcode strip (data → vertical bars) ─────────────────────────────
+function IkedaBarcodeStrip({ seed = 0 }: { seed?: number }) {
+  const bars = useMemo(() => {
+    const result: { x: number; w: number; a: number }[] = [];
+    let x = 0;
+    let s = (seed + 1) * 1664525 + 1013904223;
+    while (x < 1600) {
+      s = Math.imul(s, 1664525) + 1013904223;
+      const w = 1 + ((s >>> 0) % 3);
+      const gap = ((s >>> 3) & 0x7) % 6;
+      const a = 0.12 + (((s >>> 8) & 0xff) / 255) * 0.65;
+      result.push({ x, w, a });
+      x += w + gap;
+    }
+    return result;
+  }, [seed]);
+
+  return (
+    <div className="w-full overflow-hidden" style={{ height: 28 }}>
+      <svg width="100%" height="28" viewBox="0 0 1600 28" preserveAspectRatio="none">
+        {bars.map((b, i) => (
+          <rect key={i} x={b.x} y={0} width={b.w} height={28} fill={`rgba(255,255,255,${b.a})`} />
+        ))}
+      </svg>
+    </div>
+  );
+}
+
+// ─── Ikeda: immersive data wall section ───────────────────────────────────────
+function IkedaSection() {
+  const ref = useRef(null);
+  const inView = useInView(ref, { once: true, margin: '-80px' });
+
+  return (
+    <motion.section
+      ref={ref}
+      className="relative overflow-hidden border-y border-white/[0.05]"
+      initial={{ opacity: 0 }}
+      animate={inView ? { opacity: 1 } : {}}
+      transition={{ duration: 1.4 }}
+    >
+      {/* Top barcode */}
+      <IkedaBarcodeStrip seed={1} />
+
+      {/* Data stream */}
+      <IkedaDataCanvas height={260} />
+
+      {/* Bottom barcode */}
+      <IkedaBarcodeStrip seed={99} />
+
+      {/* Centered label */}
+      <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+        <div className="text-center px-4">
+          <motion.div
+            className="font-mono text-[8px] tracking-[0.6em] uppercase text-white/30 mb-2"
+            animate={{ opacity: [0.3, 0.7, 0.3] }}
+            transition={{ duration: 3, repeat: Infinity, ease: 'easeInOut' }}
+          >
+            // DATA.SOVEREIGNTY.STREAM
+          </motion.div>
+          <div className="font-mono text-[7px] tracking-[0.25em] text-white/12">
+            LOCAL · ENCRYPTED · ZERO_EGRESS · 8ms_LATENCY · OLLAMA · CHROMADB · XEN_AGENT · SOC2
+          </div>
+        </div>
+      </div>
+    </motion.section>
+  );
+}
+
+// ─── Terminal log ─────────────────────────────────────────────────────────────
 function TerminalLog() {
   const [logs, setLogs] = useState<string[]>([LOG_MESSAGES[0]]);
-  const [idx, setIdx] = useState(0);
+  const [, setIdx] = useState(0);
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -91,24 +392,47 @@ function TerminalLog() {
   );
 }
 
+// ─── Hero ─────────────────────────────────────────────────────────────────────
 function Hero() {
   const { scrollY } = useScroll();
-  const y1 = useTransform(scrollY, [0, 600], [0, 220]);
-  const opacity = useTransform(scrollY, [0, 350], [1, 0]);
+  const contentY  = useTransform(scrollY, [0, 600], [0, -100]);
+  const contentOp = useTransform(scrollY, [0, 360], [1, 0]);
+  const bgY       = useTransform(scrollY, [0, 600], [0, 200]);
 
   return (
     <section className="relative min-h-screen flex flex-col items-center justify-center overflow-hidden px-8 pt-16">
-      {/* Parallax background rings */}
-      <motion.div
-        style={{ y: y1, opacity }}
-        className="absolute inset-0 z-0 flex items-center justify-center pointer-events-none"
-      >
-        <div className="w-[700px] h-[700px] border border-[rgba(0,87,255,0.06)]" />
-        <div className="absolute w-[500px] h-[500px] border border-[rgba(0,87,255,0.05)]" />
-        <div className="absolute w-[300px] h-[300px] border border-[rgba(0,87,255,0.04)]" />
+      {/* Layered background */}
+      <motion.div style={{ y: bgY }} className="absolute inset-0">
+        <DotGrid />
+        <AnimatedOrbs />
+        <FlowLines />
+        <FloatingParticles />
+        {/* Ikeda data-texture: dense float coordinates at ultra-low opacity */}
+        <div
+          className="absolute inset-0 z-0 pointer-events-none opacity-[0.032]"
+          style={{
+            backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='120'%3E%3Ctext x='0' y='10' font-family='monospace' font-size='7' fill='white'%3E0.00000000 1.41421356 3.14159265 2.71828182 0.57721566 1.61803398 2.30258509%3C/text%3E%3Ctext x='0' y='20' font-family='monospace' font-size='7' fill='white'%3E47.60620000 -122.33210000 0.00000001 9.99999999 1.00000000 0.50000000 0.25%3C/text%3E%3Ctext x='0' y='30' font-family='monospace' font-size='7' fill='white'%3E10110010 01101001 11001010 00110101 10101010 01010101 11110000%3C/text%3E%3Ctext x='0' y='40' font-family='monospace' font-size='7' fill='white'%3E0x0057FF 0xFF6EC7 0x00D4A8 0x000000 0xFFFFFF 0x050507 0x0A0A14%3C/text%3E%3Ctext x='0' y='50' font-family='monospace' font-size='7' fill='white'%3E1.00000000 0.00000000 0.70710678 0.86602540 0.99999999 0.00000001 0.5%3C/text%3E%3Ctext x='0' y='60' font-family='monospace' font-size='7' fill='white'%3ELOCAL_AI SOVEREIGN NODE ZERO_EGRESS DATA_INTEGRITY OLLAMA CHROMADB XEN%3C/text%3E%3Ctext x='0' y='70' font-family='monospace' font-size='7' fill='white'%3E0 1 0 1 1 0 1 0 1 0 0 1 1 0 1 0 1 1 0 0 1 0 1 0 1 1 0 1 0 0 1 1 0 1%3C/text%3E%3Ctext x='0' y='80' font-family='monospace' font-size='7' fill='white'%3E3.14159265 2.71828182 1.41421356 1.73205080 2.23606797 2.44948974%3C/text%3E%3Ctext x='0' y='90' font-family='monospace' font-size='7' fill='white'%3Ea8f3c2e1 b7d49f0a c6e58b3d d5f67a2e e4g89c1f f3h90b4g a2i01d7h%3C/text%3E%3Ctext x='0' y='100' font-family='monospace' font-size='7' fill='white'%3EPNW_NODE_01 47.6N 122.3W 8ms 0_CLOUD 100_LOCAL 1998_ORIGIN EST%3C/text%3E%3Ctext x='0' y='110' font-family='monospace' font-size='7' fill='white'%3E0.00000000 1.41421356 3.14159265 2.71828182 0.57721566 1.61803398%3C/text%3E%3C/svg%3E")`,
+            backgroundRepeat: 'repeat',
+            backgroundSize: '400px 120px',
+          }}
+        />
       </motion.div>
 
-      <div className="relative z-10 max-w-5xl w-full flex flex-col items-start gap-8">
+      {/* Parallax rings */}
+      <motion.div
+        style={{ y: bgY }}
+        className="absolute inset-0 z-0 flex items-center justify-center pointer-events-none"
+      >
+        <div className="w-[720px] h-[720px] border border-[rgba(0,87,255,0.07)]" />
+        <div className="absolute w-[520px] h-[520px] border border-[rgba(0,87,255,0.05)]" />
+        <div className="absolute w-[320px] h-[320px] border border-[rgba(0,87,255,0.04)]" />
+      </motion.div>
+
+      {/* Content */}
+      <motion.div
+        style={{ y: contentY, opacity: contentOp }}
+        className="relative z-10 max-w-5xl w-full flex flex-col items-start gap-8"
+      >
         {/* Label */}
         <motion.div
           initial={{ opacity: 0, y: 10 }}
@@ -121,9 +445,9 @@ function Hero() {
 
         {/* H1 */}
         <motion.h1
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 0, y: 24 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
+          transition={{ duration: 0.9, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
           className="font-display font-bold text-[clamp(48px,9vw,110px)] leading-[0.88] tracking-tight"
         >
           DEPHASING THE<br />
@@ -133,7 +457,7 @@ function Hero() {
 
         {/* Subhead */}
         <motion.div
-          initial={{ opacity: 0, y: 15 }}
+          initial={{ opacity: 0, y: 14 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.7, delay: 0.25, ease: [0.16, 1, 0.3, 1] }}
           className="font-mono text-[11px] tracking-[0.25em] uppercase text-white/35"
@@ -141,9 +465,9 @@ function Hero() {
           UNIFIED INTELLIGENCE INFRASTRUCTURE
         </motion.div>
 
-        {/* Body + Terminal side by side */}
+        {/* Body + Terminal */}
         <motion.div
-          initial={{ opacity: 0, y: 15 }}
+          initial={{ opacity: 0, y: 14 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.7, delay: 0.35, ease: [0.16, 1, 0.3, 1] }}
           className="flex flex-col lg:flex-row gap-10 w-full"
@@ -178,16 +502,74 @@ function Hero() {
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          transition={{ duration: 1, delay: 0.8 }}
+          transition={{ duration: 1.2, delay: 0.8 }}
           className="font-mono text-[9px] tracking-[0.25em] uppercase text-white/15"
         >
           [47.6062° N, 122.3321° W] · PACIFIC_NODE_01
         </motion.div>
-      </div>
+      </motion.div>
+
+      {/* Scroll indicator */}
+      <motion.div
+        className="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ delay: 1.6, duration: 1 }}
+      >
+        <span className="font-mono text-[8px] tracking-[0.3em] uppercase text-white/20">SCROLL</span>
+        <motion.div
+          className="w-px h-10 bg-gradient-to-b from-white/20 to-transparent"
+          animate={{ scaleY: [1, 0.3, 1], opacity: [0.5, 1, 0.5] }}
+          transition={{ duration: 2, repeat: Infinity, ease: 'easeInOut' }}
+        />
+      </motion.div>
     </section>
   );
 }
 
+// ─── Marquee ticker ───────────────────────────────────────────────────────────
+const MARQUEE_ITEMS = [
+  { text: 'OLLAMA', color: 'text-signal-blue' },
+  { text: 'CHROMADB', color: 'text-white/25' },
+  { text: 'XEN AGENTS', color: 'text-signal-teal' },
+  { text: 'ZERO TRUST', color: 'text-white/25' },
+  { text: 'SOPHOS ZTNA', color: 'text-signal-blue' },
+  { text: 'MICROSOFT DEFENDER', color: 'text-white/25' },
+  { text: 'DOCKER', color: 'text-signal-pink' },
+  { text: 'N8N AUTOMATION', color: 'text-white/25' },
+  { text: 'LLAMA 3.3', color: 'text-signal-teal' },
+  { text: 'JAMF PRO', color: 'text-white/25' },
+  { text: 'INTUNE MDM', color: 'text-signal-blue' },
+  { text: 'HIPAA COMPLIANT', color: 'text-white/25' },
+  { text: 'SOC 2', color: 'text-signal-pink' },
+  { text: 'PHI-4', color: 'text-white/25' },
+  { text: 'LOCAL LLM', color: 'text-signal-teal' },
+  { text: 'DOLBY ATMOS', color: 'text-white/25' },
+];
+
+function Marquee() {
+  const doubled = [...MARQUEE_ITEMS, ...MARQUEE_ITEMS];
+  return (
+    <div className="overflow-hidden border-y border-white/[0.06] py-3 bg-void-raised">
+      <motion.div
+        className="flex gap-0 whitespace-nowrap"
+        animate={{ x: ['0%', '-50%'] }}
+        transition={{ duration: 35, repeat: Infinity, ease: 'linear' }}
+      >
+        {doubled.map((item, i) => (
+          <span key={i} className="inline-flex items-center">
+            <span className={`font-mono text-[10px] tracking-[0.3em] uppercase ${item.color} px-6`}>
+              {item.text}
+            </span>
+            <span className="text-white/10 text-[10px]">·</span>
+          </span>
+        ))}
+      </motion.div>
+    </div>
+  );
+}
+
+// ─── Three Pillars ────────────────────────────────────────────────────────────
 function ThreePillars() {
   const pillars = [
     {
@@ -245,20 +627,26 @@ function ThreePillars() {
             <motion.div
               key={p.id}
               id={p.id}
-              initial={{ opacity: 0, y: 20 }}
+              initial={{ opacity: 0, y: 28 }}
               animate={inView ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.7, delay: i * 0.12, ease: [0.16, 1, 0.3, 1] }}
-              className="bg-void-raised p-8 flex flex-col gap-5"
+              transition={{ duration: 0.75, delay: i * 0.14, ease: [0.16, 1, 0.3, 1] }}
+              whileHover={{ y: -4, transition: { duration: 0.25 } }}
+              className="bg-void-raised p-8 flex flex-col gap-5 group cursor-default"
               style={{ borderTop: `1px solid ${p.accent}` }}
             >
               <div className="flex items-center justify-between">
                 <span className={`font-mono text-[9px] tracking-[0.3em] uppercase ${p.accentClass}`}>
                   {p.label}
                 </span>
-                <Icon size={18} style={{ color: p.accent }} />
+                <motion.div
+                  animate={{ rotate: [0, 10, -6, 0] }}
+                  transition={{ duration: 6, repeat: Infinity, delay: i * 1.5, ease: 'easeInOut' }}
+                >
+                  <Icon size={18} style={{ color: p.accent }} />
+                </motion.div>
               </div>
               <div>
-                <h3 className="font-display font-bold text-xl tracking-tight text-white mb-1">
+                <h3 className="font-display font-bold text-xl tracking-tight text-white mb-1 group-hover:opacity-90 transition-opacity">
                   {p.title}
                 </h3>
                 <p className={`font-mono text-[10px] tracking-widest uppercase ${p.accentClass} opacity-70`}>
@@ -279,15 +667,16 @@ function ThreePillars() {
   );
 }
 
+// ─── Founder ──────────────────────────────────────────────────────────────────
 function Founder() {
   const ref = useRef(null);
   const inView = useInView(ref, { once: true, margin: '-80px' });
 
   const credentials = ['Mozilla', 'Apple', 'F5 Networks', 'REI', '98point6', 'UW', 'Aon'];
   const stats = [
-    { value: '25+', label: 'Years Enterprise Experience' },
-    { value: '7', label: 'Major Organizations' },
-    { value: '1998', label: 'The Origin Year' },
+    { to: 25, suffix: '+', label: 'Years Enterprise Experience' },
+    { to: 7,  suffix: '',  label: 'Major Organizations' },
+    { to: 1998, suffix: '', label: 'The Origin Year', static: true },
   ];
 
   return (
@@ -344,28 +733,34 @@ function Founder() {
             className="flex flex-wrap gap-x-5 gap-y-3 pt-4 border-t border-white/[0.08]"
           >
             {credentials.map((c, i) => (
-              <span
+              <motion.span
                 key={c}
-                className="font-mono text-[10px] tracking-[0.2em] uppercase text-white/25 hover:text-white/60 transition-colors cursor-default"
+                className="font-mono text-[10px] tracking-[0.2em] uppercase text-white/25 hover:text-signal-blue transition-colors cursor-default"
+                initial={{ opacity: 0, x: -8 }}
+                animate={inView ? { opacity: 1, x: 0 } : {}}
+                transition={{ duration: 0.5, delay: 0.4 + i * 0.06 }}
               >
                 {c}{i < credentials.length - 1 && <span className="ml-5 text-white/10">·</span>}
-              </span>
+              </motion.span>
             ))}
           </motion.div>
         </div>
 
-        {/* Right: stats */}
+        {/* Right: stats with counter animations */}
         <div className="flex flex-col gap-0 lg:min-w-[220px] border border-white/[0.08] h-fit">
           {stats.map((s, i) => (
             <motion.div
               key={s.label}
-              initial={{ opacity: 0, x: 20 }}
+              initial={{ opacity: 0, x: 24 }}
               animate={inView ? { opacity: 1, x: 0 } : {}}
-              transition={{ duration: 0.6, delay: 0.15 + i * 0.1, ease: [0.16, 1, 0.3, 1] }}
+              transition={{ duration: 0.65, delay: 0.15 + i * 0.12, ease: [0.16, 1, 0.3, 1] }}
               className="p-8 border-b border-white/[0.08] last:border-b-0"
             >
               <div className="font-display font-bold text-4xl text-signal-blue tracking-tight">
-                {s.value}
+                {s.static
+                  ? <Counter to={s.to} suffix={s.suffix} duration={2200} delay={0.2 + i * 0.1} />
+                  : <Counter to={s.to} suffix={s.suffix} delay={0.2 + i * 0.1} />
+                }
               </div>
               <div className="font-mono text-[10px] tracking-[0.2em] uppercase text-white/30 mt-1">
                 {s.label}
@@ -378,6 +773,7 @@ function Founder() {
   );
 }
 
+// ─── Systems Deep Dive ────────────────────────────────────────────────────────
 function SystemsDeepDive() {
   const ref = useRef(null);
   const inView = useInView(ref, { once: true, margin: '-80px' });
@@ -439,13 +835,16 @@ function SystemsDeepDive() {
               className="border border-white/[0.08]"
             >
               {specs.map((s, i) => (
-                <div
+                <motion.div
                   key={s.key}
-                  className={`flex gap-6 p-4 font-mono text-[11px] ${i < specs.length - 1 ? 'border-b border-white/[0.06]' : ''}`}
+                  initial={{ opacity: 0, x: -10 }}
+                  animate={inView ? { opacity: 1, x: 0 } : {}}
+                  transition={{ duration: 0.5, delay: 0.3 + i * 0.07 }}
+                  className={`flex gap-6 p-4 font-mono text-[11px] hover:bg-white/[0.02] transition-colors ${i < specs.length - 1 ? 'border-b border-white/[0.06]' : ''}`}
                 >
-                  <span className="text-white/25 tracking-widest uppercase w-28 shrink-0">{s.key}</span>
+                  <span className="text-signal-blue/60 tracking-widest uppercase w-28 shrink-0">{s.key}</span>
                   <span className="text-white/65">{s.val}</span>
-                </div>
+                </motion.div>
               ))}
             </motion.div>
           </div>
@@ -455,10 +854,11 @@ function SystemsDeepDive() {
             {tiers.map((t, i) => (
               <motion.div
                 key={t.name}
-                initial={{ opacity: 0, x: 20 }}
+                initial={{ opacity: 0, x: 24 }}
                 animate={inView ? { opacity: 1, x: 0 } : {}}
-                transition={{ duration: 0.6, delay: 0.2 + i * 0.08, ease: [0.16, 1, 0.3, 1] }}
-                className="border border-white/[0.08] p-6 bg-void-raised"
+                transition={{ duration: 0.6, delay: 0.2 + i * 0.1, ease: [0.16, 1, 0.3, 1] }}
+                whileHover={{ x: 4, transition: { duration: 0.2 } }}
+                className="border border-white/[0.08] p-6 bg-void-raised cursor-default"
                 style={{ borderTopColor: t.accent, borderTopWidth: '1px' }}
               >
                 <div className="flex items-start justify-between mb-3">
@@ -480,6 +880,7 @@ function SystemsDeepDive() {
   );
 }
 
+// ─── Case Study ───────────────────────────────────────────────────────────────
 function CaseStudy() {
   const ref = useRef(null);
   const inView = useInView(ref, { once: true, margin: '-80px' });
@@ -512,9 +913,9 @@ function CaseStudy() {
         </motion.div>
 
         <motion.blockquote
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 0, y: 24 }}
           animate={inView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.8, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
+          transition={{ duration: 0.85, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
           className="font-display font-bold text-[clamp(26px,4vw,48px)] leading-tight tracking-tight mb-12 max-w-3xl"
         >
           &ldquo;George doesn&apos;t need a website.<br />
@@ -539,7 +940,11 @@ function CaseStudy() {
               without a single new cloud subscription. George&apos;s data stays on George&apos;s hardware.
             </p>
             <div className="flex items-center gap-3 pt-2">
-              <div className="w-2 h-2 bg-signal-teal" />
+              <motion.div
+                className="w-2 h-2 bg-signal-teal"
+                animate={{ opacity: [1, 0.3, 1] }}
+                transition={{ duration: 1.8, repeat: Infinity }}
+              />
               <span className="font-mono text-[10px] tracking-widest uppercase text-signal-teal">
                 DEPLOYMENT: PHASE 1/2 COMPLETE
               </span>
@@ -550,9 +955,9 @@ function CaseStudy() {
             {metrics.map((m, i) => (
               <motion.div
                 key={m.label}
-                initial={{ opacity: 0 }}
-                animate={inView ? { opacity: 1 } : {}}
-                transition={{ duration: 0.6, delay: 0.3 + i * 0.08 }}
+                initial={{ opacity: 0, scale: 0.92 }}
+                animate={inView ? { opacity: 1, scale: 1 } : {}}
+                transition={{ duration: 0.55, delay: 0.3 + i * 0.1, ease: [0.16, 1, 0.3, 1] }}
                 className="p-6 bg-void-elevated"
               >
                 <div className="font-display font-bold text-2xl text-signal-blue tracking-tight mb-1">
@@ -570,6 +975,7 @@ function CaseStudy() {
   );
 }
 
+// ─── What We Offer ────────────────────────────────────────────────────────────
 function WhatWeOffer() {
   const ref = useRef(null);
   const inView = useInView(ref, { once: true, margin: '-80px' });
@@ -581,6 +987,7 @@ function WhatWeOffer() {
       title: 'Managed Sovereign Node',
       desc: 'Full provisioning, hardening, and ongoing management of your private local AI stack. Ollama + Xen agents + ChromaDB, delivered and maintained.',
       price: '$350/hr consultation · $2k/mo managed',
+      accent: '#0057FF',
     },
     {
       icon: Shield,
@@ -588,6 +995,7 @@ function WhatWeOffer() {
       title: 'Zero Trust Rollout',
       desc: '20+ years of enterprise security. Sophos ZTNA, Microsoft Defender for Endpoint, MDM governance (Kandji/Jamf). SANS-standard audits for every environment.',
       price: '$350/hr · Fixed-project from $10k',
+      accent: '#FF6EC7',
     },
     {
       icon: Zap,
@@ -595,6 +1003,7 @@ function WhatWeOffer() {
       title: 'Custom MCP Development',
       desc: 'Bespoke autonomous agents built on the Model Context Protocol. Helpdesk triage, sales automation, communication orchestration — your workflow, automated.',
       price: '$350/hr · Fixed-project from $10k',
+      accent: '#00D4A8',
     },
   ];
 
@@ -615,18 +1024,20 @@ function WhatWeOffer() {
             return (
               <motion.div
                 key={s.title}
-                initial={{ opacity: 0, y: 20 }}
+                initial={{ opacity: 0, y: 24 }}
                 animate={inView ? { opacity: 1, y: 0 } : {}}
-                transition={{ duration: 0.7, delay: i * 0.1, ease: [0.16, 1, 0.3, 1] }}
-                className="bg-void-raised p-8 flex flex-col gap-5"
+                transition={{ duration: 0.75, delay: i * 0.12, ease: [0.16, 1, 0.3, 1] }}
+                whileHover={{ y: -4, transition: { duration: 0.22 } }}
+                className="bg-void-raised p-8 flex flex-col gap-5 group cursor-default"
+                style={{ borderTop: `1px solid ${s.accent}` }}
               >
                 <div className="flex items-center gap-3">
-                  <Icon size={16} className="text-signal-blue" />
-                  <span className="font-mono text-[9px] tracking-[0.3em] uppercase text-signal-blue">
+                  <Icon size={16} style={{ color: s.accent }} />
+                  <span className="font-mono text-[9px] tracking-[0.3em] uppercase" style={{ color: s.accent }}>
                     {s.label}
                   </span>
                 </div>
-                <h3 className="font-display font-bold text-lg tracking-tight">{s.title}</h3>
+                <h3 className="font-display font-bold text-lg tracking-tight group-hover:text-white transition-colors">{s.title}</h3>
                 <p className="text-sm text-white/50 leading-relaxed flex-1">{s.desc}</p>
                 <div className="font-mono text-[10px] text-white/25 tracking-wide pt-4 border-t border-white/[0.06]">
                   {s.price}
@@ -640,6 +1051,7 @@ function WhatWeOffer() {
   );
 }
 
+// ─── Manifesto ────────────────────────────────────────────────────────────────
 function Manifesto() {
   const ref = useRef(null);
   const inView = useInView(ref, { once: true, margin: '-80px' });
@@ -675,16 +1087,19 @@ function Manifesto() {
   return (
     <section ref={ref} className="px-8 py-32 border-t border-white/[0.06]">
       <div className="max-w-6xl mx-auto">
-        {/* Section header */}
         <motion.div
           initial={{ opacity: 0, y: 10 }}
           animate={inView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.6 }}
           className="flex items-center gap-6 mb-20"
         >
-          <div className="w-16 h-16 border-2 border-signal-blue flex items-center justify-center pulse-breath signal-glow shrink-0">
+          <motion.div
+            className="w-16 h-16 border-2 border-signal-blue flex items-center justify-center shrink-0"
+            animate={{ borderColor: ['#0057FF', '#00D4A8', '#FF6EC7', '#0057FF'] }}
+            transition={{ duration: 6, repeat: Infinity, ease: 'linear' }}
+          >
             <Terminal size={24} className="text-signal-blue" />
-          </div>
+          </motion.div>
           <div>
             <div className="font-mono text-[9px] tracking-[0.35em] uppercase text-signal-blue mb-1">
               // THE SOVEREIGNTY MANIFESTO
@@ -695,15 +1110,14 @@ function Manifesto() {
           </div>
         </motion.div>
 
-        {/* Manifesto blocks */}
         <div className="flex flex-col divide-y divide-white/[0.06]">
           {blocks.map((b, i) => (
             <motion.div
               key={b.label}
-              initial={{ opacity: 0, y: 16 }}
+              initial={{ opacity: 0, y: 18 }}
               animate={inView ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.7, delay: 0.08 + i * 0.1, ease: [0.16, 1, 0.3, 1] }}
-              className="py-10 flex flex-col lg:flex-row lg:items-start gap-6 lg:gap-16"
+              transition={{ duration: 0.75, delay: 0.08 + i * 0.12, ease: [0.16, 1, 0.3, 1] }}
+              className="py-10 flex flex-col lg:flex-row lg:items-start gap-6 lg:gap-16 group"
             >
               <div className="lg:w-52 shrink-0">
                 <span className="font-mono text-[9px] tracking-[0.25em] uppercase text-white/25">
@@ -711,7 +1125,7 @@ function Manifesto() {
                 </span>
               </div>
               <div className="flex-1">
-                <h3 className="font-display font-bold text-[clamp(22px,3vw,36px)] tracking-tight leading-tight mb-4 text-white">
+                <h3 className="font-display font-bold text-[clamp(22px,3vw,36px)] tracking-tight leading-tight mb-4 text-white group-hover:text-signal-blue transition-colors duration-500">
                   {b.heading}
                 </h3>
                 <p className="text-white/55 text-base leading-relaxed max-w-2xl">
@@ -722,11 +1136,10 @@ function Manifesto() {
           ))}
         </div>
 
-        {/* Closing line */}
         <motion.div
           initial={{ opacity: 0 }}
           animate={inView ? { opacity: 1 } : {}}
-          transition={{ duration: 1, delay: 0.7 }}
+          transition={{ duration: 1, delay: 0.8 }}
           className="mt-16 pt-10 border-t border-white/[0.06] text-center font-mono text-[11px] tracking-[0.45em] uppercase text-white/20"
         >
           SUBVERT. CREATE. SOVEREIGNTY.
@@ -736,26 +1149,41 @@ function Manifesto() {
   );
 }
 
+// ─── Final CTA ────────────────────────────────────────────────────────────────
 function FinalCTA() {
   const ref = useRef(null);
   const inView = useInView(ref, { once: true, margin: '-80px' });
 
   return (
-    <section ref={ref} id="contact" className="px-8 py-40 border-t border-white/[0.06] flex flex-col items-center text-center">
+    <section ref={ref} id="contact" className="relative px-8 py-40 border-t border-white/[0.06] flex flex-col items-center text-center overflow-hidden">
+      {/* Pulsing glow behind CTA */}
+      <motion.div
+        className="absolute inset-0 pointer-events-none"
+        animate={{
+          background: [
+            'radial-gradient(ellipse 60% 50% at 50% 80%, rgba(0,87,255,0.08) 0%, transparent 70%)',
+            'radial-gradient(ellipse 60% 50% at 50% 80%, rgba(0,212,168,0.08) 0%, transparent 70%)',
+            'radial-gradient(ellipse 60% 50% at 50% 80%, rgba(255,110,199,0.06) 0%, transparent 70%)',
+            'radial-gradient(ellipse 60% 50% at 50% 80%, rgba(0,87,255,0.08) 0%, transparent 70%)',
+          ],
+        }}
+        transition={{ duration: 10, repeat: Infinity, ease: 'linear' }}
+      />
+
       <motion.div
         initial={{ opacity: 0, y: 10 }}
         animate={inView ? { opacity: 1, y: 0 } : {}}
         transition={{ duration: 0.6 }}
-        className="font-mono text-[9px] tracking-[0.35em] uppercase text-signal-blue mb-6"
+        className="relative font-mono text-[9px] tracking-[0.35em] uppercase text-signal-blue mb-6"
       >
         // FREE DISCOVERY CALL
       </motion.div>
 
       <motion.h2
-        initial={{ opacity: 0, y: 20 }}
+        initial={{ opacity: 0, y: 22 }}
         animate={inView ? { opacity: 1, y: 0 } : {}}
-        transition={{ duration: 0.8, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
-        className="font-display font-bold text-[clamp(36px,6vw,72px)] tracking-tight leading-tight mb-8"
+        transition={{ duration: 0.85, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
+        className="relative font-display font-bold text-[clamp(36px,6vw,72px)] tracking-tight leading-tight mb-8"
       >
         INITIATE<br />
         <span className="text-white/30">SOVEREIGNTY AUDIT.</span>
@@ -765,7 +1193,7 @@ function FinalCTA() {
         initial={{ opacity: 0, y: 10 }}
         animate={inView ? { opacity: 1, y: 0 } : {}}
         transition={{ duration: 0.7, delay: 0.2 }}
-        className="text-white/50 text-base leading-relaxed max-w-xl mb-4"
+        className="relative text-white/50 text-base leading-relaxed max-w-xl mb-4"
       >
         60 minutes. No pitch deck. We audit your current infrastructure, identify
         where Digital Drag is bleeding your time, and propose the right Sovereign
@@ -776,7 +1204,7 @@ function FinalCTA() {
         initial={{ opacity: 0, y: 10 }}
         animate={inView ? { opacity: 1, y: 0 } : {}}
         transition={{ duration: 0.6, delay: 0.28 }}
-        className="font-mono text-[10px] tracking-widest uppercase text-white/25 mb-12 flex flex-wrap gap-6 justify-center"
+        className="relative font-mono text-[10px] tracking-widest uppercase text-white/25 mb-12 flex flex-wrap gap-6 justify-center"
       >
         <span>STANDARD: $2,500–$7,500 SETUP</span>
         <span className="text-white/10">·</span>
@@ -787,7 +1215,7 @@ function FinalCTA() {
         initial={{ opacity: 0, y: 10 }}
         animate={inView ? { opacity: 1, y: 0 } : {}}
         transition={{ duration: 0.6, delay: 0.34 }}
-        className="flex flex-col items-center gap-5"
+        className="relative flex flex-col items-center gap-5"
       >
         <a href="mailto:rhett@manteissystems.com">
           <Button variant="primary" size="lg">
@@ -802,17 +1230,24 @@ function FinalCTA() {
   );
 }
 
+// ─── Page ─────────────────────────────────────────────────────────────────────
 export default function Home() {
   return (
     <main className="relative min-h-screen bg-black text-white font-body selection:bg-signal-blue/20 selection:text-signal-blue">
+      <ScrollProgress />
+      <CursorGlow />
+      <IkedaScanline />
       <GrainOverlay />
       <Nav />
       <Hero />
+      <Marquee />
       <ThreePillars />
       <Founder />
+      <IkedaSection />
       <SystemsDeepDive />
       <CaseStudy />
       <WhatWeOffer />
+      <IkedaBarcodeStrip seed={42} />
       <Manifesto />
       <FinalCTA />
       <footer className="border-t border-white/[0.06] px-8 py-8">
