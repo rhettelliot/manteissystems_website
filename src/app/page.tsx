@@ -4,7 +4,10 @@ import { useState, useEffect, useRef, useMemo } from 'react';
 import { motion, useScroll, useTransform, useInView } from 'motion/react';
 import { Cpu, Music, Heart, Terminal, Shield, Zap, ArrowRight } from 'lucide-react';
 import Button from '../components/ui/Button';
-import { ScrollProgress, CursorGlow, Counter } from '../components/ui/animations';
+import {
+  ScrollProgress, CursorGlow, Counter,
+  Magnetic, GradientText, NoiseGrain, PacificClock, seededRandom,
+} from '../components/ui/animations';
 
 // ─── Boot log ──────────────────────────────────────────────────────────────────
 const LOG_MESSAGES = [
@@ -100,17 +103,19 @@ function AnimatedOrbs() {
 // ─── Hero: dot grid ───────────────────────────────────────────────────────────
 
 // ─── Hero: floating particles ─────────────────────────────────────────────────
-function FloatingParticles({ count = 24 }: { count?: number }) {
-  const particles = useMemo(() =>
-    Array.from({ length: count }, (_, i) => ({
-      left: Math.random() * 100,
-      size: Math.random() * 2.5 + 0.8,
-      duration: Math.random() * 14 + 10,
-      delay: Math.random() * 16,
-      drift: (Math.random() - 0.5) * 120,
+function FloatingParticles({ count = 24, seed = 1998 }: { count?: number; seed?: number }) {
+  // Deterministic pseudo-random so SSR + client match (no hydration diff).
+  const particles = useMemo(() => {
+    const rand = seededRandom(seed);
+    return Array.from({ length: count }, (_, i) => ({
+      left: rand() * 100,
+      size: rand() * 2.5 + 0.8,
+      duration: rand() * 14 + 10,
+      delay: rand() * 16,
+      drift: (rand() - 0.5) * 120,
       color: i % 3 === 0 ? 'rgba(0,87,255,0.6)' : i % 3 === 1 ? 'rgba(255,110,199,0.5)' : 'rgba(0,212,168,0.5)',
-    })), [count]
-  );
+    }));
+  }, [count, seed]);
   return (
     <div className="absolute inset-0 z-0 overflow-hidden pointer-events-none">
       {particles.map((p, i) => (
@@ -182,121 +187,164 @@ function TerminalLog() {
 
 // ─── Hero ─────────────────────────────────────────────────────────────────────
 function Hero() {
-  const { scrollY } = useScroll();
-  const contentY  = useTransform(scrollY, [0, 600], [0, -100]);
-  const contentOp = useTransform(scrollY, [0, 360], [1, 0]);
-  const bgY       = useTransform(scrollY, [0, 600], [0, 200]);
+  const containerRef = useRef<HTMLDivElement>(null);
+
+  const { scrollYProgress } = useScroll({
+    target: containerRef,
+    offset: ['start start', 'end end'],
+  });
+
+  // Everything exits upward as hero scrolls out
+  const exitOp = useTransform(scrollYProgress, [0.70, 0.98], [1, 0]);
+  const exitY  = useTransform(scrollYProgress, [0.70, 0.98], [0, -80]);
+  const scrollHintOp = useTransform(scrollYProgress, [0, 0.06], [1, 0]);
+
+  // Subtle parallax on rings
+  const ringsY = useTransform(scrollYProgress, [0, 1], [0, -180]);
 
   return (
-    <section className="relative min-h-screen flex flex-col items-center justify-center overflow-hidden px-8 pt-16">
+    <div ref={containerRef} style={{ height: '180vh' }}>
+      <div className="sticky top-0 h-screen overflow-hidden flex flex-col items-center justify-start px-8 pt-24 md:pt-28">
 
+        {/* Aurora orbs + particles */}
+        <AnimatedOrbs />
+        <FloatingParticles count={18} seed={1998} />
 
-      {/* Parallax rings */}
-      <motion.div
-        style={{ y: bgY }}
-        className="absolute inset-0 z-[3] flex items-center justify-center pointer-events-none"
-      >
-        <div className="w-[720px] h-[720px] border border-[rgba(0,87,255,0.07)]" />
-        <div className="absolute w-[520px] h-[520px] border border-[rgba(0,87,255,0.05)]" />
-        <div className="absolute w-[320px] h-[320px] border border-[rgba(0,87,255,0.04)]" />
-      </motion.div>
-
-      {/* Content */}
-      <motion.div
-        style={{ y: contentY, opacity: contentOp }}
-        className="relative z-[10] max-w-5xl w-full flex flex-col items-start gap-8"
-      >
-        {/* Label */}
+        {/* Rings — parallax */}
         <motion.div
-          initial={{ opacity: 0, y: 10 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-          className="font-mono text-[10px] tracking-[0.35em] uppercase text-signal-blue"
+          style={{ y: ringsY }}
+          className="absolute inset-0 flex items-center justify-center pointer-events-none z-[1]"
         >
-          // SOVEREIGN INTELLIGENCE INFRASTRUCTURE //
+          <motion.div
+            className="w-[720px] h-[720px] border border-[rgba(0,87,255,0.09)]"
+            animate={{ rotate: 360 }}
+            transition={{ duration: 240, repeat: Infinity, ease: 'linear' }}
+          />
+          <motion.div
+            className="absolute w-[520px] h-[520px] border border-[rgba(0,212,168,0.06)]"
+            animate={{ rotate: -360 }}
+            transition={{ duration: 180, repeat: Infinity, ease: 'linear' }}
+          />
+          <div className="absolute w-[320px] h-[320px] border border-[rgba(255,110,199,0.05)]" />
         </motion.div>
 
-        {/* H1 */}
-        <motion.h1
-          initial={{ opacity: 0, y: 24 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.9, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
-          className="font-display font-bold text-[clamp(48px,9vw,110px)] leading-[0.88] tracking-tight"
-        >
-          DEPHASING THE<br />
-          <span className="text-white/30">CORPORATE</span><br />
-          <span className="text-white/30">MACHINE.</span>
-        </motion.h1>
-
-        {/* Subhead */}
         <motion.div
-          initial={{ opacity: 0, y: 14 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.7, delay: 0.25, ease: [0.16, 1, 0.3, 1] }}
-          className="font-mono text-[11px] tracking-[0.25em] uppercase text-white/35"
+          style={{ opacity: exitOp, y: exitY }}
+          className="relative z-10 max-w-5xl w-full flex flex-col items-start gap-5 md:gap-7"
         >
-          UNIFIED INTELLIGENCE INFRASTRUCTURE
-        </motion.div>
+          {/* Label + live clock */}
+          <motion.div
+            initial={{ opacity: 0, y: 16 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+            className="flex items-center gap-4 flex-wrap"
+          >
+            <span className="font-mono text-[10px] tracking-[0.35em] uppercase text-signal-blue">
+              // SOVEREIGN INTELLIGENCE INFRASTRUCTURE //
+            </span>
+            <span className="hidden sm:inline-flex items-center gap-2 font-mono text-[10px] tracking-[0.2em] uppercase text-white/25">
+              <motion.span
+                className="inline-block w-1.5 h-1.5 bg-signal-teal rounded-full"
+                animate={{ opacity: [1, 0.25, 1] }}
+                transition={{ duration: 1.6, repeat: Infinity, ease: 'easeInOut' }}
+              />
+              <PacificClock /> PST
+            </span>
+          </motion.div>
 
-        {/* Body + Terminal */}
-        <motion.div
-          initial={{ opacity: 0, y: 14 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.7, delay: 0.35, ease: [0.16, 1, 0.3, 1] }}
-          className="flex flex-col lg:flex-row gap-10 w-full"
-        >
-          <div className="flex flex-col gap-6 max-w-lg">
-            <p className="text-white/55 text-base leading-relaxed">
-              Big Tech wants your intelligence on their servers, rented by the month,
-              extracted by the quarter. Manteis Systems builds private local AI
-              infrastructure that belongs to you — your data, your hardware, your future.
-            </p>
-            <p className="font-mono text-[11px] text-white/30 tracking-wide">
-              Pacific Northwest · Est. 1998 · No cloud. No compromise.
-            </p>
-            <div className="flex gap-4 flex-wrap">
-              <a href="mailto:rhett@manteissystems.com">
-                <Button variant="primary" size="lg">
-                  INITIATE SOVEREIGNTY AUDIT
-                </Button>
-              </a>
-              <a
-                href="#systems"
-                className="flex items-center gap-2 font-mono text-[11px] tracking-widest uppercase text-white/40 hover:text-white transition-colors self-center"
-              >
-                VIEW SERVICES <ArrowRight size={12} />
+          {/* H1 — staggers in on load */}
+          <h1 className="font-display font-bold text-[clamp(38px,7.5vw,96px)] leading-[0.9] tracking-tight flex flex-col overflow-hidden w-full">
+            <motion.span
+              initial={{ opacity: 0, y: 48 }} animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 1, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
+              className="block"
+            >
+              <GradientText from="#FFFFFF" via="#7AA9FF" to="#FFFFFF">DEPHASING THE</GradientText>
+            </motion.span>
+            <motion.span
+              initial={{ opacity: 0, y: 48 }} animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 1, delay: 0.22, ease: [0.16, 1, 0.3, 1] }}
+              className="block text-white/30"
+            >CORPORATE</motion.span>
+            <motion.span
+              initial={{ opacity: 0, y: 48 }} animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 1, delay: 0.34, ease: [0.16, 1, 0.3, 1] }}
+              className="block text-white/30"
+            >MACHINE<span className="text-signal-blue">.</span></motion.span>
+          </h1>
+
+          {/* Subhead */}
+          <motion.div
+            initial={{ opacity: 0, y: 14 }} animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.5, ease: [0.16, 1, 0.3, 1] }}
+            className="font-mono text-[11px] tracking-[0.25em] uppercase text-white/35"
+          >
+            UNIFIED INTELLIGENCE INFRASTRUCTURE
+          </motion.div>
+
+          {/* Body + Terminal — visible from the start */}
+          <motion.div
+            initial={{ opacity: 0, y: 14 }} animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.9, delay: 0.6, ease: [0.16, 1, 0.3, 1] }}
+            className="flex flex-col lg:flex-row gap-10 w-full"
+          >
+            <div className="flex flex-col gap-6 max-w-lg">
+              <p className="text-white/60 text-base leading-relaxed">
+                Big Tech wants your intelligence on their servers, rented by the month,
+                extracted by the quarter. Manteis Systems builds private local AI
+                infrastructure that belongs to you — your data, your hardware, your future.
+              </p>
+              <p className="font-mono text-[11px] text-white/30 tracking-wide">
+                Pacific Northwest · Est. 1998 · No cloud. No compromise.
+              </p>
+            </div>
+            <TerminalLog />
+          </motion.div>
+
+          {/* CTA */}
+          <motion.div
+            initial={{ opacity: 0, y: 14 }} animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.9, delay: 0.75, ease: [0.16, 1, 0.3, 1] }}
+            className="flex flex-col gap-4"
+          >
+            <div className="flex gap-4 flex-wrap items-center">
+              <Magnetic strength={0.25} radius={140}>
+                <a href="mailto:rhett@manteissystems.com">
+                  <Button variant="primary" size="lg">INITIATE SOVEREIGNTY AUDIT</Button>
+                </a>
+              </Magnetic>
+              <a href="#systems"
+                className="group flex items-center gap-2 font-mono text-[11px] tracking-widest uppercase text-white/40 hover:text-white transition-colors self-center">
+                VIEW SERVICES
+                <motion.span
+                  className="inline-block"
+                  animate={{ x: [0, 4, 0] }}
+                  transition={{ duration: 1.8, repeat: Infinity, ease: 'easeInOut' }}
+                >
+                  <ArrowRight size={12} />
+                </motion.span>
               </a>
             </div>
-          </div>
-          <TerminalLog />
+            <div className="font-mono text-[9px] tracking-[0.25em] uppercase text-white/15">
+              [47.6062° N, 122.3321° W] · PACIFIC_NODE_01
+            </div>
+          </motion.div>
         </motion.div>
 
-        {/* Coordinate badge */}
+        {/* Scroll hint */}
         <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 1.2, delay: 0.8 }}
-          className="font-mono text-[9px] tracking-[0.25em] uppercase text-white/15"
+          style={{ opacity: scrollHintOp }}
+          className="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 pointer-events-none"
         >
-          [47.6062° N, 122.3321° W] · PACIFIC_NODE_01
+          <span className="font-mono text-[8px] tracking-[0.3em] uppercase text-white/25">SCROLL</span>
+          <motion.div
+            className="w-px h-10 bg-gradient-to-b from-white/30 to-transparent"
+            animate={{ scaleY: [1, 0.3, 1], opacity: [0.5, 1, 0.5] }}
+            transition={{ duration: 2, repeat: Infinity, ease: 'easeInOut' }}
+          />
         </motion.div>
-      </motion.div>
-
-      {/* Scroll indicator */}
-      <motion.div
-        className="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2"
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: 1.6, duration: 1 }}
-      >
-        <span className="font-mono text-[8px] tracking-[0.3em] uppercase text-white/20">SCROLL</span>
-        <motion.div
-          className="w-px h-10 bg-gradient-to-b from-white/20 to-transparent"
-          animate={{ scaleY: [1, 0.3, 1], opacity: [0.5, 1, 0.5] }}
-          transition={{ duration: 2, repeat: Infinity, ease: 'easeInOut' }}
-        />
-      </motion.div>
-    </section>
+      </div>
+    </div>
   );
 }
 
@@ -414,6 +462,295 @@ function Marquee() {
         ))}
       </motion.div>
     </div>
+  );
+}
+
+// ─── Sovereign Node Anatomy — animated architecture diagram ──────────────────
+function SovereignNodeDiagram() {
+  const ref = useRef<HTMLDivElement>(null);
+  const inView = useInView(ref, { once: true, margin: '-120px' });
+
+  // Node positions on a 900×520 canvas
+  const NODES = [
+    { id: 'user',   x: 70,  y: 260, w: 110, h: 60, label: 'USER QUERY',  kind: 'ext', color: '#FFFFFF' },
+    { id: 'xen',    x: 260, y: 120, w: 150, h: 68, label: 'XEN AGENT',   sub: 'ORCHESTRATOR', color: '#0057FF' },
+    { id: 'ollama', x: 500, y: 120, w: 150, h: 68, label: 'OLLAMA',      sub: 'LLAMA 3.3 · PHI-4', color: '#FF6EC7' },
+    { id: 'chroma', x: 260, y: 340, w: 150, h: 68, label: 'CHROMADB',    sub: 'VECTOR STORE', color: '#00D4A8' },
+    { id: 'disk',   x: 500, y: 340, w: 150, h: 68, label: 'YOUR DATA',   sub: 'LOCAL · ENCRYPTED', color: '#FFB547' },
+    { id: 'cloud',  x: 730, y: 260, w: 110, h: 60, label: 'CLOUD ⊘',    kind: 'blocked', color: '#FF0044' },
+  ];
+  const center = (n: typeof NODES[number]) => ({ cx: n.x + n.w / 2, cy: n.y + n.h / 2 });
+  const map = Object.fromEntries(NODES.map(n => [n.id, n])) as Record<string, typeof NODES[number]>;
+
+  // Edges: [from, to, color, animated?]
+  const EDGES: Array<{ from: string; to: string; color: string; flow: boolean; dashed?: boolean }> = [
+    { from: 'user',   to: 'xen',    color: '#0057FF', flow: true },
+    { from: 'xen',    to: 'ollama', color: '#FF6EC7', flow: true },
+    { from: 'xen',    to: 'chroma', color: '#00D4A8', flow: true },
+    { from: 'ollama', to: 'chroma', color: '#7AA9FF', flow: true },
+    { from: 'chroma', to: 'disk',   color: '#FFB547', flow: true },
+    { from: 'ollama', to: 'user',   color: '#FFFFFF', flow: true },
+  ];
+
+  return (
+    <section ref={ref} className="relative px-8 py-32 border-t border-white/[0.06] overflow-hidden">
+      {/* Subtle grid background */}
+      <div
+        className="absolute inset-0 opacity-[0.04] pointer-events-none"
+        style={{
+          backgroundImage:
+            'linear-gradient(rgba(255,255,255,0.4) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.4) 1px, transparent 1px)',
+          backgroundSize: '48px 48px',
+          maskImage: 'radial-gradient(ellipse at center, black 40%, transparent 75%)',
+        }}
+      />
+
+      <div className="relative max-w-6xl mx-auto">
+        <motion.div
+          initial={{ opacity: 0, y: 10 }}
+          animate={inView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.6 }}
+          className="font-mono text-[9px] tracking-[0.35em] uppercase text-signal-blue mb-4"
+        >
+          // ANATOMY · LIVE TOPOLOGY
+        </motion.div>
+        <motion.h2
+          initial={{ opacity: 0, y: 15 }}
+          animate={inView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.7, delay: 0.08, ease: [0.16, 1, 0.3, 1] }}
+          className="font-display font-bold text-[clamp(30px,4.5vw,56px)] leading-[0.95] tracking-tight mb-4 max-w-3xl"
+        >
+          <GradientText from="#FFFFFF" via="#7AA9FF" to="#FFFFFF">INSIDE THE</GradientText>
+          <br />
+          <span className="text-white/30">SOVEREIGN NODE.</span>
+        </motion.h2>
+        <motion.p
+          initial={{ opacity: 0, y: 10 }}
+          animate={inView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.7, delay: 0.2 }}
+          className="text-white/55 text-base leading-relaxed max-w-xl mb-14"
+        >
+          Every query stays on your hardware. Your agent orchestrator routes
+          intent. Your local models think. Your vector store remembers. Your
+          data never leaves your LAN. Watch the flow:
+        </motion.p>
+
+        <motion.div
+          initial={{ opacity: 0, scale: 0.97 }}
+          animate={inView ? { opacity: 1, scale: 1 } : {}}
+          transition={{ duration: 1, delay: 0.25, ease: [0.16, 1, 0.3, 1] }}
+          className="relative border border-white/[0.08] bg-void-raised p-4 sm:p-8"
+        >
+          {/* Header bar */}
+          <div className="flex items-center justify-between gap-3 mb-4 pb-3 border-b border-white/[0.06]">
+            <div className="flex items-center gap-3 min-w-0">
+              <div className="flex gap-1.5 shrink-0">
+                <span className="w-2 h-2 rounded-full bg-[#FF5F56]" />
+                <span className="w-2 h-2 rounded-full bg-[#FFBD2E]" />
+                <span className="w-2 h-2 rounded-full bg-[#27C93F]" />
+              </div>
+              <span className="font-mono text-[9px] tracking-[0.25em] uppercase text-white/35 truncate hidden sm:inline">
+                sovereign_node_01.topology
+              </span>
+              <span className="font-mono text-[9px] tracking-[0.2em] uppercase text-white/35 sm:hidden">
+                sovereign_node_01
+              </span>
+            </div>
+            <div className="flex items-center gap-2 font-mono text-[9px] tracking-[0.25em] uppercase text-signal-teal shrink-0">
+              <motion.span
+                className="inline-block w-1.5 h-1.5 rounded-full bg-signal-teal"
+                animate={{ opacity: [1, 0.2, 1] }}
+                transition={{ duration: 1.4, repeat: Infinity }}
+              />
+              <span className="hidden sm:inline">LIVE · 0 EGRESS</span>
+              <span className="sm:hidden">LIVE</span>
+            </div>
+          </div>
+
+          <svg
+            viewBox="0 0 900 520"
+            className="w-full h-auto"
+            preserveAspectRatio="xMidYMid meet"
+            role="img"
+            aria-label="Sovereign Node architecture diagram"
+          >
+            <defs>
+              <filter id="nd-glow" x="-50%" y="-50%" width="200%" height="200%">
+                <feGaussianBlur stdDeviation="3" result="b" />
+                <feMerge><feMergeNode in="b" /><feMergeNode in="SourceGraphic" /></feMerge>
+              </filter>
+              {NODES.map(n => (
+                <linearGradient key={`g-${n.id}`} id={`g-${n.id}`} x1="0" y1="0" x2="1" y2="1">
+                  <stop offset="0%" stopColor={n.color} stopOpacity="0.18" />
+                  <stop offset="100%" stopColor={n.color} stopOpacity="0.04" />
+                </linearGradient>
+              ))}
+            </defs>
+
+            {/* LAN boundary */}
+            <motion.rect
+              x="200" y="50" width="500" height="420" rx="4"
+              fill="none"
+              stroke="rgba(0,87,255,0.35)"
+              strokeWidth="1"
+              strokeDasharray="4 6"
+              initial={{ pathLength: 0, opacity: 0 }}
+              animate={inView ? { pathLength: 1, opacity: 1 } : {}}
+              transition={{ duration: 1.4, delay: 0.4, ease: 'easeInOut' }}
+            />
+            <text
+              x="210" y="42"
+              fill="rgba(0,87,255,0.55)"
+              fontFamily="var(--font-mono), monospace"
+              fontSize="10"
+              letterSpacing="2"
+            >
+              LAN BOUNDARY · 0.0.0.0/0 DENIED
+            </text>
+
+            {/* Edges */}
+            {EDGES.map((e, i) => {
+              const a = center(map[e.from]);
+              const b = center(map[e.to]);
+              return (
+                <g key={`edge-${i}`}>
+                  <motion.line
+                    x1={a.cx} y1={a.cy} x2={b.cx} y2={b.cy}
+                    stroke={e.color}
+                    strokeOpacity="0.22"
+                    strokeWidth="1"
+                    initial={{ pathLength: 0 }}
+                    animate={inView ? { pathLength: 1 } : {}}
+                    transition={{ duration: 1, delay: 0.6 + i * 0.08 }}
+                  />
+                  {e.flow && (
+                    <motion.circle
+                      r="3"
+                      fill={e.color}
+                      filter="url(#nd-glow)"
+                      initial={{ opacity: 0 }}
+                      animate={
+                        inView
+                          ? {
+                              cx: [a.cx, b.cx],
+                              cy: [a.cy, b.cy],
+                              opacity: [0, 1, 1, 0],
+                            }
+                          : {}
+                      }
+                      transition={{
+                        duration: 2.2,
+                        delay: 1.2 + i * 0.35,
+                        repeat: Infinity,
+                        repeatDelay: 0.4,
+                        ease: 'easeInOut',
+                      }}
+                    />
+                  )}
+                </g>
+              );
+            })}
+
+            {/* Blocked cloud edge — red X */}
+            <motion.line
+              x1={center(map.ollama).cx} y1={center(map.ollama).cy}
+              x2={center(map.cloud).cx}  y2={center(map.cloud).cy}
+              stroke="#FF0044"
+              strokeOpacity="0.25"
+              strokeWidth="1"
+              strokeDasharray="3 5"
+              initial={{ pathLength: 0 }}
+              animate={inView ? { pathLength: 1 } : {}}
+              transition={{ duration: 1, delay: 1 }}
+            />
+            <motion.text
+              x={(center(map.ollama).cx + center(map.cloud).cx) / 2}
+              y={(center(map.ollama).cy + center(map.cloud).cy) / 2 - 8}
+              fill="#FF3355"
+              fillOpacity="0.85"
+              fontFamily="var(--font-mono), monospace"
+              fontSize="9"
+              letterSpacing="1.5"
+              textAnchor="middle"
+              initial={{ opacity: 0 }}
+              animate={inView ? { opacity: 1 } : {}}
+              transition={{ duration: 0.6, delay: 1.6 }}
+            >
+              EGRESS BLOCKED
+            </motion.text>
+
+            {/* Nodes */}
+            {NODES.map((n, i) => {
+              const isBlocked = n.kind === 'blocked';
+              const isExt = n.kind === 'ext';
+              return (
+                <motion.g
+                  key={n.id}
+                  initial={{ opacity: 0, scale: 0.85 }}
+                  animate={inView ? { opacity: 1, scale: 1 } : {}}
+                  transition={{ duration: 0.7, delay: 0.2 + i * 0.1, ease: [0.16, 1, 0.3, 1] }}
+                >
+                  <rect
+                    x={n.x} y={n.y} width={n.w} height={n.h} rx="2"
+                    fill={`url(#g-${n.id})`}
+                    stroke={n.color}
+                    strokeOpacity={isBlocked ? 0.55 : 0.8}
+                    strokeWidth="1"
+                  />
+                  {/* Subtle pulse border on active nodes */}
+                  {!isBlocked && !isExt && (
+                    <motion.rect
+                      x={n.x} y={n.y} width={n.w} height={n.h} rx="2"
+                      fill="none"
+                      stroke={n.color}
+                      strokeOpacity="0.5"
+                      strokeWidth="1"
+                      animate={{ opacity: [0.5, 0, 0.5] }}
+                      transition={{ duration: 3, repeat: Infinity, delay: i * 0.4, ease: 'easeInOut' }}
+                    />
+                  )}
+                  <text
+                    x={n.x + n.w / 2}
+                    y={n.y + (n.sub ? n.h / 2 - 4 : n.h / 2 + 4)}
+                    textAnchor="middle"
+                    fill={n.color}
+                    fillOpacity={isBlocked ? 0.7 : 1}
+                    fontFamily="var(--font-display), sans-serif"
+                    fontWeight="700"
+                    fontSize="13"
+                    letterSpacing="1"
+                  >
+                    {n.label}
+                  </text>
+                  {n.sub && (
+                    <text
+                      x={n.x + n.w / 2}
+                      y={n.y + n.h / 2 + 14}
+                      textAnchor="middle"
+                      fill="rgba(255,255,255,0.45)"
+                      fontFamily="var(--font-mono), monospace"
+                      fontSize="8.5"
+                      letterSpacing="1.5"
+                    >
+                      {n.sub}
+                    </text>
+                  )}
+                </motion.g>
+              );
+            })}
+          </svg>
+
+          {/* Legend */}
+          <div className="mt-6 pt-4 border-t border-white/[0.06] flex flex-wrap gap-x-6 gap-y-2 font-mono text-[9px] tracking-[0.25em] uppercase text-white/40">
+            <span className="flex items-center gap-2"><span className="w-1.5 h-1.5 bg-signal-blue" />ORCHESTRATION</span>
+            <span className="flex items-center gap-2"><span className="w-1.5 h-1.5 bg-signal-pink" />INFERENCE</span>
+            <span className="flex items-center gap-2"><span className="w-1.5 h-1.5 bg-signal-teal" />MEMORY</span>
+            <span className="flex items-center gap-2"><span className="w-1.5 h-1.5 bg-[#FFB547]" />STATE</span>
+            <span className="flex items-center gap-2"><span className="w-1.5 h-1.5 bg-[#FF3355]" />DENIED</span>
+          </div>
+        </motion.div>
+      </div>
+    </section>
   );
 }
 
@@ -1036,7 +1373,7 @@ function FinalCTA() {
         transition={{ duration: 0.85, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
         className="relative font-display font-bold text-[clamp(36px,6vw,72px)] tracking-tight leading-tight mb-8"
       >
-        INITIATE<br />
+        <GradientText>INITIATE</GradientText><br />
         <span className="text-white/30">SOVEREIGNTY AUDIT.</span>
       </motion.h2>
 
@@ -1068,11 +1405,13 @@ function FinalCTA() {
         transition={{ duration: 0.6, delay: 0.34 }}
         className="relative flex flex-col items-center gap-5"
       >
-        <a href="mailto:rhett@manteissystems.com">
-          <Button variant="primary" size="lg">
-            INITIATE SOVEREIGNTY AUDIT
-          </Button>
-        </a>
+        <Magnetic strength={0.3} radius={160}>
+          <a href="mailto:rhett@manteissystems.com">
+            <Button variant="primary" size="lg">
+              INITIATE SOVEREIGNTY AUDIT
+            </Button>
+          </a>
+        </Magnetic>
         <span className="font-mono text-[9px] tracking-[0.25em] uppercase text-white/15">
           NO COMMITMENT · RESPONSE WITHIN 24 HOURS · PACIFIC TIME
         </span>
@@ -1084,7 +1423,8 @@ function FinalCTA() {
 // ─── Page ─────────────────────────────────────────────────────────────────────
 export default function Home() {
   return (
-    <main className="relative min-h-screen bg-black text-white font-body selection:bg-signal-blue/20 selection:text-signal-blue">
+    <main className="relative min-h-screen overflow-x-clip bg-black text-white font-body selection:bg-signal-blue/20 selection:text-signal-blue">
+      <NoiseGrain opacity={0.035} />
       <ScrollProgress />
       <CursorGlow />
       <Nav />
@@ -1092,6 +1432,7 @@ export default function Home() {
       <Marquee />
       <VideoSection />
       <ThreePillars />
+      <SovereignNodeDiagram />
       <Founder />
       <SystemsDeepDive />
       <CaseStudy />

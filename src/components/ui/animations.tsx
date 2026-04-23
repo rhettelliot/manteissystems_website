@@ -1,7 +1,142 @@
 "use client";
 
-import { useRef, useEffect, ReactNode } from "react";
-import { motion, useInView, useScroll, useSpring, useMotionValue, useTransform } from "motion/react";
+import { useRef, useEffect, useState, ReactNode } from "react";
+import type { MouseEvent as ReactMouseEvent } from "react";
+import { motion, useInView, useScroll, useSpring, useMotionValue, useTransform, useReducedMotion } from "motion/react";
+
+// ─── Reduced-motion safe mount ────────────────────────────────────────────────
+// Only renders children after mount — pairs with prefers-reduced-motion queries.
+export function ClientOnly({ children, fallback = null }: { children: ReactNode; fallback?: ReactNode }) {
+  const [mounted, setMounted] = useState(false);
+  useEffect(() => setMounted(true), []);
+  return <>{mounted ? children : fallback}</>;
+}
+
+// ─── Deterministic-ish pseudo-random (stable server + client) ─────────────────
+export function seededRandom(seed: number) {
+  let s = seed >>> 0;
+  return () => {
+    s = (s * 1664525 + 1013904223) >>> 0;
+    return s / 0xffffffff;
+  };
+}
+
+// ─── Magnetic wrapper — element gently follows cursor within radius ───────────
+export function Magnetic({
+  children,
+  strength = 0.35,
+  radius = 120,
+  className = "",
+}: {
+  children: ReactNode;
+  strength?: number;
+  radius?: number;
+  className?: string;
+}) {
+  const ref = useRef<HTMLDivElement>(null);
+  const x = useMotionValue(0);
+  const y = useMotionValue(0);
+  const springX = useSpring(x, { stiffness: 280, damping: 22, mass: 0.4 });
+  const springY = useSpring(y, { stiffness: 280, damping: 22, mass: 0.4 });
+  const reduced = useReducedMotion();
+
+  function onMove(e: ReactMouseEvent<HTMLDivElement>) {
+    if (reduced || !ref.current) return;
+    const r = ref.current.getBoundingClientRect();
+    const cx = r.left + r.width / 2;
+    const cy = r.top + r.height / 2;
+    const dx = e.clientX - cx;
+    const dy = e.clientY - cy;
+    const dist = Math.hypot(dx, dy);
+    if (dist > radius) { x.set(0); y.set(0); return; }
+    x.set(dx * strength);
+    y.set(dy * strength);
+  }
+  function onLeave() { x.set(0); y.set(0); }
+
+  return (
+    <motion.div
+      ref={ref}
+      onMouseMove={onMove}
+      onMouseLeave={onLeave}
+      style={{ x: springX, y: springY, display: "inline-block" }}
+      className={className}
+    >
+      {children}
+    </motion.div>
+  );
+}
+
+// ─── Gradient animated text — uses background-clip for color shimmer ──────────
+export function GradientText({
+  children,
+  className = "",
+  from = "#0057FF",
+  via = "#00D4A8",
+  to = "#FF6EC7",
+}: {
+  children: ReactNode;
+  className?: string;
+  from?: string;
+  via?: string;
+  to?: string;
+}) {
+  return (
+    <span
+      className={`bg-clip-text text-transparent ${className}`}
+      style={{
+        backgroundImage: `linear-gradient(120deg, ${from} 0%, ${via} 50%, ${to} 100%)`,
+        backgroundSize: "200% 100%",
+        animation: "gradient-shift 8s linear infinite",
+      }}
+    >
+      {children}
+    </span>
+  );
+}
+
+// ─── Noise grain overlay — analog film feel ────────────────────────────────────
+export function NoiseGrain({ opacity = 0.045 }: { opacity?: number }) {
+  return (
+    <div
+      className="pointer-events-none fixed inset-0 z-[150] mix-blend-overlay"
+      style={{ opacity }}
+      aria-hidden
+    >
+      <svg width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
+        <filter id="manteis-grain">
+          <feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="2" stitchTiles="stitch" />
+          <feColorMatrix type="saturate" values="0" />
+        </filter>
+        <rect width="100%" height="100%" filter="url(#manteis-grain)" />
+      </svg>
+    </div>
+  );
+}
+
+// ─── Live Pacific clock — ticking indicator, reinforces PNW positioning ──────
+export function PacificClock({ className = "" }: { className?: string }) {
+  const [time, setTime] = useState<string>("");
+  useEffect(() => {
+    const update = () => {
+      const d = new Date();
+      const parts = new Intl.DateTimeFormat("en-US", {
+        hour: "2-digit", minute: "2-digit", second: "2-digit",
+        hour12: false, timeZone: "America/Los_Angeles",
+      }).formatToParts(d);
+      const t = parts.filter(p => p.type !== "literal").map(p => p.value).join(":");
+      setTime(t);
+    };
+    update();
+    const id = setInterval(update, 1000);
+    return () => clearInterval(id);
+  }, []);
+  return (
+    <span className={className} suppressHydrationWarning>
+      {time || "--:--:--"}
+    </span>
+  );
+}
 
 // ─── Text reveal: word-by-word blur fade-in ───────────────────────────────────
 export function TextReveal({

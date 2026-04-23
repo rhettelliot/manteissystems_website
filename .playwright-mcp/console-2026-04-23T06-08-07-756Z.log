@@ -1,8 +1,9 @@
-[     754ms] [INFO] %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold @ http://localhost:3000/_next/static/chunks/09_q_next_dist_0x.0718._.js:2431
-[     905ms] [LOG] [HMR] connected @ http://localhost:3000/_next/static/chunks/09_q_next_dist_0x.0718._.js:2431
-[    1372ms] [LOG] [Fast Refresh] rebuilding @ http://localhost:3000/_next/static/chunks/09_q_next_dist_0x.0718._.js:2431
-[    1379ms] [LOG] [Fast Refresh] done in 123ms @ http://localhost:3000/_next/static/chunks/09_q_next_dist_0x.0718._.js:2431
-[    1441ms] [ERROR] A tree hydrated but some attributes of the server rendered HTML didn't match the client properties. This won't be patched up. This can happen if a SSR-ed Client Component used:
+[     965ms] [INFO] %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold @ http://localhost:3000/_next/static/chunks/09_q_next_dist_0x.0718._.js:2431
+[    1164ms] [LOG] [HMR] connected @ http://localhost:3000/_next/static/chunks/09_q_next_dist_0x.0718._.js:2431
+[    1380ms] [LOG] [Fast Refresh] rebuilding @ http://localhost:3000/_next/static/chunks/09_q_next_dist_0x.0718._.js:2431
+[    1486ms] [LOG] [Fast Refresh] done in 222ms @ http://localhost:3000/_next/static/chunks/09_q_next_dist_0x.0718._.js:2431
+[    1814ms] [LOG] [Fast Refresh] rebuilding @ http://localhost:3000/_next/static/chunks/09_q_next_dist_0x.0718._.js:2431
+[    1838ms] [ERROR] A tree hydrated but some attributes of the server rendered HTML didn't match the client properties. This won't be patched up. This can happen if a SSR-ed Client Component used:
 
 - A server/client branch `if (typeof window !== 'undefined')`.
 - Variable input such as `Date.now()` or `Math.random()` which changes each time it's called.
@@ -40,18 +41,18 @@ It can also happen if the client has a browser extension installed which messes 
                       <AnimatedOrbs>
                       <FloatingParticles>
                         <div className="absolute i...">
-                          <motion.div className="absolute r..." style={{left:"76.1...", ...}} ...>
+                          <motion.div className="absolute r..." style={{left:"51.2...", ...}} ...>
                             <div
                               className="absolute rounded-full"
                               style={{
-+                               left: "76.17668765848471%"
--                               left: "70.1726%"
++                               left: "51.29420848598011%"
+-                               left: "51.1629%"
 +                               bottom: 0
 -                               bottom: "0px"
-+                               width: 1.1889617207073773
--                               width: "1.45365px"
-+                               height: 1.1889617207073773
--                               height: "1.45365px"
++                               width: 0.9607243844234072
+-                               width: "1.55987px"
++                               height: 0.9607243844234072
+-                               height: "1.55987px"
 +                               background: "rgba(0,87,255,0.6)"
 -                               background-image: "initial"
 -                               background-position-x: "initial"
@@ -65,18 +66,18 @@ It can also happen if the client has a browser extension installed which messes 
                               }}
                               ref={function useMotionRef.useCallback}
                             >
-                          <motion.div className="absolute r..." style={{left:"95.3...", ...}} ...>
+                          <motion.div className="absolute r..." style={{left:"24.4...", ...}} ...>
                             <div
                               className="absolute rounded-full"
                               style={{
-+                               left: "95.35721685865954%"
--                               left: "14.1451%"
++                               left: "24.470875523196167%"
+-                               left: "56.1656%"
 +                               bottom: 0
 -                               bottom: "0px"
-+                               width: 1.025041245052226
--                               width: "2.90869px"
-+                               height: 1.025041245052226
--                               height: "2.90869px"
++                               width: 1.4427938888260508
+-                               width: "2.16326px"
++                               height: 1.4427938888260508
+-                               height: "2.16326px"
 +                               background: "rgba(255,110,199,0.5)"
 -                               background-image: "initial"
 -                               background-position-x: "initial"
@@ -90,18 +91,18 @@ It can also happen if the client has a browser extension installed which messes 
                               }}
                               ref={function useMotionRef.useCallback}
                             >
-                          <motion.div className="absolute r..." style={{left:"71.1...", ...}} ...>
+                          <motion.div className="absolute r..." style={{left:"61.8...", ...}} ...>
                             <div
                               className="absolute rounded-full"
                               style={{
-+                               left: "71.18784244799905%"
--                               left: "16.1057%"
++                               left: "61.83311603827361%"
+-                               left: "62.5689%"
 +                               bottom: 0
 -                               bottom: "0px"
-+                               width: 3.131844192515275
--                               width: "1.02521px"
-+                               height: 3.131844192515275
--                               height: "1.02521px"
++                               width: 1.9946338454011812
+-                               width: "2.91701px"
++                               height: 1.9946338454011812
+-                               height: "2.91701px"
 +                               background: "rgba(0,212,168,0.5)"
 -                               background-image: "initial"
 -                               background-position-x: "initial"
@@ -115,18 +116,18 @@ It can also happen if the client has a browser extension installed which messes 
                               }}
                               ref={function useMotionRef.useCallback}
                             >
-                          <motion.div className="absolute r..." style={{left:"98.4...", ...}} ...>
+                          <motion.div className="absolute r..." style={{left:"26.2...", ...}} ...>
                             <div
                               className="absolute rounded-full"
                               style={{
-+                               left: "98.41486547818482%"
--                               left: "13.5854%"
++                               left: "26.221596710621455%"
+-                               left: "85.2129%"
 +                               bottom: 0
 -                               bottom: "0px"
-+                               width: 1.0976393762519971
--                               width: "1.46995px"
-+                               height: 1.0976393762519971
--                               height: "1.46995px"
++                               width: 3.288089386561772
+-                               width: "1.81696px"
++                               height: 3.288089386561772
+-                               height: "1.81696px"
 +                               background: "rgba(0,87,255,0.6)"
 -                               background-image: "initial"
 -                               background-position-x: "initial"
@@ -140,18 +141,18 @@ It can also happen if the client has a browser extension installed which messes 
                               }}
                               ref={function useMotionRef.useCallback}
                             >
-                          <motion.div className="absolute r..." style={{left:"2.07...", ...}} ...>
+                          <motion.div className="absolute r..." style={{left:"60.6...", ...}} ...>
                             <div
                               className="absolute rounded-full"
                               style={{
-+                               left: "2.0746076269369085%"
--                               left: "64.4603%"
++                               left: "60.67346446244066%"
+-                               left: "89.1148%"
 +                               bottom: 0
 -                               bottom: "0px"
-+                               width: 3.0723726083127527
--                               width: "1.40905px"
-+                               height: 3.0723726083127527
--                               height: "1.40905px"
++                               width: 2.4215633806503956
+-                               width: "1.85233px"
++                               height: 2.4215633806503956
+-                               height: "1.85233px"
 +                               background: "rgba(255,110,199,0.5)"
 -                               background-image: "initial"
 -                               background-position-x: "initial"
@@ -165,18 +166,18 @@ It can also happen if the client has a browser extension installed which messes 
                               }}
                               ref={function useMotionRef.useCallback}
                             >
-                          <motion.div className="absolute r..." style={{left:"54.7...", ...}} ...>
+                          <motion.div className="absolute r..." style={{left:"65.5...", ...}} ...>
                             <div
                               className="absolute rounded-full"
                               style={{
-+                               left: "54.75356030997418%"
--                               left: "71.2712%"
++                               left: "65.54449777654085%"
+-                               left: "45.0094%"
 +                               bottom: 0
 -                               bottom: "0px"
-+                               width: 1.1643297171579783
--                               width: "2.99893px"
-+                               height: 1.1643297171579783
--                               height: "2.99893px"
++                               width: 1.2150409946300014
+-                               width: "1.41095px"
++                               height: 1.2150409946300014
+-                               height: "1.41095px"
 +                               background: "rgba(0,212,168,0.5)"
 -                               background-image: "initial"
 -                               background-position-x: "initial"
@@ -190,18 +191,18 @@ It can also happen if the client has a browser extension installed which messes 
                               }}
                               ref={function useMotionRef.useCallback}
                             >
-                          <motion.div className="absolute r..." style={{left:"52.4...", ...}} ...>
+                          <motion.div className="absolute r..." style={{left:"95.9...", ...}} ...>
                             <div
                               className="absolute rounded-full"
                               style={{
-+                               left: "52.487178848065284%"
--                               left: "48.5082%"
++                               left: "95.98538926032121%"
+-                               left: "25.0502%"
 +                               bottom: 0
 -                               bottom: "0px"
-+                               width: 1.0022506248107819
--                               width: "1.42236px"
-+                               height: 1.0022506248107819
--                               height: "1.42236px"
++                               width: 1.538462336809829
+-                               width: "3.0172px"
++                               height: 1.538462336809829
+-                               height: "3.0172px"
 +                               background: "rgba(0,87,255,0.6)"
 -                               background-image: "initial"
 -                               background-position-x: "initial"
@@ -215,18 +216,18 @@ It can also happen if the client has a browser extension installed which messes 
                               }}
                               ref={function useMotionRef.useCallback}
                             >
-                          <motion.div className="absolute r..." style={{left:"35.5...", ...}} ...>
+                          <motion.div className="absolute r..." style={{left:"3.13...", ...}} ...>
                             <div
                               className="absolute rounded-full"
                               style={{
-+                               left: "35.590767611921294%"
--                               left: "51.6787%"
++                               left: "3.1341150592606004%"
+-                               left: "74.9499%"
 +                               bottom: 0
 -                               bottom: "0px"
-+                               width: 2.7017920854050406
--                               width: "1.48362px"
-+                               height: 2.7017920854050406
--                               height: "1.48362px"
++                               width: 1.131386633081774
+-                               width: "3.29749px"
++                               height: 1.131386633081774
+-                               height: "3.29749px"
 +                               background: "rgba(255,110,199,0.5)"
 -                               background-image: "initial"
 -                               background-position-x: "initial"
@@ -240,18 +241,18 @@ It can also happen if the client has a browser extension installed which messes 
                               }}
                               ref={function useMotionRef.useCallback}
                             >
-                          <motion.div className="absolute r..." style={{left:"77.0...", ...}} ...>
+                          <motion.div className="absolute r..." style={{left:"62.2...", ...}} ...>
                             <div
                               className="absolute rounded-full"
                               style={{
-+                               left: "77.04856065802139%"
--                               left: "94.9532%"
++                               left: "62.28804078519683%"
+-                               left: "26.3388%"
 +                               bottom: 0
 -                               bottom: "0px"
-+                               width: 0.9615372695202328
--                               width: "3.12811px"
-+                               height: 0.9615372695202328
--                               height: "3.12811px"
++                               width: 1.1221419010123808
+-                               width: "0.91005px"
++                               height: 1.1221419010123808
+-                               height: "0.91005px"
 +                               background: "rgba(0,212,168,0.5)"
 -                               background-image: "initial"
 -                               background-position-x: "initial"
@@ -265,18 +266,18 @@ It can also happen if the client has a browser extension installed which messes 
                               }}
                               ref={function useMotionRef.useCallback}
                             >
-                          <motion.div className="absolute r..." style={{left:"65.9...", ...}} ...>
+                          <motion.div className="absolute r..." style={{left:"46.1...", ...}} ...>
                             <div
                               className="absolute rounded-full"
                               style={{
-+                               left: "65.98894773911854%"
--                               left: "80.5316%"
++                               left: "46.12465675645815%"
+-                               left: "45.7673%"
 +                               bottom: 0
 -                               bottom: "0px"
-+                               width: 1.9624439920693695
--                               width: "1.0265px"
-+                               height: 1.9624439920693695
--                               height: "1.0265px"
++                               width: 2.3142819108720483
+-                               width: "1.97292px"
++                               height: 2.3142819108720483
+-                               height: "1.97292px"
 +                               background: "rgba(0,87,255,0.6)"
 -                               background-image: "initial"
 -                               background-position-x: "initial"
@@ -290,18 +291,18 @@ It can also happen if the client has a browser extension installed which messes 
                               }}
                               ref={function useMotionRef.useCallback}
                             >
-                          <motion.div className="absolute r..." style={{left:"49.5...", ...}} ...>
+                          <motion.div className="absolute r..." style={{left:"99.8...", ...}} ...>
                             <div
                               className="absolute rounded-full"
                               style={{
-+                               left: "49.525049137860535%"
--                               left: "84.6428%"
++                               left: "99.82765974261628%"
+-                               left: "28.9242%"
 +                               bottom: 0
 -                               bottom: "0px"
-+                               width: 2.810353345522091
--                               width: "1.56392px"
-+                               height: 2.810353345522091
--                               height: "1.56392px"
++                               width: 3.0389164655315026
+-                               width: "2.51499px"
++                               height: 3.0389164655315026
+-                               height: "2.51499px"
 +                               background: "rgba(255,110,199,0.5)"
 -                               background-image: "initial"
 -                               background-position-x: "initial"
@@ -315,18 +316,18 @@ It can also happen if the client has a browser extension installed which messes 
                               }}
                               ref={function useMotionRef.useCallback}
                             >
-                          <motion.div className="absolute r..." style={{left:"77.5...", ...}} ...>
+                          <motion.div className="absolute r..." style={{left:"33.1...", ...}} ...>
                             <div
                               className="absolute rounded-full"
                               style={{
-+                               left: "77.50900116846746%"
--                               left: "21.4459%"
++                               left: "33.1971409333908%"
+-                               left: "52.1043%"
 +                               bottom: 0
 -                               bottom: "0px"
-+                               width: 2.1960648031550063
--                               width: "1.5709px"
-+                               height: 2.1960648031550063
--                               height: "1.5709px"
++                               width: 0.9878958108965721
+-                               width: "2.07626px"
++                               height: 0.9878958108965721
+-                               height: "2.07626px"
 +                               background: "rgba(0,212,168,0.5)"
 -                               background-image: "initial"
 -                               background-position-x: "initial"
@@ -340,18 +341,18 @@ It can also happen if the client has a browser extension installed which messes 
                               }}
                               ref={function useMotionRef.useCallback}
                             >
-                          <motion.div className="absolute r..." style={{left:"92.3...", ...}} ...>
+                          <motion.div className="absolute r..." style={{left:"75.7...", ...}} ...>
                             <div
                               className="absolute rounded-full"
                               style={{
-+                               left: "92.30022782351288%"
--                               left: "64.0259%"
++                               left: "75.77703882757598%"
+-                               left: "91.8184%"
 +                               bottom: 0
 -                               bottom: "0px"
-+                               width: 1.034982645792586
--                               width: "2.73253px"
-+                               height: 1.034982645792586
--                               height: "2.73253px"
++                               width: 2.4205306000982048
+-                               width: "0.978663px"
++                               height: 2.4205306000982048
+-                               height: "0.978663px"
 +                               background: "rgba(0,87,255,0.6)"
 -                               background-image: "initial"
 -                               background-position-x: "initial"
@@ -365,18 +366,18 @@ It can also happen if the client has a browser extension installed which messes 
                               }}
                               ref={function useMotionRef.useCallback}
                             >
-                          <motion.div className="absolute r..." style={{left:"90.8...", ...}} ...>
+                          <motion.div className="absolute r..." style={{left:"64.0...", ...}} ...>
                             <div
                               className="absolute rounded-full"
                               style={{
-+                               left: "90.89441463960864%"
--                               left: "91.2557%"
++                               left: "64.07669955187619%"
+-                               left: "85.2256%"
 +                               bottom: 0
 -                               bottom: "0px"
-+                               width: 1.9113291879323693
--                               width: "1.36724px"
-+                               height: 1.9113291879323693
--                               height: "1.36724px"
++                               width: 2.4629446490224653
+-                               width: "2.56817px"
++                               height: 2.4629446490224653
+-                               height: "2.56817px"
 +                               background: "rgba(255,110,199,0.5)"
 -                               background-image: "initial"
 -                               background-position-x: "initial"
@@ -390,18 +391,18 @@ It can also happen if the client has a browser extension installed which messes 
                               }}
                               ref={function useMotionRef.useCallback}
                             >
-                          <motion.div className="absolute r..." style={{left:"7.54...", ...}} ...>
+                          <motion.div className="absolute r..." style={{left:"24.9...", ...}} ...>
                             <div
                               className="absolute rounded-full"
                               style={{
-+                               left: "7.5422510898304544%"
--                               left: "32.8637%"
++                               left: "24.911780162228492%"
+-                               left: "7.32369%"
 +                               bottom: 0
 -                               bottom: "0px"
-+                               width: 2.5888371193506416
--                               width: "1.48385px"
-+                               height: 2.5888371193506416
--                               height: "1.48385px"
++                               width: 2.403661766977709
+-                               width: "1.5013px"
++                               height: 2.403661766977709
+-                               height: "1.5013px"
 +                               background: "rgba(0,212,168,0.5)"
 -                               background-image: "initial"
 -                               background-position-x: "initial"
@@ -415,18 +416,18 @@ It can also happen if the client has a browser extension installed which messes 
                               }}
                               ref={function useMotionRef.useCallback}
                             >
-                          <motion.div className="absolute r..." style={{left:"78.8...", ...}} ...>
+                          <motion.div className="absolute r..." style={{left:"58.4...", ...}} ...>
                             <div
                               className="absolute rounded-full"
                               style={{
-+                               left: "78.87888303178025%"
--                               left: "55.6284%"
++                               left: "58.4829012582471%"
+-                               left: "66.0022%"
 +                               bottom: 0
 -                               bottom: "0px"
-+                               width: 2.5102250361207625
--                               width: "2.49281px"
-+                               height: 2.5102250361207625
--                               height: "2.49281px"
++                               width: 3.2586552577986883
+-                               width: "1.57557px"
++                               height: 3.2586552577986883
+-                               height: "1.57557px"
 +                               background: "rgba(0,87,255,0.6)"
 -                               background-image: "initial"
 -                               background-position-x: "initial"
@@ -440,18 +441,18 @@ It can also happen if the client has a browser extension installed which messes 
                               }}
                               ref={function useMotionRef.useCallback}
                             >
-                          <motion.div className="absolute r..." style={{left:"73.2...", ...}} ...>
+                          <motion.div className="absolute r..." style={{left:"41.5...", ...}} ...>
                             <div
                               className="absolute rounded-full"
                               style={{
-+                               left: "73.29323523610095%"
--                               left: "67.103%"
++                               left: "41.55354585024181%"
+-                               left: "95.7219%"
 +                               bottom: 0
 -                               bottom: "0px"
-+                               width: 1.556681716101961
--                               width: "2.0454px"
-+                               height: 1.556681716101961
--                               height: "2.0454px"
++                               width: 3.150842822927972
+-                               width: "2.59988px"
++                               height: 3.150842822927972
+-                               height: "2.59988px"
 +                               background: "rgba(255,110,199,0.5)"
 -                               background-image: "initial"
 -                               background-position-x: "initial"
@@ -465,18 +466,18 @@ It can also happen if the client has a browser extension installed which messes 
                               }}
                               ref={function useMotionRef.useCallback}
                             >
-                          <motion.div className="absolute r..." style={{left:"19.5...", ...}} ...>
+                          <motion.div className="absolute r..." style={{left:"46.9...", ...}} ...>
                             <div
                               className="absolute rounded-full"
                               style={{
-+                               left: "19.562194248000196%"
--                               left: "58.3965%"
++                               left: "46.96043456712636%"
+-                               left: "55.3133%"
 +                               bottom: 0
 -                               bottom: "0px"
-+                               width: 3.0530798316628545
--                               width: "1.89411px"
-+                               height: 3.0530798316628545
--                               height: "1.89411px"
++                               width: 0.9964863158373467
+-                               width: "2.88677px"
++                               height: 0.9964863158373467
+-                               height: "2.88677px"
 +                               background: "rgba(0,212,168,0.5)"
 -                               background-image: "initial"
 -                               background-position-x: "initial"
@@ -490,18 +491,18 @@ It can also happen if the client has a browser extension installed which messes 
                               }}
                               ref={function useMotionRef.useCallback}
                             >
-                          <motion.div className="absolute r..." style={{left:"50.8...", ...}} ...>
+                          <motion.div className="absolute r..." style={{left:"92.8...", ...}} ...>
                             <div
                               className="absolute rounded-full"
                               style={{
-+                               left: "50.84197485257144%"
--                               left: "60.6851%"
++                               left: "92.81234385112202%"
+-                               left: "65.1087%"
 +                               bottom: 0
 -                               bottom: "0px"
-+                               width: 1.4234677033942382
--                               width: "2.67387px"
-+                               height: 1.4234677033942382
--                               height: "2.67387px"
++                               width: 3.0449722990433505
+-                               width: "2.78281px"
++                               height: 3.0449722990433505
+-                               height: "2.78281px"
 +                               background: "rgba(0,87,255,0.6)"
 -                               background-image: "initial"
 -                               background-position-x: "initial"
@@ -515,18 +516,18 @@ It can also happen if the client has a browser extension installed which messes 
                               }}
                               ref={function useMotionRef.useCallback}
                             >
-                          <motion.div className="absolute r..." style={{left:"83.8...", ...}} ...>
+                          <motion.div className="absolute r..." style={{left:"96.8...", ...}} ...>
                             <div
                               className="absolute rounded-full"
                               style={{
-+                               left: "83.81863122384925%"
--                               left: "56.4527%"
++                               left: "96.86626840356031%"
+-                               left: "89.4979%"
 +                               bottom: 0
 -                               bottom: "0px"
-+                               width: 1.5334462045910922
--                               width: "2.65729px"
-+                               height: 1.5334462045910922
--                               height: "2.65729px"
++                               width: 1.4049712489991657
+-                               width: "1.45522px"
++                               height: 1.4049712489991657
+-                               height: "1.45522px"
 +                               background: "rgba(255,110,199,0.5)"
 -                               background-image: "initial"
 -                               background-position-x: "initial"
@@ -540,18 +541,18 @@ It can also happen if the client has a browser extension installed which messes 
                               }}
                               ref={function useMotionRef.useCallback}
                             >
-                          <motion.div className="absolute r..." style={{left:"87.5...", ...}} ...>
+                          <motion.div className="absolute r..." style={{left:"79.5...", ...}} ...>
                             <div
                               className="absolute rounded-full"
                               style={{
-+                               left: "87.59902244373833%"
--                               left: "95.5127%"
++                               left: "79.56463365343969%"
+-                               left: "47.2448%"
 +                               bottom: 0
 -                               bottom: "0px"
-+                               width: 1.5031888658356258
--                               width: "2.66624px"
-+                               height: 1.5031888658356258
--                               height: "2.66624px"
++                               width: 1.7251437164889396
+-                               width: "2.69527px"
++                               height: 1.7251437164889396
+-                               height: "2.69527px"
 +                               background: "rgba(0,212,168,0.5)"
 -                               background-image: "initial"
 -                               background-position-x: "initial"
@@ -565,18 +566,18 @@ It can also happen if the client has a browser extension installed which messes 
                               }}
                               ref={function useMotionRef.useCallback}
                             >
-                          <motion.div className="absolute r..." style={{left:"32.9...", ...}} ...>
+                          <motion.div className="absolute r..." style={{left:"98.3...", ...}} ...>
                             <div
                               className="absolute rounded-full"
                               style={{
-+                               left: "32.94869355650327%"
--                               left: "10.1288%"
++                               left: "98.37311385122871%"
+-                               left: "48.643%"
 +                               bottom: 0
 -                               bottom: "0px"
-+                               width: 3.036329051581978
--                               width: "3.12495px"
-+                               height: 3.036329051581978
--                               height: "3.12495px"
++                               width: 2.319871446736741
+-                               width: "2.98631px"
++                               height: 2.319871446736741
+-                               height: "2.98631px"
 +                               background: "rgba(0,87,255,0.6)"
 -                               background-image: "initial"
 -                               background-position-x: "initial"
@@ -590,18 +591,18 @@ It can also happen if the client has a browser extension installed which messes 
                               }}
                               ref={function useMotionRef.useCallback}
                             >
-                          <motion.div className="absolute r..." style={{left:"41.2...", ...}} ...>
+                          <motion.div className="absolute r..." style={{left:"75.4...", ...}} ...>
                             <div
                               className="absolute rounded-full"
                               style={{
-+                               left: "41.23348246619125%"
--                               left: "42.4579%"
++                               left: "75.48968866407316%"
+-                               left: "11.4782%"
 +                               bottom: 0
 -                               bottom: "0px"
-+                               width: 2.1797237802732017
--                               width: "3.16712px"
-+                               height: 2.1797237802732017
--                               height: "3.16712px"
++                               width: 1.2692716558552073
+-                               width: "0.806854px"
++                               height: 1.2692716558552073
+-                               height: "0.806854px"
 +                               background: "rgba(255,110,199,0.5)"
 -                               background-image: "initial"
 -                               background-position-x: "initial"
@@ -615,18 +616,18 @@ It can also happen if the client has a browser extension installed which messes 
                               }}
                               ref={function useMotionRef.useCallback}
                             >
-                          <motion.div className="absolute r..." style={{left:"18.8...", ...}} ...>
+                          <motion.div className="absolute r..." style={{left:"9.85...", ...}} ...>
                             <div
                               className="absolute rounded-full"
                               style={{
-+                               left: "18.82520826887797%"
--                               left: "5.53912%"
++                               left: "9.856605567889098%"
+-                               left: "25.1685%"
 +                               bottom: 0
 -                               bottom: "0px"
-+                               width: 1.5094403928910998
--                               width: "2.76505px"
-+                               height: 1.5094403928910998
--                               height: "2.76505px"
++                               width: 1.7340646270169269
+-                               width: "2.82975px"
++                               height: 1.7340646270169269
+-                               height: "2.82975px"
 +                               background: "rgba(0,212,168,0.5)"
 -                               background-image: "initial"
 -                               background-position-x: "initial"
@@ -645,10 +646,35 @@ It can also happen if the client has a browser extension installed which messes 
           ...
         ...
  @ http://localhost:3000/_next/static/chunks/09_q_next_dist_0x.0718._.js:3272
-[    1462ms] [WARNING] Please ensure that the container has a non-static position, like 'relative', 'fixed', or 'absolute' to ensure scroll offset is calculated correctly. @ http://localhost:3000/_next/static/chunks/09_q_next_dist_0x.0718._.js:2431
-[  169757ms] [LOG] [Fast Refresh] rebuilding @ http://localhost:3000/_next/static/chunks/09_q_next_dist_0x.0718._.js:2431
-[  170419ms] [LOG] [Fast Refresh] done in 543ms @ http://localhost:3000/_next/static/chunks/09_q_next_dist_0x.0718._.js:2431
-[  357221ms] [LOG] [Fast Refresh] rebuilding @ http://localhost:3000/_next/static/chunks/09_q_next_dist_0x.0718._.js:2431
-[  357835ms] [LOG] [Fast Refresh] done in 424ms @ http://localhost:3000/_next/static/chunks/09_q_next_dist_0x.0718._.js:2431
-[  550628ms] [LOG] [Fast Refresh] rebuilding @ http://localhost:3000/_next/static/chunks/09_q_next_dist_0x.0718._.js:2431
-[  551154ms] [LOG] [Fast Refresh] done in 402ms @ http://localhost:3000/_next/static/chunks/09_q_next_dist_0x.0718._.js:2431
+[    1881ms] [WARNING] Please ensure that the container has a non-static position, like 'relative', 'fixed', or 'absolute' to ensure scroll offset is calculated correctly. @ http://localhost:3000/_next/static/chunks/09_q_next_dist_0x.0718._.js:2431
+[    1886ms] [LOG] [Fast Refresh] done in 181ms @ http://localhost:3000/_next/static/chunks/09_q_next_dist_0x.0718._.js:2431
+[  156501ms] [LOG] [Fast Refresh] rebuilding @ http://localhost:3000/_next/static/chunks/09_q_next_dist_0x.0718._.js:2431
+[  156518ms] [LOG] [Fast Refresh] done in 117ms @ http://localhost:3000/_next/static/chunks/09_q_next_dist_0x.0718._.js:2431
+[  299969ms] [LOG] [Fast Refresh] rebuilding @ http://localhost:3000/_next/static/chunks/09_q_next_dist_0x.0718._.js:2431
+[  303022ms] [LOG] [Fast Refresh] done in 2619ms @ http://localhost:3000/_next/static/chunks/09_q_next_dist_0x.0718._.js:2431
+[  308775ms] [LOG] [Fast Refresh] rebuilding @ http://localhost:3000/_next/static/chunks/09_q_next_dist_0x.0718._.js:2431
+[  309042ms] [LOG] [Fast Refresh] done in 377ms @ http://localhost:3000/_next/static/chunks/09_q_next_dist_0x.0718._.js:2431
+[  318952ms] [LOG] [Fast Refresh] rebuilding @ http://localhost:3000/_next/static/chunks/09_q_next_dist_0x.0718._.js:2431
+[  319445ms] [LOG] [Fast Refresh] done in 452ms @ http://localhost:3000/_next/static/chunks/09_q_next_dist_0x.0718._.js:2431
+[  334462ms] [LOG] [Fast Refresh] rebuilding @ http://localhost:3000/_next/static/chunks/09_q_next_dist_0x.0718._.js:2431
+[  334665ms] [LOG] [Fast Refresh] done in 309ms @ http://localhost:3000/_next/static/chunks/09_q_next_dist_0x.0718._.js:2431
+[  336942ms] [LOG] [Fast Refresh] rebuilding @ http://localhost:3000/_next/static/chunks/09_q_next_dist_0x.0718._.js:2431
+[  337232ms] [LOG] [Fast Refresh] done in 393ms @ http://localhost:3000/_next/static/chunks/09_q_next_dist_0x.0718._.js:2431
+[  348645ms] [LOG] [Fast Refresh] rebuilding @ http://localhost:3000/_next/static/chunks/09_q_next_dist_0x.0718._.js:2431
+[  348923ms] [LOG] [Fast Refresh] done in 163ms @ http://localhost:3000/_next/static/chunks/09_q_next_dist_0x.0718._.js:2431
+[  351657ms] [LOG] [Fast Refresh] rebuilding @ http://localhost:3000/_next/static/chunks/09_q_next_dist_0x.0718._.js:2431
+[  351746ms] [LOG] [Fast Refresh] done in 202ms @ http://localhost:3000/_next/static/chunks/09_q_next_dist_0x.0718._.js:2431
+[  363044ms] [LOG] [Fast Refresh] rebuilding @ http://localhost:3000/_next/static/chunks/09_q_next_dist_0x.0718._.js:2431
+[  363483ms] [LOG] [Fast Refresh] done in 333ms @ http://localhost:3000/_next/static/chunks/09_q_next_dist_0x.0718._.js:2431
+[  415864ms] [LOG] [Fast Refresh] rebuilding @ http://localhost:3000/_next/static/chunks/09_q_next_dist_0x.0718._.js:2431
+[  416495ms] [LOG] [Fast Refresh] done in 446ms @ http://localhost:3000/_next/static/chunks/09_q_next_dist_0x.0718._.js:2431
+[  489911ms] [LOG] [Fast Refresh] rebuilding @ http://localhost:3000/_next/static/chunks/09_q_next_dist_0x.0718._.js:2431
+[  490324ms] [LOG] [Fast Refresh] done in 334ms @ http://localhost:3000/_next/static/chunks/09_q_next_dist_0x.0718._.js:2431
+[  504027ms] [LOG] [Fast Refresh] rebuilding @ http://localhost:3000/_next/static/chunks/09_q_next_dist_0x.0718._.js:2431
+[  505398ms] [LOG] [Fast Refresh] done in 468ms @ http://localhost:3000/_next/static/chunks/09_q_next_dist_0x.0718._.js:2431
+[  512949ms] [LOG] [Fast Refresh] rebuilding @ http://localhost:3000/_next/static/chunks/09_q_next_dist_0x.0718._.js:2431
+[  513735ms] [LOG] [Fast Refresh] done in 633ms @ http://localhost:3000/_next/static/chunks/09_q_next_dist_0x.0718._.js:2431
+[  519786ms] [LOG] [Fast Refresh] rebuilding @ http://localhost:3000/_next/static/chunks/09_q_next_dist_0x.0718._.js:2431
+[  520488ms] [LOG] [Fast Refresh] done in 595ms @ http://localhost:3000/_next/static/chunks/09_q_next_dist_0x.0718._.js:2431
+[  531012ms] [LOG] [Fast Refresh] rebuilding @ http://localhost:3000/_next/static/chunks/09_q_next_dist_0x.0718._.js:2431
+[  531324ms] [LOG] [Fast Refresh] done in 452ms @ http://localhost:3000/_next/static/chunks/09_q_next_dist_0x.0718._.js:2431
