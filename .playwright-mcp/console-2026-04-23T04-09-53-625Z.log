@@ -1,0 +1,652 @@
+[     754ms] [INFO] %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold @ http://localhost:3000/_next/static/chunks/09_q_next_dist_0x.0718._.js:2431
+[     905ms] [LOG] [HMR] connected @ http://localhost:3000/_next/static/chunks/09_q_next_dist_0x.0718._.js:2431
+[    1372ms] [LOG] [Fast Refresh] rebuilding @ http://localhost:3000/_next/static/chunks/09_q_next_dist_0x.0718._.js:2431
+[    1379ms] [LOG] [Fast Refresh] done in 123ms @ http://localhost:3000/_next/static/chunks/09_q_next_dist_0x.0718._.js:2431
+[    1441ms] [ERROR] A tree hydrated but some attributes of the server rendered HTML didn't match the client properties. This won't be patched up. This can happen if a SSR-ed Client Component used:
+
+- A server/client branch `if (typeof window !== 'undefined')`.
+- Variable input such as `Date.now()` or `Math.random()` which changes each time it's called.
+- Date formatting in a user's locale which doesn't match the server.
+- External changing data without sending a snapshot of it along with the HTML.
+- Invalid HTML tag nesting.
+
+It can also happen if the client has a browser extension installed which messes with the HTML before React loaded.
+
+%s%s https://react.dev/link/hydration-mismatch 
+
+  ...
+    <RedirectBoundary>
+      <RedirectErrorBoundary router={{...}}>
+        <InnerLayoutRouter url="/" tree={[...]} params={{}} cacheNode={{rsc:{...}, ...}} segmentPath={[...]} ...>
+          <SegmentViewNode type="page" pagePath="page.tsx">
+            <SegmentTrieNode>
+            <ClientPageRoot Component={function Home} serverProvidedParams={{...}}>
+              <Home params={Promise} searchParams={Promise}>
+                <main className="relative m...">
+                  <ScrollProgress>
+                  <CursorGlow>
+                  <Nav>
+                  <Hero>
+                  <Marquee>
+                  <VideoSection>
+                  <ThreePillars>
+                  <Founder>
+                  <SystemsDeepDive>
+                  <CaseStudy>
+                  <WhatWeOffer>
+                  <Manifesto>
+                  <FinalCTA>
+                    <section ref={{current:null}} id="contact" className="relative p...">
+                      <AnimatedOrbs>
+                      <FloatingParticles>
+                        <div className="absolute i...">
+                          <motion.div className="absolute r..." style={{left:"76.1...", ...}} ...>
+                            <div
+                              className="absolute rounded-full"
+                              style={{
++                               left: "76.17668765848471%"
+-                               left: "70.1726%"
++                               bottom: 0
+-                               bottom: "0px"
++                               width: 1.1889617207073773
+-                               width: "1.45365px"
++                               height: 1.1889617207073773
+-                               height: "1.45365px"
++                               background: "rgba(0,87,255,0.6)"
+-                               background-image: "initial"
+-                               background-position-x: "initial"
+-                               background-position-y: "initial"
+-                               background-size: "initial"
+-                               background-repeat: "initial"
+-                               background-attachment: "initial"
+-                               background-origin: "initial"
+-                               background-clip: "initial"
+-                               background-color: "rgba(0, 87, 255, 0.6)"
+                              }}
+                              ref={function useMotionRef.useCallback}
+                            >
+                          <motion.div className="absolute r..." style={{left:"95.3...", ...}} ...>
+                            <div
+                              className="absolute rounded-full"
+                              style={{
++                               left: "95.35721685865954%"
+-                               left: "14.1451%"
++                               bottom: 0
+-                               bottom: "0px"
++                               width: 1.025041245052226
+-                               width: "2.90869px"
++                               height: 1.025041245052226
+-                               height: "2.90869px"
++                               background: "rgba(255,110,199,0.5)"
+-                               background-image: "initial"
+-                               background-position-x: "initial"
+-                               background-position-y: "initial"
+-                               background-size: "initial"
+-                               background-repeat: "initial"
+-                               background-attachment: "initial"
+-                               background-origin: "initial"
+-                               background-clip: "initial"
+-                               background-color: "rgba(255, 110, 199, 0.5)"
+                              }}
+                              ref={function useMotionRef.useCallback}
+                            >
+                          <motion.div className="absolute r..." style={{left:"71.1...", ...}} ...>
+                            <div
+                              className="absolute rounded-full"
+                              style={{
++                               left: "71.18784244799905%"
+-                               left: "16.1057%"
++                               bottom: 0
+-                               bottom: "0px"
++                               width: 3.131844192515275
+-                               width: "1.02521px"
++                               height: 3.131844192515275
+-                               height: "1.02521px"
++                               background: "rgba(0,212,168,0.5)"
+-                               background-image: "initial"
+-                               background-position-x: "initial"
+-                               background-position-y: "initial"
+-                               background-size: "initial"
+-                               background-repeat: "initial"
+-                               background-attachment: "initial"
+-                               background-origin: "initial"
+-                               background-clip: "initial"
+-                               background-color: "rgba(0, 212, 168, 0.5)"
+                              }}
+                              ref={function useMotionRef.useCallback}
+                            >
+                          <motion.div className="absolute r..." style={{left:"98.4...", ...}} ...>
+                            <div
+                              className="absolute rounded-full"
+                              style={{
++                               left: "98.41486547818482%"
+-                               left: "13.5854%"
++                               bottom: 0
+-                               bottom: "0px"
++                               width: 1.0976393762519971
+-                               width: "1.46995px"
++                               height: 1.0976393762519971
+-                               height: "1.46995px"
++                               background: "rgba(0,87,255,0.6)"
+-                               background-image: "initial"
+-                               background-position-x: "initial"
+-                               background-position-y: "initial"
+-                               background-size: "initial"
+-                               background-repeat: "initial"
+-                               background-attachment: "initial"
+-                               background-origin: "initial"
+-                               background-clip: "initial"
+-                               background-color: "rgba(0, 87, 255, 0.6)"
+                              }}
+                              ref={function useMotionRef.useCallback}
+                            >
+                          <motion.div className="absolute r..." style={{left:"2.07...", ...}} ...>
+                            <div
+                              className="absolute rounded-full"
+                              style={{
++                               left: "2.0746076269369085%"
+-                               left: "64.4603%"
++                               bottom: 0
+-                               bottom: "0px"
++                               width: 3.0723726083127527
+-                               width: "1.40905px"
++                               height: 3.0723726083127527
+-                               height: "1.40905px"
++                               background: "rgba(255,110,199,0.5)"
+-                               background-image: "initial"
+-                               background-position-x: "initial"
+-                               background-position-y: "initial"
+-                               background-size: "initial"
+-                               background-repeat: "initial"
+-                               background-attachment: "initial"
+-                               background-origin: "initial"
+-                               background-clip: "initial"
+-                               background-color: "rgba(255, 110, 199, 0.5)"
+                              }}
+                              ref={function useMotionRef.useCallback}
+                            >
+                          <motion.div className="absolute r..." style={{left:"54.7...", ...}} ...>
+                            <div
+                              className="absolute rounded-full"
+                              style={{
++                               left: "54.75356030997418%"
+-                               left: "71.2712%"
++                               bottom: 0
+-                               bottom: "0px"
++                               width: 1.1643297171579783
+-                               width: "2.99893px"
++                               height: 1.1643297171579783
+-                               height: "2.99893px"
++                               background: "rgba(0,212,168,0.5)"
+-                               background-image: "initial"
+-                               background-position-x: "initial"
+-                               background-position-y: "initial"
+-                               background-size: "initial"
+-                               background-repeat: "initial"
+-                               background-attachment: "initial"
+-                               background-origin: "initial"
+-                               background-clip: "initial"
+-                               background-color: "rgba(0, 212, 168, 0.5)"
+                              }}
+                              ref={function useMotionRef.useCallback}
+                            >
+                          <motion.div className="absolute r..." style={{left:"52.4...", ...}} ...>
+                            <div
+                              className="absolute rounded-full"
+                              style={{
++                               left: "52.487178848065284%"
+-                               left: "48.5082%"
++                               bottom: 0
+-                               bottom: "0px"
++                               width: 1.0022506248107819
+-                               width: "1.42236px"
++                               height: 1.0022506248107819
+-                               height: "1.42236px"
++                               background: "rgba(0,87,255,0.6)"
+-                               background-image: "initial"
+-                               background-position-x: "initial"
+-                               background-position-y: "initial"
+-                               background-size: "initial"
+-                               background-repeat: "initial"
+-                               background-attachment: "initial"
+-                               background-origin: "initial"
+-                               background-clip: "initial"
+-                               background-color: "rgba(0, 87, 255, 0.6)"
+                              }}
+                              ref={function useMotionRef.useCallback}
+                            >
+                          <motion.div className="absolute r..." style={{left:"35.5...", ...}} ...>
+                            <div
+                              className="absolute rounded-full"
+                              style={{
++                               left: "35.590767611921294%"
+-                               left: "51.6787%"
++                               bottom: 0
+-                               bottom: "0px"
++                               width: 2.7017920854050406
+-                               width: "1.48362px"
++                               height: 2.7017920854050406
+-                               height: "1.48362px"
++                               background: "rgba(255,110,199,0.5)"
+-                               background-image: "initial"
+-                               background-position-x: "initial"
+-                               background-position-y: "initial"
+-                               background-size: "initial"
+-                               background-repeat: "initial"
+-                               background-attachment: "initial"
+-                               background-origin: "initial"
+-                               background-clip: "initial"
+-                               background-color: "rgba(255, 110, 199, 0.5)"
+                              }}
+                              ref={function useMotionRef.useCallback}
+                            >
+                          <motion.div className="absolute r..." style={{left:"77.0...", ...}} ...>
+                            <div
+                              className="absolute rounded-full"
+                              style={{
++                               left: "77.04856065802139%"
+-                               left: "94.9532%"
++                               bottom: 0
+-                               bottom: "0px"
++                               width: 0.9615372695202328
+-                               width: "3.12811px"
++                               height: 0.9615372695202328
+-                               height: "3.12811px"
++                               background: "rgba(0,212,168,0.5)"
+-                               background-image: "initial"
+-                               background-position-x: "initial"
+-                               background-position-y: "initial"
+-                               background-size: "initial"
+-                               background-repeat: "initial"
+-                               background-attachment: "initial"
+-                               background-origin: "initial"
+-                               background-clip: "initial"
+-                               background-color: "rgba(0, 212, 168, 0.5)"
+                              }}
+                              ref={function useMotionRef.useCallback}
+                            >
+                          <motion.div className="absolute r..." style={{left:"65.9...", ...}} ...>
+                            <div
+                              className="absolute rounded-full"
+                              style={{
++                               left: "65.98894773911854%"
+-                               left: "80.5316%"
++                               bottom: 0
+-                               bottom: "0px"
++                               width: 1.9624439920693695
+-                               width: "1.0265px"
++                               height: 1.9624439920693695
+-                               height: "1.0265px"
++                               background: "rgba(0,87,255,0.6)"
+-                               background-image: "initial"
+-                               background-position-x: "initial"
+-                               background-position-y: "initial"
+-                               background-size: "initial"
+-                               background-repeat: "initial"
+-                               background-attachment: "initial"
+-                               background-origin: "initial"
+-                               background-clip: "initial"
+-                               background-color: "rgba(0, 87, 255, 0.6)"
+                              }}
+                              ref={function useMotionRef.useCallback}
+                            >
+                          <motion.div className="absolute r..." style={{left:"49.5...", ...}} ...>
+                            <div
+                              className="absolute rounded-full"
+                              style={{
++                               left: "49.525049137860535%"
+-                               left: "84.6428%"
++                               bottom: 0
+-                               bottom: "0px"
++                               width: 2.810353345522091
+-                               width: "1.56392px"
++                               height: 2.810353345522091
+-                               height: "1.56392px"
++                               background: "rgba(255,110,199,0.5)"
+-                               background-image: "initial"
+-                               background-position-x: "initial"
+-                               background-position-y: "initial"
+-                               background-size: "initial"
+-                               background-repeat: "initial"
+-                               background-attachment: "initial"
+-                               background-origin: "initial"
+-                               background-clip: "initial"
+-                               background-color: "rgba(255, 110, 199, 0.5)"
+                              }}
+                              ref={function useMotionRef.useCallback}
+                            >
+                          <motion.div className="absolute r..." style={{left:"77.5...", ...}} ...>
+                            <div
+                              className="absolute rounded-full"
+                              style={{
++                               left: "77.50900116846746%"
+-                               left: "21.4459%"
++                               bottom: 0
+-                               bottom: "0px"
++                               width: 2.1960648031550063
+-                               width: "1.5709px"
++                               height: 2.1960648031550063
+-                               height: "1.5709px"
++                               background: "rgba(0,212,168,0.5)"
+-                               background-image: "initial"
+-                               background-position-x: "initial"
+-                               background-position-y: "initial"
+-                               background-size: "initial"
+-                               background-repeat: "initial"
+-                               background-attachment: "initial"
+-                               background-origin: "initial"
+-                               background-clip: "initial"
+-                               background-color: "rgba(0, 212, 168, 0.5)"
+                              }}
+                              ref={function useMotionRef.useCallback}
+                            >
+                          <motion.div className="absolute r..." style={{left:"92.3...", ...}} ...>
+                            <div
+                              className="absolute rounded-full"
+                              style={{
++                               left: "92.30022782351288%"
+-                               left: "64.0259%"
++                               bottom: 0
+-                               bottom: "0px"
++                               width: 1.034982645792586
+-                               width: "2.73253px"
++                               height: 1.034982645792586
+-                               height: "2.73253px"
++                               background: "rgba(0,87,255,0.6)"
+-                               background-image: "initial"
+-                               background-position-x: "initial"
+-                               background-position-y: "initial"
+-                               background-size: "initial"
+-                               background-repeat: "initial"
+-                               background-attachment: "initial"
+-                               background-origin: "initial"
+-                               background-clip: "initial"
+-                               background-color: "rgba(0, 87, 255, 0.6)"
+                              }}
+                              ref={function useMotionRef.useCallback}
+                            >
+                          <motion.div className="absolute r..." style={{left:"90.8...", ...}} ...>
+                            <div
+                              className="absolute rounded-full"
+                              style={{
++                               left: "90.89441463960864%"
+-                               left: "91.2557%"
++                               bottom: 0
+-                               bottom: "0px"
++                               width: 1.9113291879323693
+-                               width: "1.36724px"
++                               height: 1.9113291879323693
+-                               height: "1.36724px"
++                               background: "rgba(255,110,199,0.5)"
+-                               background-image: "initial"
+-                               background-position-x: "initial"
+-                               background-position-y: "initial"
+-                               background-size: "initial"
+-                               background-repeat: "initial"
+-                               background-attachment: "initial"
+-                               background-origin: "initial"
+-                               background-clip: "initial"
+-                               background-color: "rgba(255, 110, 199, 0.5)"
+                              }}
+                              ref={function useMotionRef.useCallback}
+                            >
+                          <motion.div className="absolute r..." style={{left:"7.54...", ...}} ...>
+                            <div
+                              className="absolute rounded-full"
+                              style={{
++                               left: "7.5422510898304544%"
+-                               left: "32.8637%"
++                               bottom: 0
+-                               bottom: "0px"
++                               width: 2.5888371193506416
+-                               width: "1.48385px"
++                               height: 2.5888371193506416
+-                               height: "1.48385px"
++                               background: "rgba(0,212,168,0.5)"
+-                               background-image: "initial"
+-                               background-position-x: "initial"
+-                               background-position-y: "initial"
+-                               background-size: "initial"
+-                               background-repeat: "initial"
+-                               background-attachment: "initial"
+-                               background-origin: "initial"
+-                               background-clip: "initial"
+-                               background-color: "rgba(0, 212, 168, 0.5)"
+                              }}
+                              ref={function useMotionRef.useCallback}
+                            >
+                          <motion.div className="absolute r..." style={{left:"78.8...", ...}} ...>
+                            <div
+                              className="absolute rounded-full"
+                              style={{
++                               left: "78.87888303178025%"
+-                               left: "55.6284%"
++                               bottom: 0
+-                               bottom: "0px"
++                               width: 2.5102250361207625
+-                               width: "2.49281px"
++                               height: 2.5102250361207625
+-                               height: "2.49281px"
++                               background: "rgba(0,87,255,0.6)"
+-                               background-image: "initial"
+-                               background-position-x: "initial"
+-                               background-position-y: "initial"
+-                               background-size: "initial"
+-                               background-repeat: "initial"
+-                               background-attachment: "initial"
+-                               background-origin: "initial"
+-                               background-clip: "initial"
+-                               background-color: "rgba(0, 87, 255, 0.6)"
+                              }}
+                              ref={function useMotionRef.useCallback}
+                            >
+                          <motion.div className="absolute r..." style={{left:"73.2...", ...}} ...>
+                            <div
+                              className="absolute rounded-full"
+                              style={{
++                               left: "73.29323523610095%"
+-                               left: "67.103%"
++                               bottom: 0
+-                               bottom: "0px"
++                               width: 1.556681716101961
+-                               width: "2.0454px"
++                               height: 1.556681716101961
+-                               height: "2.0454px"
++                               background: "rgba(255,110,199,0.5)"
+-                               background-image: "initial"
+-                               background-position-x: "initial"
+-                               background-position-y: "initial"
+-                               background-size: "initial"
+-                               background-repeat: "initial"
+-                               background-attachment: "initial"
+-                               background-origin: "initial"
+-                               background-clip: "initial"
+-                               background-color: "rgba(255, 110, 199, 0.5)"
+                              }}
+                              ref={function useMotionRef.useCallback}
+                            >
+                          <motion.div className="absolute r..." style={{left:"19.5...", ...}} ...>
+                            <div
+                              className="absolute rounded-full"
+                              style={{
++                               left: "19.562194248000196%"
+-                               left: "58.3965%"
++                               bottom: 0
+-                               bottom: "0px"
++                               width: 3.0530798316628545
+-                               width: "1.89411px"
++                               height: 3.0530798316628545
+-                               height: "1.89411px"
++                               background: "rgba(0,212,168,0.5)"
+-                               background-image: "initial"
+-                               background-position-x: "initial"
+-                               background-position-y: "initial"
+-                               background-size: "initial"
+-                               background-repeat: "initial"
+-                               background-attachment: "initial"
+-                               background-origin: "initial"
+-                               background-clip: "initial"
+-                               background-color: "rgba(0, 212, 168, 0.5)"
+                              }}
+                              ref={function useMotionRef.useCallback}
+                            >
+                          <motion.div className="absolute r..." style={{left:"50.8...", ...}} ...>
+                            <div
+                              className="absolute rounded-full"
+                              style={{
++                               left: "50.84197485257144%"
+-                               left: "60.6851%"
++                               bottom: 0
+-                               bottom: "0px"
++                               width: 1.4234677033942382
+-                               width: "2.67387px"
++                               height: 1.4234677033942382
+-                               height: "2.67387px"
++                               background: "rgba(0,87,255,0.6)"
+-                               background-image: "initial"
+-                               background-position-x: "initial"
+-                               background-position-y: "initial"
+-                               background-size: "initial"
+-                               background-repeat: "initial"
+-                               background-attachment: "initial"
+-                               background-origin: "initial"
+-                               background-clip: "initial"
+-                               background-color: "rgba(0, 87, 255, 0.6)"
+                              }}
+                              ref={function useMotionRef.useCallback}
+                            >
+                          <motion.div className="absolute r..." style={{left:"83.8...", ...}} ...>
+                            <div
+                              className="absolute rounded-full"
+                              style={{
++                               left: "83.81863122384925%"
+-                               left: "56.4527%"
++                               bottom: 0
+-                               bottom: "0px"
++                               width: 1.5334462045910922
+-                               width: "2.65729px"
++                               height: 1.5334462045910922
+-                               height: "2.65729px"
++                               background: "rgba(255,110,199,0.5)"
+-                               background-image: "initial"
+-                               background-position-x: "initial"
+-                               background-position-y: "initial"
+-                               background-size: "initial"
+-                               background-repeat: "initial"
+-                               background-attachment: "initial"
+-                               background-origin: "initial"
+-                               background-clip: "initial"
+-                               background-color: "rgba(255, 110, 199, 0.5)"
+                              }}
+                              ref={function useMotionRef.useCallback}
+                            >
+                          <motion.div className="absolute r..." style={{left:"87.5...", ...}} ...>
+                            <div
+                              className="absolute rounded-full"
+                              style={{
++                               left: "87.59902244373833%"
+-                               left: "95.5127%"
++                               bottom: 0
+-                               bottom: "0px"
++                               width: 1.5031888658356258
+-                               width: "2.66624px"
++                               height: 1.5031888658356258
+-                               height: "2.66624px"
++                               background: "rgba(0,212,168,0.5)"
+-                               background-image: "initial"
+-                               background-position-x: "initial"
+-                               background-position-y: "initial"
+-                               background-size: "initial"
+-                               background-repeat: "initial"
+-                               background-attachment: "initial"
+-                               background-origin: "initial"
+-                               background-clip: "initial"
+-                               background-color: "rgba(0, 212, 168, 0.5)"
+                              }}
+                              ref={function useMotionRef.useCallback}
+                            >
+                          <motion.div className="absolute r..." style={{left:"32.9...", ...}} ...>
+                            <div
+                              className="absolute rounded-full"
+                              style={{
++                               left: "32.94869355650327%"
+-                               left: "10.1288%"
++                               bottom: 0
+-                               bottom: "0px"
++                               width: 3.036329051581978
+-                               width: "3.12495px"
++                               height: 3.036329051581978
+-                               height: "3.12495px"
++                               background: "rgba(0,87,255,0.6)"
+-                               background-image: "initial"
+-                               background-position-x: "initial"
+-                               background-position-y: "initial"
+-                               background-size: "initial"
+-                               background-repeat: "initial"
+-                               background-attachment: "initial"
+-                               background-origin: "initial"
+-                               background-clip: "initial"
+-                               background-color: "rgba(0, 87, 255, 0.6)"
+                              }}
+                              ref={function useMotionRef.useCallback}
+                            >
+                          <motion.div className="absolute r..." style={{left:"41.2...", ...}} ...>
+                            <div
+                              className="absolute rounded-full"
+                              style={{
++                               left: "41.23348246619125%"
+-                               left: "42.4579%"
++                               bottom: 0
+-                               bottom: "0px"
++                               width: 2.1797237802732017
+-                               width: "3.16712px"
++                               height: 2.1797237802732017
+-                               height: "3.16712px"
++                               background: "rgba(255,110,199,0.5)"
+-                               background-image: "initial"
+-                               background-position-x: "initial"
+-                               background-position-y: "initial"
+-                               background-size: "initial"
+-                               background-repeat: "initial"
+-                               background-attachment: "initial"
+-                               background-origin: "initial"
+-                               background-clip: "initial"
+-                               background-color: "rgba(255, 110, 199, 0.5)"
+                              }}
+                              ref={function useMotionRef.useCallback}
+                            >
+                          <motion.div className="absolute r..." style={{left:"18.8...", ...}} ...>
+                            <div
+                              className="absolute rounded-full"
+                              style={{
++                               left: "18.82520826887797%"
+-                               left: "5.53912%"
++                               bottom: 0
+-                               bottom: "0px"
++                               width: 1.5094403928910998
+-                               width: "2.76505px"
++                               height: 1.5094403928910998
+-                               height: "2.76505px"
++                               background: "rgba(0,212,168,0.5)"
+-                               background-image: "initial"
+-                               background-position-x: "initial"
+-                               background-position-y: "initial"
+-                               background-size: "initial"
+-                               background-repeat: "initial"
+-                               background-attachment: "initial"
+-                               background-origin: "initial"
+-                               background-clip: "initial"
+-                               background-color: "rgba(0, 212, 168, 0.5)"
+                              }}
+                              ref={function useMotionRef.useCallback}
+                            >
+                      ...
+                  ...
+          ...
+        ...
+ @ http://localhost:3000/_next/static/chunks/09_q_next_dist_0x.0718._.js:3272
+[    1462ms] [WARNING] Please ensure that the container has a non-static position, like 'relative', 'fixed', or 'absolute' to ensure scroll offset is calculated correctly. @ http://localhost:3000/_next/static/chunks/09_q_next_dist_0x.0718._.js:2431
+[  169757ms] [LOG] [Fast Refresh] rebuilding @ http://localhost:3000/_next/static/chunks/09_q_next_dist_0x.0718._.js:2431
+[  170419ms] [LOG] [Fast Refresh] done in 543ms @ http://localhost:3000/_next/static/chunks/09_q_next_dist_0x.0718._.js:2431
+[  357221ms] [LOG] [Fast Refresh] rebuilding @ http://localhost:3000/_next/static/chunks/09_q_next_dist_0x.0718._.js:2431
+[  357835ms] [LOG] [Fast Refresh] done in 424ms @ http://localhost:3000/_next/static/chunks/09_q_next_dist_0x.0718._.js:2431

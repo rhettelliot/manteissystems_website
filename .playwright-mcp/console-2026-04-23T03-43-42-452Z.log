@@ -1304,3 +1304,14 @@ It can also happen if the client has a browser extension installed which messes 
  @ http://localhost:3000/_next/static/chunks/09_q_next_dist_0x.0718._.js:3272
 [  250923ms] [LOG] [Fast Refresh] rebuilding @ http://localhost:3000/_next/static/chunks/09_q_next_dist_0x.0718._.js:2431
 [  251526ms] [LOG] [Fast Refresh] done in 909ms @ http://localhost:3000/_next/static/chunks/09_q_next_dist_0x.0718._.js:2431
+[  530545ms] [LOG] [Fast Refresh] rebuilding @ http://localhost:3000/_next/static/chunks/09_q_next_dist_0x.0718._.js:2431
+[  534106ms] [LOG] [Fast Refresh] done in 2989ms @ http://localhost:3000/_next/static/chunks/09_q_next_dist_0x.0718._.js:2431
+[  534463ms] [LOG] [Fast Refresh] rebuilding @ http://localhost:3000/_next/static/chunks/09_q_next_dist_0x.0718._.js:2431
+[  539298ms] [ERROR] Failed to load resource: the server responded with a status of 404 (Not Found) @ http://localhost:3000/hero.mp4:0
+[  539303ms] [LOG] [Fast Refresh] done in 1939ms @ http://localhost:3000/_next/static/chunks/09_q_next_dist_0x.0718._.js:2431
+[  540680ms] [LOG] [Fast Refresh] rebuilding @ http://localhost:3000/_next/static/chunks/09_q_next_dist_0x.0718._.js:2431
+[  541913ms] [LOG] [Fast Refresh] done in 1089ms @ http://localhost:3000/_next/static/chunks/09_q_next_dist_0x.0718._.js:2431
+[  621941ms] [LOG] [Fast Refresh] rebuilding @ http://localhost:3000/_next/static/chunks/09_q_next_dist_0x.0718._.js:2431
+[  622204ms] [LOG] [Fast Refresh] done in 482ms @ http://localhost:3000/_next/static/chunks/09_q_next_dist_0x.0718._.js:2431
+[  641333ms] [LOG] [Fast Refresh] rebuilding @ http://localhost:3000/_next/static/chunks/09_q_next_dist_0x.0718._.js:2431
+[  642617ms] [LOG] [Fast Refresh] done in 923ms @ http://localhost:3000/_next/static/chunks/09_q_next_dist_0x.0718._.js:2431

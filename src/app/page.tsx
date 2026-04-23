@@ -98,59 +98,6 @@ function AnimatedOrbs() {
 }
 
 // ─── Hero: dot grid ───────────────────────────────────────────────────────────
-function DotGrid() {
-  return (
-    <>
-      <div
-        className="absolute inset-0 z-0 opacity-25 pointer-events-none"
-        style={{
-          backgroundImage: 'radial-gradient(circle, rgba(0,87,255,0.4) 1px, transparent 1px)',
-          backgroundSize: '28px 28px',
-        }}
-      />
-      <div
-        className="absolute inset-0 z-0 pointer-events-none"
-        style={{
-          background: 'radial-gradient(ellipse 75% 75% at 50% 40%, transparent 35%, #000 100%)',
-        }}
-      />
-    </>
-  );
-}
-
-// ─── Hero: SVG flow lines ─────────────────────────────────────────────────────
-const FLOW_LINES = [
-  { d: 'M -100 550 C 200 350, 520 620, 820 280 S 1160 60, 1440 380', dash: 320, dur: 10, del: 0 },
-  { d: 'M -100 650 C 180 480, 480 700, 760 420 S 1080 200, 1440 500', dash: 260, dur: 13, del: 2 },
-  { d: 'M 0 400 C 240 220, 560 500, 880 200 S 1200 -20, 1440 300', dash: 290, dur: 9, del: 4 },
-  { d: 'M -80 720 C 220 560, 540 780, 860 500 S 1200 300, 1440 600', dash: 240, dur: 15, del: 1 },
-  { d: 'M 100 480 C 300 300, 620 560, 940 320 S 1240 120, 1440 440', dash: 200, dur: 11, del: 6 },
-  { d: 'M -50 620 C 250 440, 550 680, 840 400 S 1120 180, 1440 520', dash: 180, dur: 14, del: 3 },
-];
-
-function FlowLines() {
-  return (
-    <svg
-      className="absolute inset-0 z-0 w-full h-full pointer-events-none opacity-30"
-      viewBox="0 0 1440 800"
-      preserveAspectRatio="xMidYMid slice"
-    >
-      {FLOW_LINES.map((l, i) => (
-        <motion.path
-          key={i}
-          d={l.d}
-          fill="none"
-          stroke={i % 3 === 0 ? '#0057FF' : i % 3 === 1 ? '#FF6EC7' : '#00D4A8'}
-          strokeWidth={i % 2 === 0 ? 1 : 0.6}
-          strokeDasharray={`${l.dash} ${l.dash * 7}`}
-          strokeLinecap="round"
-          animate={{ strokeDashoffset: [l.dash * 8, -(l.dash * 8)] }}
-          transition={{ duration: l.dur, delay: l.del, repeat: Infinity, ease: 'linear' }}
-        />
-      ))}
-    </svg>
-  );
-}
 
 // ─── Hero: floating particles ─────────────────────────────────────────────────
 function FloatingParticles({ count = 24 }: { count?: number }) {
@@ -242,19 +189,12 @@ function Hero() {
 
   return (
     <section className="relative min-h-screen flex flex-col items-center justify-center overflow-hidden px-8 pt-16">
-      {/* Layered background */}
-      <motion.div style={{ y: bgY }} className="absolute inset-0">
-        <DotGrid />
-        <AnimatedOrbs />
-        <FlowLines />
-        <FloatingParticles />
 
-      </motion.div>
 
       {/* Parallax rings */}
       <motion.div
         style={{ y: bgY }}
-        className="absolute inset-0 z-0 flex items-center justify-center pointer-events-none"
+        className="absolute inset-0 z-[3] flex items-center justify-center pointer-events-none"
       >
         <div className="w-[720px] h-[720px] border border-[rgba(0,87,255,0.07)]" />
         <div className="absolute w-[520px] h-[520px] border border-[rgba(0,87,255,0.05)]" />
@@ -264,7 +204,7 @@ function Hero() {
       {/* Content */}
       <motion.div
         style={{ y: contentY, opacity: contentOp }}
-        className="relative z-10 max-w-5xl w-full flex flex-col items-start gap-8"
+        className="relative z-[10] max-w-5xl w-full flex flex-col items-start gap-8"
       >
         {/* Label */}
         <motion.div
@@ -379,6 +319,81 @@ const MARQUEE_ITEMS = [
   { text: 'LOCAL LLM', color: 'text-signal-teal' },
   { text: 'DOLBY ATMOS', color: 'text-white/25' },
 ];
+
+// ─── Video section ────────────────────────────────────────────────────────────
+const FRAME_COUNT = 48;
+const FRAMES = Array.from({ length: FRAME_COUNT }, (_, i) =>
+  `/frames/${String(i + 1).padStart(4, '0')}.jpg`
+);
+
+function VideoSection() {
+  const containerRef = useRef<HTMLDivElement>(null);
+  const canvasRef    = useRef<HTMLCanvasElement>(null);
+  const images       = useRef<HTMLImageElement[]>([]);
+  const sizeSet      = useRef(false);
+
+  const { scrollYProgress } = useScroll({
+    target: containerRef,
+    offset: ['start start', 'end end'],
+  });
+
+  function drawFrame(index: number) {
+    const canvas = canvasRef.current;
+    const img = images.current[index];
+    if (!canvas || !img?.complete) return;
+    const ctx = canvas.getContext('2d');
+    if (!ctx) return;
+    // Only resize canvas when dimensions change
+    if (!sizeSet.current || canvas.width !== canvas.offsetWidth) {
+      canvas.width  = canvas.offsetWidth;
+      canvas.height = canvas.offsetHeight;
+      sizeSet.current = true;
+    }
+    const scale = Math.max(canvas.width / img.naturalWidth, canvas.height / img.naturalHeight);
+    const w = img.naturalWidth  * scale;
+    const h = img.naturalHeight * scale;
+    ctx.drawImage(img, (canvas.width - w) / 2, (canvas.height - h) / 2, w, h);
+  }
+
+  // Preload all frames; fade canvas in the moment frame 0 is ready
+  useEffect(() => {
+    images.current = FRAMES.map((src, i) => {
+      const img = new Image();
+      img.src = src;
+      if (i === 0) {
+        img.onload = () => {
+          drawFrame(0);
+          if (canvasRef.current) canvasRef.current.style.opacity = '1';
+        };
+      }
+      return img;
+    });
+  }, []);
+
+  // Scrub frames on scroll — opacity stays at 1 the whole time
+  useEffect(() => {
+    return scrollYProgress.on('change', (v) => {
+      const index = Math.min(Math.floor(v * FRAME_COUNT), FRAME_COUNT - 1);
+      drawFrame(index);
+    });
+  }, [scrollYProgress]);
+
+  return (
+    <div ref={containerRef} style={{ height: '250vh' }}>
+      <div className="sticky top-0 h-screen overflow-hidden">
+        <canvas
+          ref={canvasRef}
+          className="absolute inset-0 w-full h-full"
+          style={{ opacity: 0, transition: 'opacity 1.2s ease' }}
+        />
+        {/* Top gradient blends from the marquee above */}
+        <div className="absolute inset-x-0 top-0 h-40 bg-gradient-to-b from-black to-transparent pointer-events-none" />
+        {/* Bottom gradient blends into the next section */}
+        <div className="absolute inset-x-0 bottom-0 h-48 bg-gradient-to-t from-black to-transparent pointer-events-none" />
+      </div>
+    </div>
+  );
+}
 
 function Marquee() {
   const doubled = [...MARQUEE_ITEMS, ...MARQUEE_ITEMS];
@@ -989,6 +1004,9 @@ function FinalCTA() {
 
   return (
     <section ref={ref} id="contact" className="relative px-8 py-40 border-t border-white/[0.06] flex flex-col items-center text-center overflow-hidden">
+      {/* Aurora orbs + particles */}
+      <AnimatedOrbs />
+      <FloatingParticles />
       {/* Pulsing glow behind CTA */}
       <motion.div
         className="absolute inset-0 pointer-events-none"
@@ -1072,6 +1090,7 @@ export default function Home() {
       <Nav />
       <Hero />
       <Marquee />
+      <VideoSection />
       <ThreePillars />
       <Founder />
       <SystemsDeepDive />
