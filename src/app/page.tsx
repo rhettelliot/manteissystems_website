@@ -24,9 +24,6 @@ function isHighlighted(line: string) {
 }
 
 // ─── Grain ────────────────────────────────────────────────────────────────────
-function GrainOverlay() {
-  return <div className="grain-overlay" aria-hidden="true" />;
-}
 
 // ─── Nav ──────────────────────────────────────────────────────────────────────
 function Nav() {
@@ -198,162 +195,6 @@ function FloatingParticles({ count = 24 }: { count?: number }) {
   );
 }
 
-// ─── Ikeda: global scanline ───────────────────────────────────────────────────
-function IkedaScanline() {
-  return (
-    <motion.div
-      className="fixed left-0 right-0 z-[150] pointer-events-none"
-      style={{ height: 1, background: 'rgba(255,255,255,0.12)', mixBlendMode: 'screen' }}
-      animate={{ top: ['0vh', '100vh'] }}
-      transition={{ duration: 9, repeat: Infinity, ease: 'linear', repeatDelay: 4 }}
-    />
-  );
-}
-
-// ─── Ikeda: data canvas (scrolling binary/hex columns) ────────────────────────
-function IkedaDataCanvas({ height = 220 }: { height?: number }) {
-  const ref = useRef<HTMLCanvasElement>(null);
-
-  useEffect(() => {
-    const canvas = ref.current;
-    if (!canvas) return;
-    const dpr = window.devicePixelRatio || 1;
-    const W = canvas.clientWidth;
-    const H = height;
-    canvas.width = W * dpr;
-    canvas.height = H * dpr;
-    const ctx = canvas.getContext('2d')!;
-    ctx.scale(dpr, dpr);
-
-    const FS = 8;
-    const charW = FS * 0.62;
-    const cols = Math.floor(W / charW) + 1;
-    const rows = Math.floor(H / FS) + 2;
-
-    // 5 column types: binary, hex, float coords, decimal, pi/e constants
-    const CHAR_SETS = [
-      ['0','1','0','1','0','0','1',' ',' '],
-      '0123456789abcdef'.split(''),
-      '0123456789.-+e'.split(''),
-      '0123456789'.split(''),
-      ['3','.','1','4','1','5','9','2','6','5','3','5','8','9','7','9'],
-    ];
-
-    const drops = Array.from({ length: cols }, (_, i) => ({
-      y: Math.random() * rows * 1.5 - rows * 0.5,
-      speed: 0.25 + Math.random() * 0.55,
-      type: i % CHAR_SETS.length,
-      colorIdx: i % 17, // spread accent colors sparsely
-    }));
-
-    ctx.font = `${FS}px 'JetBrains Mono', monospace`;
-
-    let raf: number;
-    const tick = () => {
-      ctx.fillStyle = 'rgba(0,0,0,0.055)';
-      ctx.fillRect(0, 0, W, H);
-
-      drops.forEach((d, i) => {
-        const chars = CHAR_SETS[d.type];
-        const char = chars[Math.floor(Math.random() * chars.length)];
-        const x = i * charW;
-        const y = d.y * FS;
-        const pos = (d.y / rows);
-        const baseAlpha = pos < 0.05 ? 0.9 : Math.max(0.03, 0.7 - pos * 0.65);
-
-        // Occasional signal-blue/teal columns, rest pure white
-        if (d.colorIdx === 0) {
-          ctx.fillStyle = `rgba(0,87,255,${baseAlpha * 0.85})`;
-        } else if (d.colorIdx === 7) {
-          ctx.fillStyle = `rgba(0,212,168,${baseAlpha * 0.7})`;
-        } else {
-          ctx.fillStyle = `rgba(255,255,255,${baseAlpha})`;
-        }
-
-        if (d.y >= 0 && d.y <= rows) ctx.fillText(char, x, y);
-
-        d.y += d.speed * 0.28;
-        if (d.y > rows + 2) d.y = -Math.random() * rows * 0.5;
-      });
-
-      raf = requestAnimationFrame(tick);
-    };
-    tick();
-    return () => cancelAnimationFrame(raf);
-  }, [height]);
-
-  return <canvas ref={ref} style={{ width: '100%', height, display: 'block' }} />;
-}
-
-// ─── Ikeda: barcode strip (data → vertical bars) ─────────────────────────────
-function IkedaBarcodeStrip({ seed = 0 }: { seed?: number }) {
-  const bars = useMemo(() => {
-    const result: { x: number; w: number; a: number }[] = [];
-    let x = 0;
-    let s = (seed + 1) * 1664525 + 1013904223;
-    while (x < 1600) {
-      s = Math.imul(s, 1664525) + 1013904223;
-      const w = 1 + ((s >>> 0) % 3);
-      const gap = ((s >>> 3) & 0x7) % 6;
-      const a = 0.12 + (((s >>> 8) & 0xff) / 255) * 0.65;
-      result.push({ x, w, a });
-      x += w + gap;
-    }
-    return result;
-  }, [seed]);
-
-  return (
-    <div className="w-full overflow-hidden" style={{ height: 28 }}>
-      <svg width="100%" height="28" viewBox="0 0 1600 28" preserveAspectRatio="none">
-        {bars.map((b, i) => (
-          <rect key={i} x={b.x} y={0} width={b.w} height={28} fill={`rgba(255,255,255,${b.a})`} />
-        ))}
-      </svg>
-    </div>
-  );
-}
-
-// ─── Ikeda: immersive data wall section ───────────────────────────────────────
-function IkedaSection() {
-  const ref = useRef(null);
-  const inView = useInView(ref, { once: true, margin: '-80px' });
-
-  return (
-    <motion.section
-      ref={ref}
-      className="relative overflow-hidden border-y border-white/[0.05]"
-      initial={{ opacity: 0 }}
-      animate={inView ? { opacity: 1 } : {}}
-      transition={{ duration: 1.4 }}
-    >
-      {/* Top barcode */}
-      <IkedaBarcodeStrip seed={1} />
-
-      {/* Data stream */}
-      <IkedaDataCanvas height={260} />
-
-      {/* Bottom barcode */}
-      <IkedaBarcodeStrip seed={99} />
-
-      {/* Centered label */}
-      <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
-        <div className="text-center px-4">
-          <motion.div
-            className="font-mono text-[8px] tracking-[0.6em] uppercase text-white/30 mb-2"
-            animate={{ opacity: [0.3, 0.7, 0.3] }}
-            transition={{ duration: 3, repeat: Infinity, ease: 'easeInOut' }}
-          >
-            // DATA.SOVEREIGNTY.STREAM
-          </motion.div>
-          <div className="font-mono text-[7px] tracking-[0.25em] text-white/12">
-            LOCAL · ENCRYPTED · ZERO_EGRESS · 8ms_LATENCY · OLLAMA · CHROMADB · XEN_AGENT · SOC2
-          </div>
-        </div>
-      </div>
-    </motion.section>
-  );
-}
-
 // ─── Terminal log ─────────────────────────────────────────────────────────────
 function TerminalLog() {
   const [logs, setLogs] = useState<string[]>([LOG_MESSAGES[0]]);
@@ -407,15 +248,7 @@ function Hero() {
         <AnimatedOrbs />
         <FlowLines />
         <FloatingParticles />
-        {/* Ikeda data-texture: dense float coordinates at ultra-low opacity */}
-        <div
-          className="absolute inset-0 z-0 pointer-events-none opacity-[0.032]"
-          style={{
-            backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='120'%3E%3Ctext x='0' y='10' font-family='monospace' font-size='7' fill='white'%3E0.00000000 1.41421356 3.14159265 2.71828182 0.57721566 1.61803398 2.30258509%3C/text%3E%3Ctext x='0' y='20' font-family='monospace' font-size='7' fill='white'%3E47.60620000 -122.33210000 0.00000001 9.99999999 1.00000000 0.50000000 0.25%3C/text%3E%3Ctext x='0' y='30' font-family='monospace' font-size='7' fill='white'%3E10110010 01101001 11001010 00110101 10101010 01010101 11110000%3C/text%3E%3Ctext x='0' y='40' font-family='monospace' font-size='7' fill='white'%3E0x0057FF 0xFF6EC7 0x00D4A8 0x000000 0xFFFFFF 0x050507 0x0A0A14%3C/text%3E%3Ctext x='0' y='50' font-family='monospace' font-size='7' fill='white'%3E1.00000000 0.00000000 0.70710678 0.86602540 0.99999999 0.00000001 0.5%3C/text%3E%3Ctext x='0' y='60' font-family='monospace' font-size='7' fill='white'%3ELOCAL_AI SOVEREIGN NODE ZERO_EGRESS DATA_INTEGRITY OLLAMA CHROMADB XEN%3C/text%3E%3Ctext x='0' y='70' font-family='monospace' font-size='7' fill='white'%3E0 1 0 1 1 0 1 0 1 0 0 1 1 0 1 0 1 1 0 0 1 0 1 0 1 1 0 1 0 0 1 1 0 1%3C/text%3E%3Ctext x='0' y='80' font-family='monospace' font-size='7' fill='white'%3E3.14159265 2.71828182 1.41421356 1.73205080 2.23606797 2.44948974%3C/text%3E%3Ctext x='0' y='90' font-family='monospace' font-size='7' fill='white'%3Ea8f3c2e1 b7d49f0a c6e58b3d d5f67a2e e4g89c1f f3h90b4g a2i01d7h%3C/text%3E%3Ctext x='0' y='100' font-family='monospace' font-size='7' fill='white'%3EPNW_NODE_01 47.6N 122.3W 8ms 0_CLOUD 100_LOCAL 1998_ORIGIN EST%3C/text%3E%3Ctext x='0' y='110' font-family='monospace' font-size='7' fill='white'%3E0.00000000 1.41421356 3.14159265 2.71828182 0.57721566 1.61803398%3C/text%3E%3C/svg%3E")`,
-            backgroundRepeat: 'repeat',
-            backgroundSize: '400px 120px',
-          }}
-        />
+
       </motion.div>
 
       {/* Parallax rings */}
@@ -1236,18 +1069,14 @@ export default function Home() {
     <main className="relative min-h-screen bg-black text-white font-body selection:bg-signal-blue/20 selection:text-signal-blue">
       <ScrollProgress />
       <CursorGlow />
-      <IkedaScanline />
-      <GrainOverlay />
       <Nav />
       <Hero />
       <Marquee />
       <ThreePillars />
       <Founder />
-      <IkedaSection />
       <SystemsDeepDive />
       <CaseStudy />
       <WhatWeOffer />
-      <IkedaBarcodeStrip seed={42} />
       <Manifesto />
       <FinalCTA />
       <footer className="border-t border-white/[0.06] px-8 py-8">

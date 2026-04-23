@@ -1,0 +1,343 @@
+- main [ref=e2]:
+  - navigation [ref=e3]:
+    - generic [ref=e6]: Manteis.Systems
+    - generic [ref=e7]:
+      - link "Systems" [ref=e8] [cursor=pointer]:
+        - /url: "#systems"
+      - link "Sounds" [ref=e9] [cursor=pointer]:
+        - /url: "#sounds"
+      - link "Self" [ref=e10] [cursor=pointer]:
+        - /url: "#self"
+      - link "Contact" [ref=e11] [cursor=pointer]:
+        - /url: "#contact"
+    - generic [ref=e12]: // SUBVERT. CREATE. SOVEREIGNTY.
+  - generic [ref=e13]:
+    - generic [ref=e14]:
+      - img
+    - generic [ref=e15]:
+      - generic [ref=e16]: // SOVEREIGN INTELLIGENCE INFRASTRUCTURE //
+      - heading "DEPHASING THE CORPORATE MACHINE." [level=1] [ref=e17]:
+        - text: DEPHASING THE
+        - text: CORPORATE
+        - text: MACHINE.
+      - generic [ref=e18]: UNIFIED INTELLIGENCE INFRASTRUCTURE
+      - generic [ref=e19]:
+        - generic [ref=e20]:
+          - paragraph [ref=e21]: Big Tech wants your intelligence on their servers, rented by the month, extracted by the quarter. Manteis Systems builds private local AI infrastructure that belongs to you — your data, your hardware, your future.
+          - paragraph [ref=e22]: Pacific Northwest · Est. 1998 · No cloud. No compromise.
+          - generic [ref=e23]:
+            - link "INITIATE SOVEREIGNTY AUDIT" [ref=e24] [cursor=pointer]:
+              - /url: mailto:rhett@manteissystems.com
+              - button "INITIATE SOVEREIGNTY AUDIT" [ref=e25]
+            - link "VIEW SERVICES" [ref=e26] [cursor=pointer]:
+              - /url: "#systems"
+              - text: VIEW SERVICES
+              - img [ref=e27]
+        - generic [ref=e29]:
+          - generic [ref=e30]: // SOVEREIGN_NODE_01 · BOOT_LOG
+          - generic [ref=e31]: ">INITIALIZING SOVEREIGN NODE..."
+          - text: █
+      - generic [ref=e32]: "[47.6062° N, 122.3321° W] · PACIFIC_NODE_01"
+    - generic [ref=e34]: SCROLL
+  - generic [ref=e37]:
+    - generic [ref=e38]:
+      - generic [ref=e39]: OLLAMA
+      - generic [ref=e40]: ·
+    - generic [ref=e41]:
+      - generic [ref=e42]: CHROMADB
+      - generic [ref=e43]: ·
+    - generic [ref=e44]:
+      - generic [ref=e45]: XEN AGENTS
+      - generic [ref=e46]: ·
+    - generic [ref=e47]:
+      - generic [ref=e48]: ZERO TRUST
+      - generic [ref=e49]: ·
+    - generic [ref=e50]:
+      - generic [ref=e51]: SOPHOS ZTNA
+      - generic [ref=e52]: ·
+    - generic [ref=e53]:
+      - generic [ref=e54]: MICROSOFT DEFENDER
+      - generic [ref=e55]: ·
+    - generic [ref=e56]:
+      - generic [ref=e57]: DOCKER
+      - generic [ref=e58]: ·
+    - generic [ref=e59]:
+      - generic [ref=e60]: N8N AUTOMATION
+      - generic [ref=e61]: ·
+    - generic [ref=e62]:
+      - generic [ref=e63]: LLAMA 3.3
+      - generic [ref=e64]: ·
+    - generic [ref=e65]:
+      - generic [ref=e66]: JAMF PRO
+      - generic [ref=e67]: ·
+    - generic [ref=e68]:
+      - generic [ref=e69]: INTUNE MDM
+      - generic [ref=e70]: ·
+    - generic [ref=e71]:
+      - generic [ref=e72]: HIPAA COMPLIANT
+      - generic [ref=e73]: ·
+    - generic [ref=e74]:
+      - generic [ref=e75]: SOC 2
+      - generic [ref=e76]: ·
+    - generic [ref=e77]:
+      - generic [ref=e78]: PHI-4
+      - generic [ref=e79]: ·
+    - generic [ref=e80]:
+      - generic [ref=e81]: LOCAL LLM
+      - generic [ref=e82]: ·
+    - generic [ref=e83]:
+      - generic [ref=e84]: DOLBY ATMOS
+      - generic [ref=e85]: ·
+    - generic [ref=e86]:
+      - generic [ref=e87]: OLLAMA
+      - generic [ref=e88]: ·
+    - generic [ref=e89]:
+      - generic [ref=e90]: CHROMADB
+      - generic [ref=e91]: ·
+    - generic [ref=e92]:
+      - generic [ref=e93]: XEN AGENTS
+      - generic [ref=e94]: ·
+    - generic [ref=e95]:
+      - generic [ref=e96]: ZERO TRUST
+      - generic [ref=e97]: ·
+    - generic [ref=e98]:
+      - generic [ref=e99]: SOPHOS ZTNA
+      - generic [ref=e100]: ·
+    - generic [ref=e101]:
+      - generic [ref=e102]: MICROSOFT DEFENDER
+      - generic [ref=e103]: ·
+    - generic [ref=e104]:
+      - generic [ref=e105]: DOCKER
+      - generic [ref=e106]: ·
+    - generic [ref=e107]:
+      - generic [ref=e108]: N8N AUTOMATION
+      - generic [ref=e109]: ·
+    - generic [ref=e110]:
+      - generic [ref=e111]: LLAMA 3.3
+      - generic [ref=e112]: ·
+    - generic [ref=e113]:
+      - generic [ref=e114]: JAMF PRO
+      - generic [ref=e115]: ·
+    - generic [ref=e116]:
+      - generic [ref=e117]: INTUNE MDM
+      - generic [ref=e118]: ·
+    - generic [ref=e119]:
+      - generic [ref=e120]: HIPAA COMPLIANT
+      - generic [ref=e121]: ·
+    - generic [ref=e122]:
+      - generic [ref=e123]: SOC 2
+      - generic [ref=e124]: ·
+    - generic [ref=e125]:
+      - generic [ref=e126]: PHI-4
+      - generic [ref=e127]: ·
+    - generic [ref=e128]:
+      - generic [ref=e129]: LOCAL LLM
+      - generic [ref=e130]: ·
+    - generic [ref=e131]:
+      - generic [ref=e132]: DOLBY ATMOS
+      - generic [ref=e133]: ·
+  - generic [ref=e134]:
+    - generic [ref=e135]: // THE ECOSYSTEM
+    - generic [ref=e136]:
+      - generic [ref=e137]:
+        - generic [ref=e138]:
+          - generic [ref=e139]: 01 — SYSTEMS
+          - img [ref=e141]
+        - generic [ref=e144]:
+          - heading "THE SOVEREIGN NODE" [level=3] [ref=e145]
+          - paragraph [ref=e146]: Your data. Your machine. Your intelligence.
+        - paragraph [ref=e147]: A dedicated local AI server — Mac Mini, Mac Studio, or custom build — running Ollama inference, ChromaDB vector store, and the Xen Agent Framework. Private by design. Zero cloud dependency.
+        - generic [ref=e148]: $2,500–$7,500 setup · $2,000/mo managed
+      - generic [ref=e149]:
+        - generic [ref=e150]:
+          - generic [ref=e151]: 02 — SOUNDS
+          - img [ref=e153]
+        - generic [ref=e157]:
+          - heading "MANTEIS RECORDINGS" [level=3] [ref=e158]
+          - paragraph [ref=e159]: Intelligence is vibration.
+        - paragraph [ref=e160]: A Dolby Atmos-capable independent label and radio station rooted in the 1998 ESI-32 sampler decision. Synthwave, avant-garde, and electronic — released on every DSP with no algorithmic playlist dependency.
+        - generic [ref=e161]: Betta Beats Radio · manteisrecordings.com
+      - generic [ref=e162]:
+        - generic [ref=e163]:
+          - generic [ref=e164]: 03 — SELF
+          - img [ref=e166]
+        - generic [ref=e168]:
+          - heading "SOVEREIGNTY WITHIN" [level=3] [ref=e169]
+          - paragraph [ref=e170]: Sovereignty begins in the body.
+        - paragraph [ref=e171]: Breathwork protocols and relationship sovereignty manuals that de-colonize attention before the infrastructure work begins. Technology should support biology — not replace it.
+        - generic [ref=e172]: Breathwork Sessions · Sewa Singh Manuals
+  - generic [ref=e174]:
+    - generic [ref=e175]:
+      - generic [ref=e176]: // THE ARCHITECT
+      - heading "FROM MIDI STUDIO TO GLOBAL SYSTEMS." [level=2] [ref=e177]:
+        - text: FROM MIDI STUDIO
+        - text: TO GLOBAL SYSTEMS.
+      - paragraph [ref=e178]: "In 1998, Rhett Elliot Johnson faced a choice: repair a broken Geo Metro, or buy an EMU ESI-32 sampler. He chose the sampler. That decision — tools of creation over traps of convenience — became the foundational DNA of Manteis Systems. 25+ years later, the same philosophy runs enterprise AI infrastructure for businesses across the Pacific Northwest."
+      - paragraph [ref=e179]: As Principal Systems Architect and fractional CTO, Rhett has designed infrastructure for some of the most demanding technical environments in the world — from Mozilla's open-web mission to F5 Networks' global edge security fabric to 98point6's HIPAA-compliant digital health platform.
+      - generic [ref=e180]:
+        - generic [ref=e181]: Mozilla·
+        - generic [ref=e182]: Apple·
+        - generic [ref=e183]: F5 Networks·
+        - generic [ref=e184]: REI·
+        - generic [ref=e185]: 98point6·
+        - generic [ref=e186]: UW·
+        - generic [ref=e187]: Aon
+    - generic [ref=e188]:
+      - generic [ref=e189]:
+        - generic [ref=e191]: 0+
+        - generic [ref=e192]: Years Enterprise Experience
+      - generic [ref=e193]:
+        - generic [ref=e194]: "0"
+        - generic [ref=e195]: Major Organizations
+      - generic [ref=e196]:
+        - generic [ref=e197]: "0"
+        - generic [ref=e198]: The Origin Year
+  - generic [ref=e200]:
+    - generic [ref=e201]: 01 — SYSTEMS
+    - heading "THE SOVEREIGN NODE" [level=2] [ref=e202]
+    - generic [ref=e203]:
+      - generic [ref=e204]:
+        - paragraph [ref=e205]: “George at Mt. Baker Remodeling doesn't need another subscription. He needs intelligence that runs on his hardware, understands his business, and costs less than one enterprise cloud API bill.”
+        - generic [ref=e206]:
+          - generic [ref=e207]:
+            - generic [ref=e208]: HARDWARE
+            - generic [ref=e209]: Mac Mini M4 Pro · Mac Studio M4 Max · Custom PC
+          - generic [ref=e210]:
+            - generic [ref=e211]: INFERENCE
+            - generic [ref=e212]: Ollama (Llama 3.3, Mistral, Phi-4, Command R)
+          - generic [ref=e213]:
+            - generic [ref=e214]: VECTOR DB
+            - generic [ref=e215]: ChromaDB — local, persistent, zero egress
+          - generic [ref=e216]:
+            - generic [ref=e217]: AGENTS
+            - generic [ref=e218]: Xen Framework — custom workflow automation
+          - generic [ref=e219]:
+            - generic [ref=e220]: SECURITY
+            - generic [ref=e221]: Sophos ZTNA · Microsoft Defender · FileVault
+          - generic [ref=e222]:
+            - generic [ref=e223]: NETWORK
+            - generic [ref=e224]: LAN-only by default — no cloud egress required
+      - generic [ref=e225]:
+        - generic [ref=e226]:
+          - generic [ref=e227]:
+            - generic [ref=e228]: STARTER NODE
+            - generic [ref=e229]: $2,500
+          - paragraph [ref=e230]: Mac Mini M4 · 4 agents · 1 model
+          - paragraph [ref=e231]: $2,000/mo managed
+        - generic [ref=e232]:
+          - generic [ref=e233]:
+            - generic [ref=e234]: PROFESSIONAL NODE
+            - generic [ref=e235]: $5,000
+          - paragraph [ref=e236]: Mac Studio M4 Max · 10 agents · 3 models
+          - paragraph [ref=e237]: $2,000/mo managed
+        - generic [ref=e238]:
+          - generic [ref=e239]:
+            - generic [ref=e240]: ENTERPRISE NODE
+            - generic [ref=e241]: $7,500
+          - paragraph [ref=e242]: Mac Studio Ultra · Unlimited agents
+          - paragraph [ref=e243]: $2,000/mo managed
+        - generic [ref=e244]:
+          - generic [ref=e245]:
+            - generic [ref=e246]: NON-PROFIT SUBSIDY
+            - generic [ref=e247]: $1,500–$3,000
+          - paragraph [ref=e248]: Qualifying mission-driven organizations
+          - paragraph [ref=e249]: Reduced managed rate
+  - generic [ref=e251]:
+    - generic [ref=e252]: // ACTIVE DEPLOYMENT
+    - generic [ref=e253]: MT. BAKER REMODELING — PACIFIC NORTHWEST
+    - blockquote [ref=e254]:
+      - text: “George doesn't need a website.
+      - text: George needs an Agent.”
+    - generic [ref=e255]:
+      - generic [ref=e256]:
+        - paragraph [ref=e257]: "Digital Drag: the invisible overhead bleeding time from every job. George was spending 3+ hours a week copy-pasting estimates, chasing email threads, and manually updating job status across disconnected tools."
+        - paragraph [ref=e258]: The Manteis Sovereign Node now handles client intake, quote follow-ups, project status updates, and communication coordination — locally, privately, without a single new cloud subscription. George's data stays on George's hardware.
+        - generic [ref=e261]: "DEPLOYMENT: PHASE 1/2 COMPLETE"
+      - generic [ref=e262]:
+        - generic [ref=e263]:
+          - generic [ref=e264]: 3 hrs
+          - generic [ref=e265]: Per week recovered from Digital Drag
+        - generic [ref=e266]:
+          - generic [ref=e267]: "0"
+          - generic [ref=e268]: Cloud subscriptions added
+        - generic [ref=e269]:
+          - generic [ref=e270]: "1"
+          - generic [ref=e271]: Sovereign Node provisioned
+        - generic [ref=e272]:
+          - generic [ref=e273]: ACTIVE
+          - generic [ref=e274]: Since Q1 2026
+  - generic [ref=e276]:
+    - generic [ref=e277]: // CONSULTANCY SERVICES
+    - generic [ref=e278]:
+      - generic [ref=e279]:
+        - generic [ref=e280]:
+          - img [ref=e281]
+          - generic [ref=e284]: AI INFRASTRUCTURE
+        - heading "Managed Sovereign Node" [level=3] [ref=e285]
+        - paragraph [ref=e286]: Full provisioning, hardening, and ongoing management of your private local AI stack. Ollama + Xen agents + ChromaDB, delivered and maintained.
+        - generic [ref=e287]: $350/hr consultation · $2k/mo managed
+      - generic [ref=e288]:
+        - generic [ref=e289]:
+          - img [ref=e290]
+          - generic [ref=e292]: CYBERSECURITY
+        - heading "Zero Trust Rollout" [level=3] [ref=e293]
+        - paragraph [ref=e294]: 20+ years of enterprise security. Sophos ZTNA, Microsoft Defender for Endpoint, MDM governance (Kandji/Jamf). SANS-standard audits for every environment.
+        - generic [ref=e295]: $350/hr · Fixed-project from $10k
+      - generic [ref=e296]:
+        - generic [ref=e297]:
+          - img [ref=e298]
+          - generic [ref=e300]: AGENT AUTOMATION
+        - heading "Custom MCP Development" [level=3] [ref=e301]
+        - paragraph [ref=e302]: Bespoke autonomous agents built on the Model Context Protocol. Helpdesk triage, sales automation, communication orchestration — your workflow, automated.
+        - generic [ref=e303]: $350/hr · Fixed-project from $10k
+  - generic [ref=e305]:
+    - generic [ref=e306]:
+      - img [ref=e308]
+      - generic [ref=e310]:
+        - generic [ref=e311]: // THE SOVEREIGNTY MANIFESTO
+        - generic [ref=e312]: 1998 — ESI-32 SAMPLER OVER TRANSPORT
+    - generic [ref=e313]:
+      - generic [ref=e314]:
+        - generic [ref=e315]: THE ORIGIN
+        - generic [ref=e316]:
+          - heading "THE GEO METRO DECISION." [level=3] [ref=e317]
+          - paragraph [ref=e318]: "In 1998, Rhett Elliot Johnson faced a choice: repair a battered Geo Metro or buy an EMU ESI-32 Sampler. He chose the sampler. This radical decision — prioritizing the tools of agency over practical convenience — became the foundational DNA of Manteis Systems."
+      - generic [ref=e319]:
+        - generic [ref=e320]: THE HYPNOSIS OF CONTROL
+        - generic [ref=e321]:
+          - heading "DESIGNED FOR EXTRACTION." [level=3] [ref=e322]
+          - paragraph [ref=e323]: Modern existence is being flattened by Big Tech, Big Corporate, and Big Pharma. We are being hypnotized by algorithmic dopamine loops designed not for our flourishing, but for our extraction. We have exchanged our agency for quarterly metrics. Convenience is the delivery mechanism. Dependency is the product.
+      - generic [ref=e324]:
+        - generic [ref=e325]: THE SUBVERSION
+        - generic [ref=e326]:
+          - heading "BREAK THE MACHINE." [level=3] [ref=e327]
+          - paragraph [ref=e328]: Technology — when held by the individual — is the ultimate tool of subversion. Just as the printing press broke the monopoly of the scribe, and the early internet broke the monopoly of the broadcast, Autonomous AI is here to break the monopoly of the Corporate Machine. Every client we serve gets the same choice Rhett made in 1998. We make sure they choose right.
+      - generic [ref=e329]:
+        - generic [ref=e330]: THE ENTER(PRISE)-PRENEUR
+        - generic [ref=e331]:
+          - heading "A MULTIGENERATIONAL BUILD." [level=3] [ref=e332]
+          - paragraph [ref=e333]: "Manteis Systems is not just a consultancy — it is a legacy. We are building a business that can be handed to our sons and brothers. Whether automating communications for a PNW contractor or defending a family through AI-assisted legal strategy, our mission is singular: use technology to pull people up."
+      - generic [ref=e334]:
+        - generic [ref=e335]: THE MOBILE ELITE RESPONSE
+        - generic [ref=e336]:
+          - heading "THE MANTEIS MOBILE UNIT." [level=3] [ref=e337]
+          - paragraph [ref=e338]: Remote-first but present on the ground. Our vision is a mobile, 24/7 elite response laboratory driving across the Pacific Northwest — deploying on-site sovereignty for the most innovative teams and families. The Sovereign Node goes where you go.
+    - generic [ref=e339]: SUBVERT. CREATE. SOVEREIGNTY.
+  - generic [ref=e340]:
+    - generic [ref=e341]: // FREE DISCOVERY CALL
+    - heading "INITIATE SOVEREIGNTY AUDIT." [level=2] [ref=e342]:
+      - text: INITIATE
+      - text: SOVEREIGNTY AUDIT.
+    - paragraph [ref=e343]: 60 minutes. No pitch deck. We audit your current infrastructure, identify where Digital Drag is bleeding your time, and propose the right Sovereign Node configuration for your operation.
+    - generic [ref=e344]:
+      - generic [ref=e345]: "STANDARD: $2,500–$7,500 SETUP"
+      - generic [ref=e346]: ·
+      - generic [ref=e347]: "NON-PROFIT: $1,500–$3,000"
+    - generic [ref=e348]:
+      - link "INITIATE SOVEREIGNTY AUDIT" [ref=e349] [cursor=pointer]:
+        - /url: mailto:rhett@manteissystems.com
+        - button "INITIATE SOVEREIGNTY AUDIT" [ref=e350]
+      - generic [ref=e351]: NO COMMITMENT · RESPONSE WITHIN 24 HOURS · PACIFIC TIME
+  - generic [ref=e353]:
+    - generic [ref=e354]: MANTEIS.SYSTEMS · SOVEREIGN INTELLIGENCE INFRASTRUCTURE
+    - generic [ref=e355]: © 2026 // ALL_RIGHTS_RESERVED
