@@ -12,9 +12,9 @@ import {
 // ─── Boot log ──────────────────────────────────────────────────────────────────
 const LOG_MESSAGES = [
   "INITIALIZING SOVEREIGN NODE...",
-  "LOADING OLLAMA INFERENCE ENGINE [OK]",
-  "CHROMADB VECTOR STORE MOUNTED [OK]",
-  "XEN AGENT FRAMEWORK ACTIVE [OK]",
+  "LOADING LOCAL INFERENCE ENGINE [OK]",
+  "VECTOR STORE MOUNTED [OK]",
+  "AGENT ORCHESTRATOR ACTIVE [OK]",
   "LOCAL AI: RUNNING — NO CLOUD DEPENDENCY",
   "DATA SOVEREIGNTY: ENFORCED",
   "LATENCY: 8ms LOCAL",
@@ -350,22 +350,22 @@ function Hero() {
 
 // ─── Marquee ticker ───────────────────────────────────────────────────────────
 const MARQUEE_ITEMS = [
-  { text: 'OLLAMA', color: 'text-signal-blue' },
-  { text: 'CHROMADB', color: 'text-white/25' },
-  { text: 'XEN AGENTS', color: 'text-signal-teal' },
+  { text: 'LOCAL AI', color: 'text-signal-blue' },
+  { text: 'VECTOR STORE', color: 'text-white/25' },
+  { text: 'AGENT ORCHESTRATION', color: 'text-signal-teal' },
   { text: 'ZERO TRUST', color: 'text-white/25' },
-  { text: 'SOPHOS ZTNA', color: 'text-signal-blue' },
-  { text: 'MICROSOFT DEFENDER', color: 'text-white/25' },
-  { text: 'DOCKER', color: 'text-signal-pink' },
-  { text: 'N8N AUTOMATION', color: 'text-white/25' },
-  { text: 'LLAMA 3.3', color: 'text-signal-teal' },
-  { text: 'JAMF PRO', color: 'text-white/25' },
-  { text: 'INTUNE MDM', color: 'text-signal-blue' },
+  { text: 'ZTNA', color: 'text-signal-blue' },
+  { text: 'ENDPOINT PROTECTION', color: 'text-white/25' },
+  { text: 'CONTAINERIZED', color: 'text-signal-pink' },
+  { text: 'WORKFLOW AUTOMATION', color: 'text-white/25' },
+  { text: 'OPEN MODELS', color: 'text-signal-teal' },
+  { text: 'MDM GOVERNANCE', color: 'text-white/25' },
+  { text: 'FULL DISK ENCRYPTION', color: 'text-signal-blue' },
   { text: 'HIPAA COMPLIANT', color: 'text-white/25' },
   { text: 'SOC 2', color: 'text-signal-pink' },
-  { text: 'PHI-4', color: 'text-white/25' },
-  { text: 'LOCAL LLM', color: 'text-signal-teal' },
-  { text: 'DOLBY ATMOS', color: 'text-white/25' },
+  { text: 'ON-PREM LLM', color: 'text-white/25' },
+  { text: 'LAN-ONLY', color: 'text-signal-teal' },
+  { text: 'SPATIAL AUDIO', color: 'text-white/25' },
 ];
 
 // ─── Video section ────────────────────────────────────────────────────────────
@@ -472,24 +472,24 @@ function SovereignNodeDiagram() {
 
   // Node positions on a 900×520 canvas
   const NODES = [
-    { id: 'user',   x: 70,  y: 260, w: 110, h: 60, label: 'USER QUERY',  kind: 'ext', color: '#FFFFFF' },
-    { id: 'xen',    x: 260, y: 120, w: 150, h: 68, label: 'XEN AGENT',   sub: 'ORCHESTRATOR', color: '#0057FF' },
-    { id: 'ollama', x: 500, y: 120, w: 150, h: 68, label: 'OLLAMA',      sub: 'LLAMA 3.3 · PHI-4', color: '#FF6EC7' },
-    { id: 'chroma', x: 260, y: 340, w: 150, h: 68, label: 'CHROMADB',    sub: 'VECTOR STORE', color: '#00D4A8' },
-    { id: 'disk',   x: 500, y: 340, w: 150, h: 68, label: 'YOUR DATA',   sub: 'LOCAL · ENCRYPTED', color: '#FFB547' },
-    { id: 'cloud',  x: 730, y: 260, w: 110, h: 60, label: 'CLOUD ⊘',    kind: 'blocked', color: '#FF0044' },
+    { id: 'user',   x: 70,  y: 260, w: 110, h: 60, label: 'USER QUERY',   kind: 'ext', color: '#FFFFFF' },
+    { id: 'agent',  x: 260, y: 120, w: 150, h: 68, label: 'AGENT LAYER',  sub: 'ORCHESTRATOR',   color: '#0057FF' },
+    { id: 'model', x: 500, y: 120, w: 150, h: 68, label: 'LOCAL AI',     sub: 'OPEN MODELS',    color: '#FF6EC7' },
+    { id: 'memory', x: 260, y: 340, w: 150, h: 68, label: 'VECTOR STORE', sub: 'LOCAL MEMORY',   color: '#00D4A8' },
+    { id: 'disk',   x: 500, y: 340, w: 150, h: 68, label: 'YOUR DATA',    sub: 'LOCAL · ENCRYPTED', color: '#FFB547' },
+    { id: 'cloud',  x: 730, y: 260, w: 110, h: 60, label: 'CLOUD ⊘',     kind: 'blocked', color: '#FF0044' },
   ];
   const center = (n: typeof NODES[number]) => ({ cx: n.x + n.w / 2, cy: n.y + n.h / 2 });
   const map = Object.fromEntries(NODES.map(n => [n.id, n])) as Record<string, typeof NODES[number]>;
 
   // Edges: [from, to, color, animated?]
   const EDGES: Array<{ from: string; to: string; color: string; flow: boolean; dashed?: boolean }> = [
-    { from: 'user',   to: 'xen',    color: '#0057FF', flow: true },
-    { from: 'xen',    to: 'ollama', color: '#FF6EC7', flow: true },
-    { from: 'xen',    to: 'chroma', color: '#00D4A8', flow: true },
-    { from: 'ollama', to: 'chroma', color: '#7AA9FF', flow: true },
-    { from: 'chroma', to: 'disk',   color: '#FFB547', flow: true },
-    { from: 'ollama', to: 'user',   color: '#FFFFFF', flow: true },
+    { from: 'user',   to: 'agent',  color: '#0057FF', flow: true },
+    { from: 'agent',  to: 'model',  color: '#FF6EC7', flow: true },
+    { from: 'agent',  to: 'memory', color: '#00D4A8', flow: true },
+    { from: 'model',  to: 'memory', color: '#7AA9FF', flow: true },
+    { from: 'memory', to: 'disk',   color: '#FFB547', flow: true },
+    { from: 'model', to: 'user',   color: '#FFFFFF', flow: true },
   ];
 
   return (
@@ -653,7 +653,7 @@ function SovereignNodeDiagram() {
 
             {/* Blocked cloud edge — red X */}
             <motion.line
-              x1={center(map.ollama).cx} y1={center(map.ollama).cy}
+              x1={center(map.model).cx} y1={center(map.model).cy}
               x2={center(map.cloud).cx}  y2={center(map.cloud).cy}
               stroke="#FF0044"
               strokeOpacity="0.25"
@@ -664,8 +664,8 @@ function SovereignNodeDiagram() {
               transition={{ duration: 1, delay: 1 }}
             />
             <motion.text
-              x={(center(map.ollama).cx + center(map.cloud).cx) / 2}
-              y={(center(map.ollama).cy + center(map.cloud).cy) / 2 - 8}
+              x={(center(map.model).cx + center(map.cloud).cx) / 2}
+              y={(center(map.model).cy + center(map.cloud).cy) / 2 - 8}
               fill="#FF3355"
               fillOpacity="0.85"
               fontFamily="var(--font-mono), monospace"
@@ -762,7 +762,7 @@ function ThreePillars() {
       label: '01 — SYSTEMS',
       title: 'THE SOVEREIGN NODE',
       tagline: 'Your data. Your machine. Your intelligence.',
-      desc: 'A dedicated local AI server — Mac Mini, Mac Studio, or custom build — running Ollama inference, ChromaDB vector store, and the Xen Agent Framework. Private by design. Zero cloud dependency.',
+      desc: 'A dedicated local AI server — compact desktop, pro workstation, or custom build — running a local inference engine, a local vector store, and a custom agent orchestrator. Private by design. Zero cloud dependency.',
       accent: '#0057FF',
       accentClass: 'text-signal-blue',
       icon: Cpu,
@@ -773,7 +773,7 @@ function ThreePillars() {
       label: '02 — SOUNDS',
       title: 'MANTEIS RECORDINGS',
       tagline: 'Intelligence is vibration.',
-      desc: 'A Dolby Atmos-capable independent label and radio station rooted in the 1998 ESI-32 sampler decision. Synthwave, avant-garde, and electronic — released on every DSP with no algorithmic playlist dependency.',
+      desc: 'A spatial-audio independent label and radio station rooted in the 1998 sampler decision. Synthwave, avant-garde, and electronic — released on every major streaming platform with no algorithmic playlist dependency.',
       accent: '#FF6EC7',
       accentClass: 'text-signal-pink',
       icon: Music,
@@ -892,8 +892,8 @@ function Founder() {
             transition={{ duration: 0.7, delay: 0.2 }}
             className="text-white/55 text-base leading-relaxed max-w-xl"
           >
-            In 1998, Rhett Elliot Johnson faced a choice: repair a broken Geo Metro,
-            or buy an EMU ESI-32 sampler. He chose the sampler. That decision —
+            In 1998, Rhett Elliot Johnson faced a choice: repair a failing car,
+            or buy his first music sampler. He chose the sampler. That decision —
             tools of creation over traps of convenience — became the foundational
             DNA of Manteis Systems. 25+ years later, the same philosophy runs
             enterprise AI infrastructure for businesses across the Pacific Northwest.
@@ -964,19 +964,19 @@ function SystemsDeepDive() {
   const inView = useInView(ref, { once: true, margin: '-80px' });
 
   const specs = [
-    { key: 'HARDWARE', val: 'Mac Mini M4 Pro · Mac Studio M4 Max · Custom PC' },
-    { key: 'INFERENCE', val: 'Ollama (Llama 3.3, Mistral, Phi-4, Command R)' },
-    { key: 'VECTOR DB', val: 'ChromaDB — local, persistent, zero egress' },
-    { key: 'AGENTS', val: 'Xen Framework — custom workflow automation' },
-    { key: 'SECURITY', val: 'Sophos ZTNA · Microsoft Defender · FileVault' },
-    { key: 'NETWORK', val: 'LAN-only by default — no cloud egress required' },
+    { key: 'HARDWARE', val: 'Compact Desktop · Pro Workstation · Custom Build' },
+    { key: 'INFERENCE', val: 'Local AI — open models, no API keys required' },
+    { key: 'VECTOR DB', val: 'Local Vector Store — persistent, zero egress' },
+    { key: 'AGENTS',   val: 'Agent Orchestrator — custom workflow automation' },
+    { key: 'SECURITY', val: 'ZTNA · Endpoint Protection · Full Disk Encryption' },
+    { key: 'NETWORK',  val: 'LAN-only by default — no cloud egress required' },
   ];
 
   const tiers = [
-    { name: 'STARTER NODE', price: '$2,500', hardware: 'Mac Mini M4 · 4 agents · 1 model', monthly: '$2,000/mo managed', accent: '#0057FF' },
-    { name: 'PROFESSIONAL NODE', price: '$5,000', hardware: 'Mac Studio M4 Max · 10 agents · 3 models', monthly: '$2,000/mo managed', accent: '#0057FF' },
-    { name: 'ENTERPRISE NODE', price: '$7,500', hardware: 'Mac Studio Ultra · Unlimited agents', monthly: '$2,000/mo managed', accent: '#0057FF' },
-    { name: 'NON-PROFIT SUBSIDY', price: '$1,500–$3,000', hardware: 'Qualifying mission-driven organizations', monthly: 'Reduced managed rate', accent: '#00D4A8' },
+    { name: 'STARTER NODE',       price: '$2,500',        hardware: 'Compact Desktop · 4 agents · 1 model',          monthly: '$2,000/mo managed', accent: '#0057FF' },
+    { name: 'PROFESSIONAL NODE',  price: '$5,000',        hardware: 'Pro Workstation · 10 agents · 3 models',        monthly: '$2,000/mo managed', accent: '#0057FF' },
+    { name: 'ENTERPRISE NODE',    price: '$7,500',        hardware: 'High-End Workstation · Unlimited agents',       monthly: '$2,000/mo managed', accent: '#0057FF' },
+    { name: 'NON-PROFIT SUBSIDY', price: '$1,500–$3,000', hardware: 'Qualifying mission-driven organizations',       monthly: 'Reduced managed rate', accent: '#00D4A8' },
   ];
 
   return (
@@ -1008,8 +1008,8 @@ function SystemsDeepDive() {
               transition={{ duration: 0.7, delay: 0.18 }}
               className="text-white/55 text-base leading-relaxed max-w-lg border-l-2 border-signal-blue pl-5"
             >
-              &ldquo;George at Mt. Baker Remodeling doesn&apos;t need another subscription.
-              He needs intelligence that runs on his hardware, understands his business,
+              &ldquo;A small-business owner doesn&apos;t need another subscription.
+              They need intelligence that runs on their hardware, understands their business,
               and costs less than one enterprise cloud API bill.&rdquo;
             </motion.p>
 
@@ -1094,7 +1094,7 @@ function CaseStudy() {
           transition={{ duration: 0.6, delay: 0.06 }}
           className="font-mono text-[10px] tracking-[0.2em] uppercase text-white/25 mb-12"
         >
-          MT. BAKER REMODELING — PACIFIC NORTHWEST
+          REGIONAL CONTRACTOR — PACIFIC NORTHWEST · CLIENT ANONYMIZED
         </motion.div>
 
         <motion.blockquote
@@ -1103,8 +1103,8 @@ function CaseStudy() {
           transition={{ duration: 0.85, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
           className="font-display font-bold text-[clamp(26px,4vw,48px)] leading-tight tracking-tight mb-12 max-w-3xl"
         >
-          &ldquo;George doesn&apos;t need a website.<br />
-          <span className="text-white/30">George needs an Agent.&rdquo;</span>
+          &ldquo;They don&apos;t need another website.<br />
+          <span className="text-white/30">They need an Agent.&rdquo;</span>
         </motion.blockquote>
 
         <div className="flex flex-col lg:flex-row gap-16">
@@ -1116,13 +1116,13 @@ function CaseStudy() {
           >
             <p className="text-white/55 text-base leading-relaxed">
               Digital Drag: the invisible overhead bleeding time from every job.
-              George was spending 3+ hours a week copy-pasting estimates, chasing
+              The owner was spending 3+ hours a week copy-pasting estimates, chasing
               email threads, and manually updating job status across disconnected tools.
             </p>
             <p className="text-white/55 text-base leading-relaxed">
               The Manteis Sovereign Node now handles client intake, quote follow-ups,
               project status updates, and communication coordination — locally, privately,
-              without a single new cloud subscription. George&apos;s data stays on George&apos;s hardware.
+              without a single new cloud subscription. Their data stays on their hardware.
             </p>
             <div className="flex items-center gap-3 pt-2">
               <motion.div
@@ -1170,7 +1170,7 @@ function WhatWeOffer() {
       icon: Cpu,
       label: 'AI INFRASTRUCTURE',
       title: 'Managed Sovereign Node',
-      desc: 'Full provisioning, hardening, and ongoing management of your private local AI stack. Ollama + Xen agents + ChromaDB, delivered and maintained.',
+      desc: 'Full provisioning, hardening, and ongoing management of your private local AI stack. Local inference, agent orchestration, and vector memory — delivered and maintained.',
       price: '$350/hr consultation · $2k/mo managed',
       accent: '#0057FF',
     },
@@ -1178,7 +1178,7 @@ function WhatWeOffer() {
       icon: Shield,
       label: 'CYBERSECURITY',
       title: 'Zero Trust Rollout',
-      desc: '20+ years of enterprise security. Sophos ZTNA, Microsoft Defender for Endpoint, MDM governance (Kandji/Jamf). SANS-standard audits for every environment.',
+      desc: '20+ years of enterprise security. ZTNA, endpoint protection, full disk encryption, and MDM governance. SANS-standard audits for every environment.',
       price: '$350/hr · Fixed-project from $10k',
       accent: '#FF6EC7',
     },
@@ -1244,8 +1244,8 @@ function Manifesto() {
   const blocks = [
     {
       label: 'THE ORIGIN',
-      heading: 'THE GEO METRO DECISION.',
-      body: 'In 1998, Rhett Elliot Johnson faced a choice: repair a battered Geo Metro or buy an EMU ESI-32 Sampler. He chose the sampler. This radical decision — prioritizing the tools of agency over practical convenience — became the foundational DNA of Manteis Systems.',
+      heading: 'THE 1998 DECISION.',
+      body: 'In 1998, Rhett Elliot Johnson faced a choice: repair a battered car or buy his first music sampler. He chose the sampler. This radical decision — prioritizing the tools of agency over practical convenience — became the foundational DNA of Manteis Systems.',
     },
     {
       label: 'THE HYPNOSIS OF CONTROL',
@@ -1290,7 +1290,7 @@ function Manifesto() {
               // THE SOVEREIGNTY MANIFESTO
             </div>
             <div className="font-mono text-[9px] tracking-[0.2em] uppercase text-white/20">
-              1998 — ESI-32 SAMPLER OVER TRANSPORT
+              1998 — CREATIVE TOOLS OVER CONVENIENCE
             </div>
           </div>
         </motion.div>

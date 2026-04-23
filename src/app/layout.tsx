@@ -19,13 +19,13 @@ const jetbrainsMono = JetBrains_Mono({
 
 export const metadata: Metadata = {
   title: "Manteis Systems — Sovereign Intelligence Infrastructure",
-  description: "Private local AI infrastructure, Dolby Atmos music production, and breathwork sovereignty. Dephasing the corporate machine since 1998. Pacific Northwest.",
+  description: "Private local AI infrastructure, spatial-audio music production, and breathwork sovereignty. Dephasing the corporate machine since 1998. Pacific Northwest.",
   authors: [{ name: "Rhett Elliot Johnson" }],
   keywords: [
-    "local AI infrastructure", "Ollama", "sovereign AI", "private LLM",
-    "AI agent automation", "Sovereign Node", "Mac Mini AI server",
+    "local AI infrastructure", "on-prem LLM", "sovereign AI", "private LLM",
+    "AI agent automation", "Sovereign Node", "local inference",
     "data sovereignty", "zero trust", "cybersecurity", "Manteis Systems",
-    "Rhett Johnson", "Dolby Atmos", "synthwave label", "breathwork",
+    "Rhett Johnson", "spatial audio", "synthwave label", "breathwork",
     "Pacific Northwest tech", "fractional CTO", "AI consultancy",
   ],
   robots: "index, follow",

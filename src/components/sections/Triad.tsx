@@ -26,7 +26,7 @@ const services = [
     id: "engineering",
     title: "SYSTEMS ENGINEERING",
     headline: "Autonomous Architecture",
-    description: "Microsoft 365, Intune, Jamf Pro, Docker containerization, n8n automation. Multi-platform MDM.",
+    description: "Productivity suites, MDM governance, containerization, and workflow automation. Multi-platform endpoints.",
     differentiator: "We build systems that run themselves.",
     href: "/services#engineering",
     from: "right" as const,
