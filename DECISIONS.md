@@ -41,3 +41,31 @@ Store all image assets (hero, diagrams, audit graphics) in the repository.
 ### Consequences
 - **Pros:** Version controlled, no external CDN dependencies, works offline
 - **Cons:** Repository bloat, requires optimization to keep sizes manageable
+
+---
+
+## ADR-004: Hosting on Vercel
+
+**Date:** 2026-04
+**Status:** Accepted
+
+### Decision
+Pivot from GitHub Pages to Vercel for hosting the application.
+
+### Consequences
+- **Pros:** Native Next.js support, faster builds, automatic HTTPS, and better image optimization.
+- **Cons:** Another third-party dependency (though industry standard for Next.js).
+
+---
+
+## ADR-005: Custom Domain Management
+
+**Date:** 2026-04
+**Status:** Accepted
+
+### Decision
+Use Squarespace as the domain registrar and point DNS records to Vercel.
+
+### Consequences
+- **Pros:** Centralized domain management, easy DNS record updates.
+- **Cons:** Propagation delay when updating records.

@@ -45,10 +45,12 @@ The official website for Manteis Systems, built with Next.js and featuring a Bat
 
 | Layer | Technology |
 |---|---|
-| Framework | Next.js |
+| Framework | Next.js 16.2.2 |
 | Language | TypeScript |
-| Styling | Tailwind CSS |
-| Build | next build |
+| Styling | Tailwind CSS 4 |
+| Hosting | Vercel |
+| Domain | Squarespace (manteis.systems) |
+| Build Pipeline | Vercel CI/CD |
 
 ---
 
